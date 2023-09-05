@@ -1,0 +1,656 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant&family=Quantico&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* HEADER AND NAV */
+
+header {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: grid;
+    grid-template-columns: 150px auto;
+    width: 100%;
+    padding: 1%;
+}
+
+nav {
+    background-color: #000;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.0;
+    transition: opacity .5s;
+}
+
+nav:hover {
+    opacity: 1.0;
+}
+
+nav a {
+    color: #5E548E;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: Quantico, Helvetica, sans-serif;
+    transition: all 0.5s ease-out;
+    margin: 0px 50px;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+nav a:hover,
+nav a:focus {
+    color: #BE95C4;
+    text-shadow: black 1px 1px 5px;
+}
+
+#campaigns:hover,
+#campaigns:focus {
+    background: url("../images/MOoT-cover.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#timeline:hover,
+#timeline:focus {
+    background: url("../images/stars-banner.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#encyclopedia:hover,
+#encyclopedia:focus {
+    background: url("../images/manual.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
+    /* width: 120px; */
+    width: 100%;
+    height: 100%;
+    /* height: 131px; */
+    justify-self: center;
+    align-self: center;
+}
+
+#logo_link {
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    background-color: #000;
+    width: 120px;
+    height: 131px;
+    opacity: 0.5;
+    border: 10px solid #000;
+    border-radius: 50%;
+    transition: all 0.5s ease-out;
+}
+
+#logo_link:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+#totop,
+#openSorter {
+    display: none;
+    /* Hidden by default */
+    grid-column: 1;
+    width: 48px;
+    height: 48px;
+    justify-self: center;
+    z-index: 99;
+    /* Make sure it does not overlap */
+    border: none;
+    /* Remove borders */
+    outline: none;
+    /* Remove outline */
+    background-color: black;
+    /* Set a background color */
+    color: white;
+    /* Text color */
+    cursor: pointer;
+    /* Add a mouse pointer on hover */
+    padding: 15px;
+    margin: 15px;
+    /* Some padding */
+    border-radius: 50%;
+    /* Rounded corners */
+    font-size: 18px;
+    /* Increase font size */
+    opacity: 0.5;
+}
+
+#openSorter {
+    display: block;
+}
+
+#totop:hover,
+#openSorter:hover {
+    background-color: #231942;
+    /* Add a purple background on hover */
+}
+
+#sorterMenu {
+    background-color: #111;
+    border-color: #231942;
+    width: fit-content;
+    max-height: 30vw;
+    max-width: 20vw;
+    display: none;
+    flex-flow: column;
+    text-align: center;
+}
+
+#selectValues {
+    display: none;
+    flex-flow: row wrap;
+    overflow: auto;
+}
+
+#selectValues p {
+    margin: 0 0;
+    width: fit-content;
+    min-width: 50%;
+    text-align: left;
+}
+
+/* MAIN CONTENT */
+
+body {
+    background-color: #000;
+}
+
+#content {
+    position: relative;
+    margin: 175px 0;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
+    /* padding-bottom: 10rem; */
+}
+
+h1 {
+    color: #5E548E;
+    font-family: "Cormorant Infant";
+    font-size: 3em;
+    text-align: center;
+    text-decoration: none;
+}
+
+h2 {
+    color: #5E548E;
+    font-family: "Cormorant Infant";
+    font-size: 2em;
+    text-align: center;
+    text-decoration: none;
+}
+
+h3 {
+    color: #5E548E;
+    font-family: "Cormorant Infant";
+    font-size: 1.5em;
+    text-align: center;
+    text-decoration: none;
+}
+
+legend {
+    color: #5E548E;
+    font-family: "Cormorant Infant";
+    font-size: 2em;
+    text-decoration: none;
+    background-color: #111;
+    border: 1px solid #231942;
+}
+
+p {
+    color: #5E548E;
+    font-family: Quantico, Helvetica, sans-serif;
+    /* font-size: 1vw; */
+    text-decoration: none;
+}
+
+.home-grid h2,
+p {
+    grid-column: 4/7;
+}
+
+#suggested-box {
+    grid-column: 4/7;
+    justify-self: center;
+    text-align: center;
+}
+
+#suggested-box img {
+    max-width: 50%;
+}
+
+/* CAMPAIGN TEMPLATE PAGE */
+
+.wiki-title {
+    border: 1px solid black;
+    /*border for debug purposes*/
+    padding-top: 60px;
+    margin: 0px;
+    margin-left: 175px;
+    padding-left: 50px;
+    text-align: left;
+    grid-column: 1/-3;
+}
+
+#campaign-page-navbar-title {
+    margin-top: -200px;
+    /* margin-bottom: 70px; */
+}
+
+#side-menu {
+    grid-area: 1/-1/span 99/-3;
+    border: 1px solid #5E548E;
+    width: 80%;
+    padding: 0% 5%;
+    height: fit-content;
+    justify-self: center;
+}
+
+#side-menu img {
+    object-fit: cover;
+    max-width: 100%;
+}
+
+#side-menu a {
+    text-decoration: none;
+}
+
+#sessions {
+    text-align: center;
+}
+
+#sessions p {
+    display: inline;
+}
+
+.wiki-block {
+    border: 1px solid black;
+    /*border for debug purposes*/
+    margin-left: 10px;
+    padding: 0% 5%;
+    grid-column: 2/-3;
+}
+
+.wiki-block h2 {
+    text-align: left;
+}
+
+.banner {
+    text-align: center;
+    grid-column: 3/-4;
+}
+
+.banner p {
+    color: red;
+}
+
+
+
+/* FOOTER AND SOCIAL */
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 7rem;
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.0;
+    transition: opacity .5s;
+}
+
+footer:hover {
+    opacity: 1.0;
+}
+
+footer a {
+    color: #5E548E;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer p {
+    font-size: 1.2vw;
+}
+
+footer p a:hover {
+    text-decoration: underline;
+}
+
+/* CAMPAIGN PAGE */
+
+.camp-tile {
+    background-color: #111;
+    border-radius: 50px;
+    text-align: center;
+    grid-column: span 3;
+    min-height: fit-content;
+    padding: 3% 0%;
+    margin: 2% 2%;
+    text-decoration: none;
+    transition: all 0.5s ease-out;
+    opacity: 0.85;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.camp-tile h2 {
+    font-size: 2vw;
+    margin-bottom: 0;
+}
+
+.camp-tile p {
+    font-size: 1vw;
+}
+
+.camp-tile img {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50px;
+    width: 85%;
+    height: 70%;
+}
+
+.camp-tile:hover {
+    transform: scale(1.02);
+    opacity: 1.0;
+}
+
+#c1 {
+    /* heroes */
+    order: 1;
+}
+
+#c2 {
+    /* theros */
+    order: 2;
+}
+
+#c2 img {
+    /* edit to focus on image better */
+    object-position: right;
+}
+
+#c3 {
+    /* grid */
+    order: 3;
+}
+
+#c4 {
+    /* adventures */
+    order: 4;
+}
+
+#c4 img {
+    /* edit to focus on image better */
+    object-position: top;
+}
+
+#c5 {
+    /* resurgence */
+    order: 5;
+}
+
+#c6 {
+    order: 6;
+}
+
+/* TIMELINE */
+
+#time-space {
+    background-image: url(../images/stars.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.time-grid {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: space-around;
+    gap: 50px 50px;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+}
+
+.time-grid .entry {
+    padding: 1%;
+    background-color: #111E;
+    border-radius: 20%;
+    border: 5px solid #111;
+    flex-basis: 20%;
+}
+
+/* The animation code */
+@keyframes time-glint {
+    0% {
+        border-color: #BE95C4;
+    }
+
+    25% {
+        border-color: #9F86C0;
+    }
+
+    50% {
+        border-color: #5E548E;
+    }
+
+    100% {
+        border-color: #231942;
+    }
+}
+
+/* The element to apply the animation to */
+.time-grid .entry:hover {
+    animation: time-glint 0.8s infinite 0s alternate ease-out;
+}
+
+/* ENCYCLOPEDIA */
+
+#loadingProgress {
+    margin: 0 40%;
+    width: 20%;
+    background-color: #111;
+}
+
+#loadingBar {
+    width: 1%;
+    height: 30px;
+    background-color: #231942;
+}
+
+#dict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#dict-grid h1 {
+    grid-column: 1/5;
+}
+
+.entry {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.entry h2 {
+    width: 100%;
+}
+
+.entry div[data="blue"] {
+    background-color: cyan;
+}
+
+.entry div[data="red"] {
+    background-color: red;
+}
+
+.entry div[data="brown"] {
+    background-color: chocolate;
+}
+
+.entry div[data="yellow"] {
+    background-color: yellow;
+}
+
+.entry div[data="blue-gray"] {
+    background-color: grey;
+}
+
+.entry div[data="black"] {
+    background-color: #111;
+}
+
+.entry div[data="hazel"] {
+    background-color: #8E7618;
+}
+
+.entry div[data="orange"] {
+    background-color: orange;
+}
+
+.entry div[data="pink"] {
+    background-color: pink;
+}
+
+.entry div[data="gold"] {
+    background-color: #FFD700;
+}
+
+.entry div[data="white"] {
+    background-color: white;
+}
+
+
+.tag {
+    width: fit-content;
+    text-align: center;
+    /* border: solid 1px #BE95C4; */
+    background-color: #5E548E;
+    border-radius: 10%;
+    margin: -10px 10px;
+    padding: 2%;
+}
+
+.tag p {
+    /* background-color: #231942; */
+    width: fit-content;
+    color: black;
+    margin: 0;
+}
+
+/* MOBILE VERSION */
+
+.icon-bar {
+    opacity: 0;
+    z-index: -1;
+}
+
+@media screen and (max-width: 1000px) {
+    header {
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .icon-bar {
+        opacity: 1;
+        z-index: 1;
+        width: 100%;
+        /* Full-width */
+        background-color: #000;
+        /* Black background */
+        overflow: auto;
+        /* Overflow due to float */
+    }
+
+    .icon-bar a {
+        float: left;
+        /* Float links side by side */
+        text-align: center;
+        /* Center-align text */
+        width: 25%;
+        /* Equal width (4 icons with 25% width each = 100%) */
+        padding: 12px 0;
+        /* Some top and bottom padding */
+        transition: all 0.3s ease;
+        /* Add transition for hover effects */
+        color: #BE95C4;
+        /* White text color */
+        font-size: 5vw;
+        /* Increased font size */
+    }
+
+    .icon-bar a:hover {
+        background-color: #5E548E;
+        /* Add a hover color */
+        color: #000
+            /* Add a hover text color */
+    }
+
+    .active {
+        background-color: #231942;
+        /* Add an active/current color */
+    }
+
+    /* Adjust displays for mobile */
+    .home-grid,
+    .dict-grid {
+        padding: 0% 10%;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .time-grid {
+        margin-top: 50px;
+    }
+
+    .time-grid .entry {
+        flex-basis: 70%;
+    }
+
+    #content {
+        margin: 0;
+    }
+
+
+    .camp-tile h2 {
+        font-size: 5vw;
+    }
+
+    .camp-tile p {
+        font-size: 2.5vw;
+    }
+
+    .wiki-title {
+        opacity: 0;
+        z-index: -99;
+    }
+
+    /*align #side-menu on mobile (attempt ...)*/
+    /*#side-menu {}*/
+
+}
