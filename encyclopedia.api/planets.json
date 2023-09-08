@@ -1,0 +1,72 @@
+{
+    "api": "planet",
+    "count": 8,
+    "belt4.5": "Asteroid Belt: Space patrols monitor travel here to prevent dangerous and illegal activities.",
+    "belt8.5": "Kuiper Belt: Only populated by a few scientists brave enough to weather the cosmic winter.",
+    "results": [
+        {
+            "name": "Mercury",
+            "races": [""],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Only populated by a few scientists brave enough to weather the solar storm.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Venus",
+            "races": ["Tabaxi", "Loxodon", "Grung", "Bugbear", "Bullywug", "Harengon", "Satyrs", "Firbolg"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Terraforming made this planet a lush forest, now densely populated.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Earth",
+            "races": ["Humans", "Elves", "Centaur", "Kenku", "Aarakocra", "Yuan-Ti", "Shifter", "Halflings"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Populated by the most diverse races and groups, the center of the system.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Mars",
+            "races": ["Leonin", "Tiefling", "Lizardfolk", "Viashino", "Minotaur", "Dwarves", "Genasi"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Early colonists established various nations, which are now extensions of earth's nations.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Jupiter",
+            "races": ["Goliaths", "Kobolds", "Goblins", "Orcs", "Hobgoblins", "Troglodyte", "Gnolls"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "An eternal feud takes place among the moons of Jupiter, inhibiting colonization.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Saturn",
+            "races": ["Gith", "Kalashtar", "Dragonborn", "Vedalken", "Gnomes"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "A stable satellite community has formed around this planet and its rings.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Uranus",
+            "races": ["Tritons", "Kuo-Toa", "Locathah", "Simic Hybrid", "Tortles"],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Aquatic compounds float and fly across this planet, housing millions of people.",
+            "image": "images/planet/#"
+        },
+        {
+            "name": "Neptune",
+            "races": [],
+            "guilds": [""],
+            "dwellings": "",
+            "description": "Unpopulated due to the planet's isolation and the stormy atmosphere.",
+            "image": "images/planet/#"
+        }
+    ]
+}

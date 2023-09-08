@@ -1,14 +1,17 @@
 {
     "api": "character",
-    "count": 0,
+    "count": 1,
     "results": [
         {
-            "name": "",
-            "race": "",
-            "class": "",
+            "name": "Beth",
+            "race": "Half-Elf",
+            "class": "Monk",
             "origin": "",
-            "campaign": "",
-            "image": ""
+            "allies": "Selesnya Conclave",
+            "campaign": "Slate Penitentiary",
+            "alignment": ["white","green"],
+            "description": "",
+            "image": "images/pc/beth_token.png"
         }
     ]
 }
