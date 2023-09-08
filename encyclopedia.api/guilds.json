@@ -1,0 +1,116 @@
+{
+    "api": "guilds",
+    "count": 10,
+    "results": [
+        {
+            "name": "Azorious Senate",
+            "color": [
+                "white",
+                "blue"
+            ], 
+            "planet": "",
+            "purpose": "Law/Order/Control",
+            "description": "Bringing order from chaos — that is the mission of the Azorius Senate. Without the extensive legal code crafted and enforced by the Azorius, society would crumble, transforming Ravnica into a field of rubble where the Gruul and the Rakdos do whatever they please. The Azorius carry this weighty responsibility with stoic pride, and they perform their work of legislation, investigation, and enforcement with steely determination.  ¶  The first guildmaster of the Azorius Senate was a sphinx named Azor. He was the author of the original Guildpact, as well as the creator of the elaborate contingency plan that resulted in the creation of the Living Guildpact. The Azorius Senate was meant to carry on his legacy by serving as the legislative body of Ravnica.",
+            "image": "images/guild/Azorius_Logo.webp"
+        },
+        {
+            "name": "Boros Legion",
+            "color": [
+                "white",
+                "red"
+            ],
+            "planet": "",
+            "purpose": "Order/Enforcement",
+            "description": "Clad in shining armor and fueled by righteous zeal, the soldiers of the Boros Legion take up steel against the corruption and lawlessness that gnaw at the soul of Ravnica. Combining the force of law with the military strength to back it up, the Boros work to forge Ravnica into a just society, a safe and healthy community for all. From garrisons throughout the sprawling city, disciplined, stalwart soldiers are dispatched to stand firm against Gruul raids, Dimir infiltration, Golgari corruption, and the subtle influence of more nefarious foes.  ¶  The archangel Razia was the original guildmaster of the Boros Legion, which was established to serve as Ravnica’s standing army. Razia served as its guildmaster for almost ten thousand years. Legend says that all the other angels of Ravnica were created in the image of this semidivine figure, and her death was devastating to the guild. Aurelia, the current angelic guildmaster, is the third to hold that title.",
+            "image": "images/guild/Boros_Logo.webp"
+        },
+        {
+            "name": "House Dimir",
+            "color": [
+                "blue",
+                "black"
+            ],
+            "planet": "",
+            "purpose": "Deception/Shadow",
+            "description": "House Dimir is Ravnica’s dark secret: behind a facade of respectable messengers and reporters lurks an association of spies and assassins whose existence is barely suspected by the populace at large. Secrecy is both House Dimir’s best weapon and its best defense, and much of the guild’s work is hidden even from other members. Dimir agents leave no trace of their covert activities, warping the memories of witnesses to their crimes and even wiping their own minds to remove any evidence of their completed assignments.  ¶  The first guildmaster of House Dimir was a vampire named Szadek, whose organization agreed to serve as Ravnica’s couriers, information brokers, and librarians. But Szadek also used his guild’s expertise at gathering information to build a vast spy network, and before long, the secret operations of the guild vastly outweighed its overt ones. Eventually the guild disappeared into the shadows, and most Ravnicans came to doubt its existence. An immortal entity, Szadek ruled the guild for ten thousand years until he was arrested and killed in the turmoil of the Decamillennial Celebration.",
+            "image": "images/guild/Dimir_Logo.webp"
+        },
+        {
+            "name": "Golgari Swarm",
+            "color": [
+                "black",
+                "green"
+            ],
+            "planet": "",
+            "purpose": "Death/Rebirth/Growth",
+            "description": "The teeming masses that compose the Golgari Swarm see themselves as pragmatic above all else, uncowed by the simple fact that death is part of the cycle of life. They believe the idea of life and death as opposing forces to be nothing more than naive sentimentality. They know everything crumbles and rots in the end, and then new life springs from that rot. Time inevitably passes, bringing both destruction and new creation to all things.  ¶  The original mandate of the Golgari Swarm under the leadership of Svogthir, its Devkarin founder, was to maintain Ravnica’s agriculture and manage its waste. But Svogthir’s interest in necromancy, and his eventual transformation into a lich, shaped the course of the guild’s activities and gave birth to its philosophy of embracing death as part of nature’s cycle.",
+            "image": "images/guild/Golgari_Logo.webp"
+        },
+        {
+            "name": "Gruul Clans",
+            "color": [
+                "red",
+                "green"
+            ],
+            "planet": "",
+            "purpose": "Fury/War/Revenge",
+            "description": "The Gruul Clans are a wild people in a civilized land, a loose affiliation of bands that squat on the fringes of Ravnican society. They shun the centers of civilization, which they see as a source of oppression and weakness, and instead haunt Ravnica’s alleyways, abandoned zones, and ruins. They want to see the edifice of civilization torn down so the world can revert to the pure wilderness that thrived before the city grew to cover everything. Then the true order of nature can be restored — an unbridled and brutal state in which only the strong survive and the strongest rule.  ¶  Constant ritualistic warfare reverberates among the clans, every skirmish reinforcing their doctrine of the survival of the fittest. They frequently send sorties into civilized areas to secure goods — and to wreak havoc.  ¶  The first leader of the Gruul was Cisarzim, a cyclops who was purportedly the ancestor of Borborygmos, the current guildmaster. Cisarzim was called the Lord of Chaos, and his guild’s original function as maintainers of Ravnica’s natural places meant keeping his faction as remote as possible from the civilized parts of the world. The gradual expansion of the city, however, has driven the Gruul into smaller and smaller refuges.",
+            "image": "images/guild/Gruul_Logo.webp"
+        },
+        {
+            "name": "Izzet League",
+            "color": [
+                "blue",
+                "red"
+            ],
+            "planet": "",
+            "purpose": "Knowledge/Unpredictable",
+            "description": "The Izzet are obsessive experimenters, combining a keen creative intellect with a short attention span. The original mandate of the Izzet guild was to provide solutions for public works projects (sewers, boilers, and roadways), but their increasingly far-fetched experiments satisfy only their insatiable curiosity. Sometimes their experiments yield useful technological advancements; other times they produce unintended mana geysers, spatial rifts, arcane portals, or huge explosions — all of which can be useful in their own way.  ¶  The league’s most grandiose experiments typically concern public works projects and elemental experimentation. These efforts use a methodology that relies on unexpected outcomes: all results are informative, even if they completely defy expectations. For example, an experiment that begins as the creation of a “hypermana focusing lens” might be renamed a “scram-range teleportal” once the researchers discover more properties of what they have fashioned. Then, after a few goblin volunteers vanish inside it, the apparatus gains the designation of “universal refuse disintegrator” — until the goblin volunteers are discovered alive, having been teleported far from the workshop. This sort of adjustment is par for the course in Izzet experiments; the “fiddle and find out” method is favored over any process of systematic scientific research.  ¶  The Izzet League is one of the few guilds whose founder, the dragon Niv-Mizzet, remains its guildmaster, just as the guild continues to fulfill its original mission (even as its experiments go far beyond the guild’s original mandate).",
+            "image": "images/guild/Izzet_Logo.webp"
+        },
+        {
+            "name": "Orzhov Syndicate",
+            "color": [
+                "black",
+                "white"
+            ],
+            "planet": "",
+            "purpose": "Greed/Manipulation",
+            "description": "Wealth is power, and you absolutely can take it with you if you’re an undying spirit living in decadent luxury on the ruling council of the Orzhov Syndicate. Built on the crushed dreams and broken bodies of citizens deeply indebted to the syndicate’s banks and loan sharks, Orzhov’s elaborate hierarchy of syndics, priests, and oligarchs exists for the single purpose of funneling wealth to the top. Beneath the twin facades of religious hierarchy and banking operation, Orzhov is an organized crime syndicate with its fingers in businesses across the city.  ¶  The Orzhov’s original function was both religious and financial, with the two functions closely related. As Ravnica’s dominant church, the Orzhov continues to preach an oppressive message that equates sin with debt and promises forgiveness to those who make tithes and donations. As Ravnica’s principal bank, it stores and secures the riches of the city, collecting interest at high rates to expand its own wealth. Its members truly believe that their work is necessary to the proper functioning of Ravnica. Although most other Ravnicans see the Orzhov for the corrupt organization it is, many people are still dazzled by the syndicate’s promises of wealth, prestige, and longevity.  ¶  The Ghost Council, also called the Obzedat, that leads the Orzhov founded the guild and signed the Guildpact, but it isn’t clear which members of the original Obzedat might have faded from existence since then and which current members have joined since.",
+            "image": "images/guild/Orzhov_Logo.webp"
+        },
+        {
+            "name": "Cult of Rakdos",
+            "color": [
+                "red",
+                "black"
+            ],
+            "planet": "",
+            "purpose": "Death/Destruction",
+            "description": "Tomorrow is an illusion; everything is ridiculous. Members of the Cult of Rakdos have witnessed the grandiose speeches and self-important plans of other guilds and concluded that their rivals take themselves far too seriously. Since death comes for everyone, and since order tends inevitably toward chaos, the Rakdos believe that unrestrained, moment-to-moment hedonism is the only sane way to live. Of course, few other Ravnicans would describe the Rakdos as sane.  ¶  The Cult of Rakdos bears the name of the demon lord who founded it. As laid out in the Guildpact, the guild was intended to fill roles concerning entertainment, mining, and manual labor. Some argue that any effort to give a demonic cult a respectable role in society was doomed to failure, but the cult remains part of Ravnica’s social fabric nevertheless. The Guildpact prohibits the cult’s extermination, and its entertainments — even as dark and destructive as they are — hold broad appeal. From rowdy mobs who love to see the Rakdos skewer the powerful elites to decadent socialites who come to the Rakdos for illicit amusements, most of Ravnica’s people don’t really want the Rakdos to go away, as much as they might publicly protest otherwise.",
+            "image": "images/guild/Rakdos_Logo.webp"
+        },
+        {
+            "name": "Selesnya Conclave",
+            "color": [
+                "green",
+                "white"
+            ],
+            "planet": "",
+            "purpose": "Harmony/Balance/Nature",
+            "description": "Like a thriving garden, carefully tended and abundantly fertile, the communities of the Selesnya Conclave are a harmonious union of nature and civilization. The members of the conclave dream of embracing all of Ravnica in their peaceful union. In the meantime, they are growing an army, preparing to resist the ambition and destructive impulses of the other guilds and fight to defend their way of life.  ¶  At the heart of the Selesnya faith and philosophy is the Worldsoul, called Mat’Selesnya, which its devotees believe to be a manifestation of nature itself. At the signing of the original Guildpact, Mat’Selesnya was embodied in an elemental form and acted as the guild’s first guildmaster. The current guildmaster, Trostani — three dryads fused together with Mat’Selesnya into a single being — is said to embody the will of the Worldsoul in a similar way. The original mission of the conclave involved conservation and charity, but its focus has long been on expanding its community, in which all members are cared for and nature is preserved in harmony with civilization.",
+            "image": "images/guild/Selesnya_Logo.webp"
+        },
+        {
+            "name": "Simic Combine",
+            "color": [
+                "green",
+                "blue"
+            ],
+            "planet": "",
+            "purpose": "Preservation/Creation",
+            "description": "The secrets of life are revealed in the laboratories of the Simic, and their research notes plumb and catalog nature’s wonders. Their original mission was to oversee issues of public health, but the Simic came to believe that complete health — of individuals and of society as a whole — depends on the mutual adaptation of nature and civilization to one another. Thus, biological experimentation has always been among its primary concerns.  ¶  Historically, the guild’s approach to its mission has been one of incremental progress toward a utopian ideal of thriving biology, and it remains more aloof from politics than other guilds. Its fundamental mission remains unchanged by the current political instability, and the isolation of its laboratories protects most Simic guild members from immediate harm.  ¶  Little is known about the combine’s founder, except that this individual’s first or family name was Simic.",
+            "image": "images/guild/Simic_Logo.webp"
+        }
+    ]
+}

@@ -10,10 +10,12 @@ window.onscroll = function () {
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     mybutton.style.display = "block";
-    nav.style.opacity = 0;
+    // nav.style.opacity = 0.5;
+    // nav.style.display = "none";
   } else {
     mybutton.style.display = "none";
-    nav.style.opacity = 1;
+    // nav.style.opacity = 1;
+    // nav.style.display = "flex";
   }
 }
 

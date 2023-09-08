@@ -21,7 +21,11 @@
             <a href="timeline.html" id="timeline">Timeline</a>
             <a id="encyclopedia" href="encyclopedia.html">Encyclopedia</a>
         </nav>
-        <button id="openSorter" title="Sort characters" class="fa fa-filter"></button>
+        <div id="profile_icons">
+            <button id="profile_i" class="fa fa-user nav_icon"></button>
+            <button id="settings_i" class="fa fa-gear nav_icon"></button>
+        </div>
+        <!-- <button id="openSorter" title="Sort characters" class="fa fa-filter nav_icon"></button> -->
         <fieldset id="sorterMenu">
             <!--<legend>Encyclopedia Sorting Tool</legend>-->
             <!-- <section id="basicSort"> -->
@@ -49,7 +53,7 @@
             </p>
             <!-- </section> -->
         </fieldset>
-        <button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up"></button>
+        <!--<button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up nav_icon"></button>*/-->
     </header>
     <!-- MOBILE HEADER + NAV -->
     <div class="icon-bar">
@@ -63,6 +67,22 @@
             <div id="loadingBar"></div>
         </div>
         <main id="dict-grid">
+            <!-- <div class="entry">
+                <img src="images/guild/Azorius_Logo.webp" class="entryImg" width="150" height="150">
+                <div class="entryData">
+                    <h2>Azorious Senate</h2>
+                    <div class="tag" data="blue">
+                        <p>blue</p>
+                    </div>
+                    <div class="tag" data="white">
+                        <p>white</p>
+                    </div>
+                </div>
+                <div class="panel">
+                    <p></p>
+                </div>
+            </div> -->
+
         </main>
     </div>
     <footer>
@@ -82,7 +102,8 @@
         </div>
     </footer>
     <script src="../scripts/scrolltotop.js"></script>
-    <script src=""></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/wiki_tools.js"></script>
     <script src="scripts/sortMenuControl.js"></script>
 </body>
 

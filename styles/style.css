@@ -12,19 +12,24 @@ header {
     left: 0;
     top: 0;
     display: grid;
-    grid-template-columns: 150px auto;
+    grid-template-columns: 150px auto 100px;
     width: 100%;
     padding: 1%;
+    background-image: linear-gradient(black,#00000000);
 }
 
 nav {
     background-color: #000;
+    border-radius: 50px;
     height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-flow: row;
+    padding: 0 25px;
+    gap: 25px;
+    /* grid-template-columns: 1fr 1fr 1fr; */
     justify-content: space-around;
     align-items: center;
-    opacity: 0.0;
+    /* opacity: 0.0; */
     transition: opacity .5s;
 }
 
@@ -38,8 +43,9 @@ nav a {
     font-size: 1.5em;
     font-family: Quantico, Helvetica, sans-serif;
     transition: all 0.5s ease-out;
-    margin: 0px 50px;
-    padding: 25px;
+    /* margin: 0px; */
+    padding: 25px 75px;
+    flex-grow: 1;
     border-radius: 20px;
 }
 
@@ -97,34 +103,37 @@ nav a:focus {
     transform: scale(1.1);
 }
 
+#profile_icons {
+    width: 100px;
+}
+
+.nav_icon {
+    width: 48px;
+    height: 48px;
+    justify-self: center;
+    border: none;
+    outline: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    opacity: 0.75;
+}
+
+.nav_icon:hover {
+    background-color: #231942;
+}
+
 #totop,
 #openSorter {
     display: none;
     /* Hidden by default */
-    grid-column: 1;
-    width: 48px;
-    height: 48px;
-    justify-self: center;
-    z-index: 99;
-    /* Make sure it does not overlap */
-    border: none;
-    /* Remove borders */
-    outline: none;
-    /* Remove outline */
-    background-color: black;
-    /* Set a background color */
-    color: white;
-    /* Text color */
-    cursor: pointer;
-    /* Add a mouse pointer on hover */
-    padding: 15px;
-    margin: 15px;
-    /* Some padding */
-    border-radius: 50%;
-    /* Rounded corners */
-    font-size: 18px;
-    /* Increase font size */
-    opacity: 0.5;
+    /* grid-column: 1; */
+    /* z-index: 99; */
+    /* opacity: 0.5; */
 }
 
 #openSorter {
@@ -134,7 +143,6 @@ nav a:focus {
 #totop:hover,
 #openSorter:hover {
     background-color: #231942;
-    /* Add a purple background on hover */
 }
 
 #sorterMenu {
@@ -212,7 +220,7 @@ legend {
     border: 1px solid #231942;
 }
 
-p {
+p, div {
     color: #5E548E;
     font-family: Quantico, Helvetica, sans-serif;
     /* font-size: 1vw; */
@@ -379,45 +387,6 @@ footer p a:hover {
     opacity: 1.0;
 }
 
-#c1 {
-    /* heroes */
-    order: 1;
-}
-
-#c2 {
-    /* theros */
-    order: 2;
-}
-
-#c2 img {
-    /* edit to focus on image better */
-    object-position: right;
-}
-
-#c3 {
-    /* grid */
-    order: 3;
-}
-
-#c4 {
-    /* adventures */
-    order: 4;
-}
-
-#c4 img {
-    /* edit to focus on image better */
-    object-position: top;
-}
-
-#c5 {
-    /* resurgence */
-    order: 5;
-}
-
-#c6 {
-    order: 6;
-}
-
 /* TIMELINE */
 
 #time-space {
@@ -438,9 +407,15 @@ footer p a:hover {
 .time-grid .entry {
     padding: 1%;
     background-color: #111E;
-    border-radius: 20%;
+    border-radius: 50px;
     border: 5px solid #111;
     flex-basis: 20%;
+    flex-wrap: wrap;
+}
+
+.blur {
+    filter: blur(10px) brightness(120%);
+    user-select: none;
 }
 
 /* The animation code */
@@ -483,7 +458,9 @@ footer p a:hover {
 
 #dict-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 20px;
 }
 
 #dict-grid h1 {
@@ -492,21 +469,85 @@ footer p a:hover {
 
 .entry {
     display: flex;
-    flex-flow: wrap;
+    flex-flow: row;
     justify-content: center;
     margin-bottom: 20px;
+    padding: 3%;
+    border: 5px solid black;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.entry:hover {
+    border-color: #111;
+}
+
+.active {
+    background-color: #111;
 }
 
 .entry h2 {
     width: 100%;
+    /* margin-bottom: -5%; */
+}
+
+.entry div {
+    display: flex;
+    color: black;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.entry img {
+    /* justify-self: ; */
+}
+
+.tag {
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    /* border: solid 1px #BE95C4; */
+    background-color: #5E548E;
+    border-radius: 20px;
+    margin: -10px 10px;
+    padding: 3%;
+}
+
+.tag p {
+    /* width: fit-content; */
+    color: inherit;
+    margin: 0;
+}
+
+.panel {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    margin: 160px 0;
+    padding: 0 60px;
+    border-radius: 20px;
+    background-color: #111;
+    color: #5E548E;
+}
+
+.panel p {
+    color: #5E548E;
+    display: none;
+    overflow: hidden;
+    font-size: 1.5em;
 }
 
 .entry div[data="blue"] {
-    background-color: cyan;
+    background-color: blue;
+    color: white;
 }
 
 .entry div[data="red"] {
     background-color: red;
+}
+
+.entry div[data="green"] {
+    background-color: green;
 }
 
 .entry div[data="brown"] {
@@ -523,6 +564,7 @@ footer p a:hover {
 
 .entry div[data="black"] {
     background-color: #111;
+    color: white;
 }
 
 .entry div[data="hazel"] {
@@ -545,23 +587,6 @@ footer p a:hover {
     background-color: white;
 }
 
-
-.tag {
-    width: fit-content;
-    text-align: center;
-    /* border: solid 1px #BE95C4; */
-    background-color: #5E548E;
-    border-radius: 10%;
-    margin: -10px 10px;
-    padding: 2%;
-}
-
-.tag p {
-    /* background-color: #231942; */
-    width: fit-content;
-    color: black;
-    margin: 0;
-}
 
 /* MOBILE VERSION */
 

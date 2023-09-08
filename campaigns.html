@@ -21,7 +21,11 @@
             <a href="timeline.html" id="timeline">Timeline</a>
             <a id="encyclopedia" href="encyclopedia.html">Encyclopedia</a>
         </nav>
-        <button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up"></button>
+        <div id="profile_icons">
+            <button id="profile_i" class="fa fa-user nav_icon"></button>
+            <button id="settings_i" class="fa fa-gear nav_icon"></button>
+        </div>
+        <!--<button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up nav_icon"></button>*/-->
     </header>
     <!-- MOBILE HEADER + NAV -->
     <div class="icon-bar">
@@ -33,32 +37,32 @@
     <div id="content">
         <h1>Campaigns</h1>
         <main class="home-grid">
-            <a href="campaigns/heroes.html" class="camp-tile" id="c1">
+            <a href="campaigns/heroes.html" class="camp-tile" style="order:1;">
                 <img src="images/infinite-1.jpg">
                 <h2>Heroes: Parts 1 & 2</h2>
                 <p>(2019-2020)</p>
             </a>
-            <a href="campaigns/theros.html" class="camp-tile" id="c2">
-                <img src="images/MOoT-cover.jpg">
+            <a href="campaigns/theros.html" class="camp-tile" style="order:2;">
+                <img src="images/MOoT-cover.jpg" style="object-position: right;">
                 <h2>Mythic Odysseys of Theros</h2>
-                <p>(2020-2021) (2022-CURRENT)</p>
+                <p>(2020-2021) (2022-2023) (2023-CURRENT)</p>
             </a>
-            <a href="campaigns/grid.html" class="camp-tile" id="c3">
+            <a href="campaigns/grid.html" class="camp-tile" style="order:3;">
                 <img src="images/the core.png">
                 <h2>The Grid</h2>
                 <p>(2021-2022)</p>
             </a>
-            <a href="campaigns/adventures.html" class="camp-tile" id="c4">
+            <a href="campaigns/slate_pen.html" class="camp-tile" style="order:4;">
                 <img src="images/the_cage.jpg">
                 <h2>Slate Penitentiary</h2>
                 <p>(2022-CURRENT)</p>
             </a>
-            <a href="campaigns/adventures.html" class="camp-tile" id="c4">
+            <a href="campaigns/adventures.html" class="camp-tile" style="order:5;">
                 <img src="images/voidman.jpg">
                 <h2>Interdimensional Adventures</h2>
-                <p>(2024)</p>
+                <p>(*2024*)</p>
             </a>
-            <a href="campaigns/resurgence.html" class="camp-tile" id="c5">
+            <a href="campaigns/resurgence.html" class="camp-tile" style="order:6;">
                 <img src="images/raven.jpg">
                 <h2>Resurgence</h2>
                 <p>(2022-CURRENT)</p>
@@ -86,7 +90,7 @@
             </a>
         </div>
     </footer>
-<script src="../scripts/scrolltotop.js"></script>
+    <script src="../scripts/scrolltotop.js"></script>
 </body>
 
 </html>
