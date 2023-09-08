@@ -4,6 +4,10 @@ html {
     scroll-behavior: smooth;
 }
 
+:root::-webkit-scrollbar {
+    display: none;
+  }
+
 /* HEADER AND NAV */
 
 header {
