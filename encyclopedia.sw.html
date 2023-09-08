@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caleb's Campaign Hub | Home</title>
+    <title>Caleb's Campaign Hub | Encyclopedia</title>
     <link rel="stylesheet" href="styles/style.css">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,37 +21,48 @@
             <a href="timeline.html" id="timeline">Timeline</a>
             <a id="encyclopedia" href="encyclopedia.html">Encyclopedia</a>
         </nav>
+        <button id="openSorter" title="Sort characters" class="fa fa-filter"></button>
+        <fieldset id="sorterMenu">
+            <!--<legend>Encyclopedia Sorting Tool</legend>-->
+            <!-- <section id="basicSort"> -->
+            <p>
+                Sort by:
+                <select id="sortBy">
+                    <option value="charname">Character Name</option>
+                    <option value="homeworld">Homeworld</option>
+                    <option value="eyecolor">Eye Color</option>
+                    <option value="birthyear">Birth Year</option>
+                </select>
+            </p>
+            <p>
+                Order:
+                <select id="order">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                    <option value="values">Certain Values</option>
+                </select>
+            </p>
+            <form id="selectValues" action="/scripts/filter.php">
+            </form>
+            <p>
+                <button id="sortController">Sort</button>
+            </p>
+            <!-- </section> -->
+        </fieldset>
         <button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up"></button>
     </header>
     <!-- MOBILE HEADER + NAV -->
     <div class="icon-bar">
-        <a class="active" href="index.html"><i class="fa fa-bandcamp"></i></a>
+        <a href="index.html"><i class="fa fa-bandcamp"></i></a>
         <a href="campaigns.html"><i class="fa fa-map"></i></a>
         <a href="timeline.html"><i class="fa fa-code-fork"></i></a>
-        <a href="encyclopedia.html"><i class="fa fa-book"></i></a>
+        <a class="active" href="encyclopedia.html"><i class="fa fa-book"></i></a>
     </div>
     <div id="content">
-        <h1>Welcome!</h1>
-        <main class="home-grid">
-            <p>Hello, and welcome to Caleb's Campaign Hub! Here you will be able to explore the worlds and
-                stories that are being woven into one great universe. Hover your cursor toward the top of the screen to
-                see the menu. Navigate to view information sorted by timeline or campaign through
-                their respective tabs, or by topic through the Encyclopedia.
-                <br><br>
-                In the timeline view, you will see an overview of the campaigns and how they have effected each other.
-                For a more specific detailing of the events of each campaign, view the campaign's individual page. For a
-                more detailed explanation of those worlds and places, read the Encyclopedia, where many names and nouns
-                will be documented in a manner that will allow you to use your browser's page search function to find
-                exactly what you are looking for.
-                <br><br>
-                Note: This site is being optimized for mobile. Some pages may display improperly.
-            </p>
-            <div id="suggested-box">
-                <h2>Suggested:</h2>
-                <a href="theros.html">
-                    <img class="suggestion" src="images/ravnica_logo.webp" href="ravnica.html">
-                </a>
-            </div>
+        <div id="loadingProgress">
+            <div id="loadingBar"></div>
+        </div>
+        <main id="dict-grid">
         </main>
     </div>
     <footer>
@@ -70,7 +81,9 @@
             </a>
         </div>
     </footer>
-<script src="../scripts/scrolltotop.js"></script>
+    <script src="../scripts/scrolltotop.js"></script>
+    <script src="scripts/swapi.js"></script>
+    <script src="scripts/sortMenuControl.js"></script>
 </body>
 
 </html>
