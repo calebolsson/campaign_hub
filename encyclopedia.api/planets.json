@@ -15,7 +15,7 @@
         {
             "name": "Venus",
             "races": ["Tabaxi", "Loxodon", "Grung", "Bugbear", "Bullywug", "Harengon", "Satyrs", "Firbolg"],
-            "guilds": [""],
+            "guilds": ["Selesnya Conclave"],
             "dwellings": "",
             "description": "Terraforming made this planet a lush forest, now densely populated.",
             "image": "images/planet/#"
@@ -55,7 +55,7 @@
         {
             "name": "Uranus",
             "races": ["Tritons", "Kuo-Toa", "Locathah", "Simic Hybrid", "Tortles"],
-            "guilds": [""],
+            "guilds": ["Simic Combine"],
             "dwellings": "",
             "description": "Aquatic compounds float and fly across this planet, housing millions of people.",
             "image": "images/planet/#"

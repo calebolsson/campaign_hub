@@ -1,6 +1,6 @@
 {
     "api": "character",
-    "count": 1,
+    "count": 5,
     "results": [
         {
             "name": "Beth",
@@ -12,6 +12,50 @@
             "alignment": ["white","green"],
             "description": "",
             "image": "images/pc/beth_token.png"
+        },
+        {
+            "name": "Caed",
+            "race": "Human",
+            "class": "Warlock",
+            "origin": "",
+            "allies": "Cult of Rakdos",
+            "campaign": "Slate Penitentiary",
+            "alignment": ["red","black"],
+            "description": "Caed is a creature of emotion and instinct. On paper, he is a reckless miscreant who has a penchant for mischief and crime. His latest crime has landed him in solitary confinement at Slate Penitentiary. In person? Caed is the most bubbly and enthusiastic person you have ever met. He will make you feel like you're the most important person in the world, until he slices off your hand to keep it as a souvenir. He has a terrible relationship with the Senate. The Azorious have tried to put him through rehab, mental institutions, therapy, but all of those he talks to seem to doubt their reasons for having him there, until he's back. He carries a strong dislike and grudge for anyone tied to the senate, or has any vague connection to them, but at least he's all smiles until then.",
+            "image": "images/pc/caed_token.png"
+        },
+        {
+            "name": "De'win Catobas",
+            "race": "Wood Elf",
+            "class": "Rogue",
+            "origin": "",
+            "allies": "House Dimir",
+            "campaign": "Slate Penitentiary",
+            "alignment": ["blue","black"],
+            "description": "De’win Catobas, a Wood Elf rogue, grew up in the Whispering Grove. His love for pickpocketing and penchant for silliness made him the 'Whispering Trickster' among his people. Inspired by tales of legendary thieves, he set out to become the greatest thief ever, making sure every heist carried a dash of humor. Now, he roars the world, stealing and pranking, determined to leave a legacy of mirth and thievery.",
+            "image": "images/pc/dewin_token.png"
+        },
+        {
+            "name": "Remy Merfiz",
+            "race": "",
+            "class": "Druid",
+            "origin": "",
+            "allies": "Selesnya Conclave",
+            "campaign": "Slate Penitentiary",
+            "alignment": ["green","white"],
+            "description": "Remy Merfiz is a compassionate and dedicated human druid who carries the essence of the natural world within his very being. With a profound love for endangered animals, he has devoted his life to their protection, and his heart is as wild and untamed as the forests he calls home. He carries with him Perry, his cherished pet platypus, a symbol of hope and a living reminder of the fragile beauty he strives to preserve. He was arrested at a peaceful protest gone violent when a guard attempting to hurt Perry was killed by Remy.",
+            "image": "images/pc/"
+        },
+        {
+            "name": "The 'Good Doctor'",
+            "race": "Reborn",
+            "class": "Wizard",
+            "origin": "",
+            "allies": "Golgari Swarm",
+            "campaign": "Slate Penitentiary",
+            "alignment": ["black","green"],
+            "description": "Having spent his entire life dedicated to the study of medicine, the Good Doctor found much success as a physician. He cured patient after patient and pioneered the field organ transplantation. However despite all of his success, there was one ailment he could never treat, and that was the mortality of the human condition. No matter how many times some one would be cured, they would still be taken by the ravages of time. He had resigned himself to this fact for most of his career, that is until the death of his wife. It was not an illness, nor a physical condition, it was an accident that took her life.  ¶  After this event he fell to obsession, trying to find a way to artificially extend the life of a person or even bring them back. He performed countless experiments experiencing failure after failure, until eventually he found success. He found the missing component to his research, magic. By combining his medical knowledge and the necromancy, he was able to perform a ritual to extend a person’s life far beyond it’s natural life span, by replacing what has been damaged.  ¶  The first patient he performed this surgery on after his breakthrough was none other than himself, helping him gain more years than he would otherwise have, allowing his research to continue uninhibited by mortality. But regardless of how many pieces he replaces, he could never repair his fractured mind nor psyche.  ¶  Crimes: Desecrating a body, illegal experimentation, medical malpractice, practicing medicine without a license.",
+            "image": "images/pc/"
         }
     ]
 }
