@@ -1,55 +1,37 @@
-let api = {
-    root: "encyclopedia.api",
-    characters: "encyclopedia.api/character.json",
-    guilds: "encyclopedia.api/guilds.json"
-};
+let api_guilds = "encyclopedia.api/guilds.json";
+let api_characters = "encyclopedia.api/character.json";
+let api = [api_guilds, api_characters];
 let data = { root: [], characters: [], guilds: [] };
 let grid = document.getElementById("dict-grid");
 
 async function getData() {
-    let source = "guilds";
     console.log("Fetching data...");
     var startTime = performance.now();
     grid.style.cursor = "wait";
-    let result = await fetch(api[source]);
-    if (result.ok) {
-        data = await result.json();
-        /*let itemCount = data.count;
-        let pageCount = Math.ceil(itemCount / 10);
-        let itemN = 1;
-        let pageN = 1;
-        while (data.next != null) {
-            console.log("Loading Page " + pageN + " of " + pageCount);
-            result = await fetch(swapi + "?page=" + pageN);
-            if (result.ok) {
-                data = await result.json();
-                charPages.push(data.results);
-                width += 10;
-                progress.style.width = width + "%";
-            } else {
-                console.log("Error reading page " + pageN);
-            }
-            pageN++;
-        }*/
-        grid.style.cursor = "auto";
-        console.log("Done!");
-        var endTime = performance.now();
-        document.getElementById("loadingProgress").style.display = "none";
-        console.log(
-            `getData() api fetch took ${Math.ceil(
-                (endTime - startTime) / 1000
-            )} seconds`
-        );
-        // charPages.forEach((array) => {
-        //     array.forEach((index) => {
-        //         characters.push(index);
-        //     });
-        // });
-        // sortCharacters();
-        outputData(data.results);
-    } else {
-        console.log("Error...");
-    }
+    api.forEach(async (source) => {
+        let result = await fetch(source);
+        if (result.ok) {
+            data = await result.json();
+            outputData(data.results);
+        } else {
+            console.log("Error...");
+        }
+    })
+    grid.style.cursor = "auto";
+    console.log("Done!");
+    var endTime = performance.now();
+    document.getElementById("loadingProgress").style.display = "none";
+    console.log(
+        `getData() api fetch took ${Math.ceil(
+            (endTime - startTime) / 1000
+        )} seconds`
+    );
+    // charPages.forEach((array) => {
+    //     array.forEach((index) => {
+    //         characters.push(index);
+    //     });
+    // });
+    // sortCharacters();
 }
 
 // creates a new element, used x3 to create a full entry
@@ -62,6 +44,8 @@ function createEntryElement(parent, element, clas, text) {
         case "entry":
             let newImg = document.createElement("img")
             newImg.setAttribute("src", text);
+            newImg.setAttribute("width","150");
+            newImg.setAttribute("height","150");
             entryname = newEl.appendChild(newImg);
             break;
         case "tag":
@@ -110,8 +94,7 @@ function outputData(outputArray) {
         }*/
         let newEntry = createEntryElement(grid, "div", "entry", entry.image);
         let entryData = createEntryElement(newEntry, "div", "entryData", entry.name);
-        createEntryElement(entryData, "div", "tag", entry.color[0]);
-        createEntryElement(entryData, "div", "tag", entry.color[1]);
+        entry.tags.forEach((tag) => { createEntryElement(entryData, "div", "tag", tag); });
         createEntryElement(newEntry, "div", "panel", entry.description);
         loadPanel(newEntry);
         console.log("Output: " + entry.name);

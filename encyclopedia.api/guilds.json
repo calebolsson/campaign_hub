@@ -4,7 +4,7 @@
     "results": [
         {
             "name": "Azorious Senate",
-            "color": [
+            "tags": [
                 "white",
                 "blue"
             ], 
@@ -15,7 +15,7 @@
         },
         {
             "name": "Boros Legion",
-            "color": [
+            "tags": [
                 "white",
                 "red"
             ],
@@ -26,7 +26,7 @@
         },
         {
             "name": "House Dimir",
-            "color": [
+            "tags": [
                 "blue",
                 "black"
             ],
@@ -37,7 +37,7 @@
         },
         {
             "name": "Golgari Swarm",
-            "color": [
+            "tags": [
                 "black",
                 "green"
             ],
@@ -48,7 +48,7 @@
         },
         {
             "name": "Gruul Clans",
-            "color": [
+            "tags": [
                 "red",
                 "green"
             ],
@@ -59,7 +59,7 @@
         },
         {
             "name": "Izzet League",
-            "color": [
+            "tags": [
                 "blue",
                 "red"
             ],
@@ -70,7 +70,7 @@
         },
         {
             "name": "Orzhov Syndicate",
-            "color": [
+            "tags": [
                 "black",
                 "white"
             ],
@@ -81,7 +81,7 @@
         },
         {
             "name": "Cult of Rakdos",
-            "color": [
+            "tags": [
                 "red",
                 "black"
             ],
@@ -92,7 +92,7 @@
         },
         {
             "name": "Selesnya Conclave",
-            "color": [
+            "tags": [
                 "green",
                 "white"
             ],
@@ -103,7 +103,7 @@
         },
         {
             "name": "Simic Combine",
-            "color": [
+            "tags": [
                 "green",
                 "blue"
             ],
