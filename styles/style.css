@@ -522,10 +522,6 @@ footer p a:hover {
     justify-content: center;
 }
 
-.entry img {
-    /* justify-self: ; */
-}
-
 .tag {
     max-width: fit-content;
     height: fit-content;
