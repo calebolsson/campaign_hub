@@ -26,33 +26,6 @@
             <button id="settings_i" class="fa fa-gear nav_icon"></button>
         </div>
         <!-- <button id="openSorter" title="Sort characters" class="fa fa-filter nav_icon"></button> -->
-        <fieldset id="sorterMenu">
-            <!--<legend>Encyclopedia Sorting Tool</legend>-->
-            <!-- <section id="basicSort"> -->
-            <p>
-                Sort by:
-                <select id="sortBy">
-                    <option value="charname">Character Name</option>
-                    <option value="homeworld">Homeworld</option>
-                    <option value="eyecolor">Eye Color</option>
-                    <option value="birthyear">Birth Year</option>
-                </select>
-            </p>
-            <p>
-                Order:
-                <select id="order">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                    <option value="values">Certain Values</option>
-                </select>
-            </p>
-            <form id="selectValues" action="/scripts/filter.php">
-            </form>
-            <p>
-                <button id="sortController">Sort</button>
-            </p>
-            <!-- </section> -->
-        </fieldset>
         <!--<button onclick="topFunction()" id="totop" title="Go to top" class="fa fa-arrow-up nav_icon"></button>*/-->
     </header>
     <!-- MOBILE HEADER + NAV -->
@@ -67,6 +40,49 @@
             <div id="loadingBar"></div>
         </div>
         <main id="dict-grid">
+            <fieldset id="sorterMenu">
+                <legend>Encyclopedia Sorting Tool</legend>
+                <p>Source:</p>
+                <select id="source">
+                    <option value="all">- All -</option>
+                    <option value="xpc">Characters</option>
+                    <option value="loc">Locations</option>
+                    <option value="inf">Information</option>
+                </select>
+
+                <p>Campaign:</p>
+                <select id="campaign">
+                    <option value="">- Any -</option>
+                    <option value="Heroes">Heroes 1 & 2</option>
+                    <option value="Theros">Mythic Odysseys of Theros</option>
+                    <option value="Grid">The Grid</option>
+                    <option value="Slate Penitentiary">Slate Penitentiary</option>
+                    <option value="Adventures">Interdimensional Adventures</option>
+                    <option value="Resurgence">Resurgence</option>
+                </select>
+
+                <p>Sort by:</p>
+                <select id="sortBy">
+                    <option value="name">Entry Name</option>
+                    <option value="homeworld">Homeworld</option>
+                    <option value="eyecolor">Eye Color</option>
+                    <option value="birthyear">Birth Year</option>
+                </select>
+
+                <p class="order">Order:</p>
+                <select id="order" class="order">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                    <option value="values">Certain Values</option>
+                </select>
+
+                <form id="selectValues" class="order" action="/scripts/filter.php">
+                </form>
+                <!-- <p>
+                    <button id="sortController">Sort</button>
+                </p> -->
+                <!-- </section> -->
+            </fieldset>
             <!-- <div class="entry">
                 <img src="images/guild/Azorius_Logo.webp" class="entryImg" width="150" height="150">
                 <div class="entryData">

@@ -35,7 +35,7 @@ function expandedReset() {
 function expandedSwitch() {
   expandedReset();
   switch (sortBy) {
-    case "charname":
+    case "name":
       characters.forEach((c) => {
         let newP = document.createElement("p");
         let newcheckbox = document.createElement("input");

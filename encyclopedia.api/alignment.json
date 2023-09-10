@@ -1,0 +1,46 @@
+{
+    "api": "alignment",
+    "count": 5,
+    "results": [
+        {
+            "name": "White (W)",
+            "tags": [
+                "white"
+            ],
+            "description": "White puts value on the group, the community, and its civilization as a whole. White's ultimate goal is peace—a world where everyone gets along and no one seeks to disturb the safety and unity that White had worked so long to forge. To govern and protect its community, White makes use of and puts value in a number of broad concepts; morality (ethics, religion), order (law, discipline), uniformity (conformity), and structure (government, planning).",
+            "image": "images/guild/W.svg"
+        },
+        {
+            "name": "Blue (U)",
+            "tags": [
+                "blue"
+            ],
+            "description": "Blue's philosophy, like that of each color, is determined by its world-view. To Blue, the world is an opportunity. Within it, hide wonders and possibilities most fantastic: the stuff of dreams. Blue is characterized by the desire to know the world's secrets and to make those possibilities real. The belief that dream can be reality—to which blue holds fast—is the belief in tabula rasa, the blank slate.",
+            "image": "images/guild/U.svg"
+        },
+        {
+            "name": "Black (B)",
+            "tags": [
+                "black"
+            ],
+            "description": "The essence of Black can be summarized in: having the last word on its own life. Black looks at the world and sees a simple reality: power is everything. Power dictates who succeeds and who fails; who commands and who submits; who lives and who dies. And whether the weak see it or not, they are at the mercy of the powerful. Black sees its own will as something so precious that the idea of losing it or giving it up is totally unacceptable. Thus, to live according to this notion, Black must preserve and expand its free will by all means; which inevitably translates into gaining power. To achieve power, Black follows a simple rule: don't follow any rule. It looks for any opportunity to get ahead, and takes advantage of it without mercy or shame.",
+            "image": "images/guild/B.svg"
+        },
+        {
+            "name": "Red (R)",
+            "tags": [
+                "red"
+            ],
+            "description": "Red looks on the world and sees adventure. Life is a chance to experience something - many things - and for Red, there is no more worthwhile endeavor than to enjoy life by the adventure it offers. Experiences are what life is about, and to appreciate the full range of life's experiences, Red lives by emotion. What makes one laugh, what makes one cry, what one hates, and what one loves, this makes up what a person is. Red believes that a person need only look to these things to find one's wishes and desires in life; to deny them is to deny one's life of meaning.",
+            "image": "images/guild/R.svg"
+        },
+        {
+            "name": "Green (G)",
+            "tags": [
+                "green"
+            ],
+            "description": "Green is the color most in tune with nature. Whereas the other colors seek to modify the world around them, Green believes that the best course of action is to simply allow nature to take its course. Thus, Green is often seen as the least confrontational of the colors: it does not seek to impose its values on others; it just wants to coexist as peacefully as possible. This does not mean that Green will not defend itself when it feels threatened, but it generally will not seek to impose its opinion on others. Green also places value on the concepts of community, instinct, and survival of the fittest.",
+            "image": "images/guild/G.svg"
+        }
+    ]
+}

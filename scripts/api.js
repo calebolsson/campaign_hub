@@ -1,7 +1,8 @@
 let api_guilds = "encyclopedia.api/guilds.json";
+let api_alignment = "encyclopedia.api/alignment.json";
 let api_characters = "encyclopedia.api/character.json";
-let api = [api_guilds, api_characters];
-let data = { root: [], characters: [], guilds: [] };
+let api = [api_guilds, api_alignment, api_characters];
+let data = {};
 let grid = document.getElementById("dict-grid");
 
 async function getData() {
@@ -12,7 +13,7 @@ async function getData() {
         let result = await fetch(source);
         if (result.ok) {
             data = await result.json();
-            outputData(data.results);
+            await outputData(data.results);
         } else {
             console.log("Error...");
         }

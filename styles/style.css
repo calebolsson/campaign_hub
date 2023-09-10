@@ -150,18 +150,37 @@ nav a:focus {
 }
 
 #sorterMenu {
+    flex-grow: 3;
     background-color: #111;
     border-color: #231942;
-    width: fit-content;
-    max-height: 30vw;
-    max-width: 20vw;
-    display: none;
-    flex-flow: column;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    gap: 0 20px;
+    padding: 20px;
+    align-items: center;
+}
+
+#sorterMenu select {
+    height: 30px;
+    width: 100%;
+}
+
+#sorterMenu p {
+    grid-column: 1;
+}
+
+#sorterMenu p.order {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#sorterMenu select.order {
+    grid-column: 4;
+    grid-row: 1;
 }
 
 #selectValues {
-    display: none;
+    /* display: block; */
     flex-flow: row wrap;
     overflow: auto;
 }
@@ -232,7 +251,7 @@ p, div {
 }
 
 .home-grid h2,
-p {
+.home-grid p {
     grid-column: 4/7;
 }
 
@@ -474,7 +493,7 @@ footer p a:hover {
 .entry {
     display: flex;
     flex-flow: row;
-    justify-content: center;
+    justify-content: left;
     margin-bottom: 20px;
     padding: 3%;
     border: 5px solid black;
@@ -496,6 +515,7 @@ footer p a:hover {
 }
 
 .entry div {
+    flex-grow: 2;
     display: flex;
     color: black;
     flex-flow: row wrap;
@@ -507,13 +527,13 @@ footer p a:hover {
 }
 
 .tag {
-    width: fit-content;
+    max-width: fit-content;
     height: fit-content;
     text-align: center;
     /* border: solid 1px #BE95C4; */
     background-color: #5E548E;
     border-radius: 20px;
-    margin: -10px 10px;
+    margin: 10px;
     padding: 3%;
 }
 
@@ -541,53 +561,53 @@ footer p a:hover {
     font-size: 1.5em;
 }
 
-.entry div[data="blue"] {
+.tag[data="blue"] {
     background-color: blue;
     color: white;
 }
 
-.entry div[data="red"] {
+.tag[data="red"] {
     background-color: red;
 }
 
-.entry div[data="green"] {
+.tag[data="green"] {
     background-color: green;
 }
 
-.entry div[data="brown"] {
+.tag[data="brown"] {
     background-color: chocolate;
 }
 
-.entry div[data="yellow"] {
+.tag[data="yellow"] {
     background-color: yellow;
 }
 
-.entry div[data="blue-gray"] {
+.tag[data="Slate Penitentiary"] {
     background-color: grey;
 }
 
-.entry div[data="black"] {
-    background-color: #111;
+.tag[data="black"] {
+    background-color: #231942;
     color: white;
 }
 
-.entry div[data="hazel"] {
+.tag[data="Theros"] {
     background-color: #8E7618;
 }
 
-.entry div[data="orange"] {
+.tag[data="orange"] {
     background-color: orange;
 }
 
-.entry div[data="pink"] {
+.tag[data="pink"] {
     background-color: pink;
 }
 
-.entry div[data="gold"] {
+.tag[data="gold"] {
     background-color: #FFD700;
 }
 
-.entry div[data="white"] {
+.tag[data="white"] {
     background-color: white;
 }
 
