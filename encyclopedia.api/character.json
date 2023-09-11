@@ -1,6 +1,6 @@
 {
     "api": "character",
-    "count": 5,
+    "count": 8,
     "results": [
         {
             "name": "Beth",
@@ -84,7 +84,12 @@
             "origin": "",
             "allies": "",
             "campaign": "Theros",
-            "tags": ["green","red","white","Theros"],
+            "tags": [
+                "green",
+                "red",
+                "white",
+                "Theros"
+            ],
             "description": "Once the prince to a tribe of Venusian warriors, he vanished mere weeks before he was to take the throne. His people assume he is away on a grand quest, knowing his tendency to shirk responsibility in preference for impulse and passion.",
             "image": "images/npc/sonny_normal.png"
         },
@@ -95,9 +100,27 @@
             "origin": "",
             "allies": "",
             "campaign": "Theros",
-            "tags": ["white","red","Theros"],
-            "description": "A powerful leader ",
+            "tags": [
+                "white",
+                "red",
+                "Theros"
+            ],
+            "description": "Titus has mastered a special form of combat that allows him to channel his righteous fury into both brute strength and magical might. He was a formidable opponent, but has recently gone missing for undisclosed reasons.",
             "image": "images/npc/titus_original.png"
+        },
+        {
+            "name": "Odin Kyodai",
+            "race": "Human",
+            "class": "Fighter",
+            "origin": "",
+            "allies": "",
+            "campaign": "Theros",
+            "tags": [
+                "white",
+                "Theros"
+            ],
+            "description": "A powerful leader",
+            "image": "images/pc/kyodai_odin_jin.png"
         }
     ]
 }
