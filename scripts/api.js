@@ -2,7 +2,7 @@ let api_guilds = "encyclopedia.api/guilds.json";
 let api_alignment = "encyclopedia.api/alignment.json";
 let api_characters = "encyclopedia.api/character.json";
 let api = [api_guilds, api_alignment, api_characters];
-let data = {};
+let data, filtered_data;
 let grid = document.getElementById("dict-grid");
 
 async function getData() {
@@ -45,8 +45,8 @@ function createEntryElement(parent, element, clas, text) {
         case "entry":
             let newImg = document.createElement("img")
             newImg.setAttribute("src", text);
-            newImg.setAttribute("width","150");
-            newImg.setAttribute("height","150");
+            newImg.setAttribute("width", "150");
+            newImg.setAttribute("height", "150");
             entryname = newEl.appendChild(newImg);
             break;
         case "tag":
@@ -126,3 +126,63 @@ function loadPanel(entry) {
 }
 
 getData();
+
+// sorts the data and calls outputData with the modified list
+let form = document.getElementsByClassName("sort_form");
+form.addEventListener("onchange", updateData());
+
+function updateData() {
+    outputData(data.results);
+}
+/*
+sortController.addEventListener("click", sortCharacters);
+let sortBy = "charname";
+let sortOrder = "asc";
+function sortCharacters() {
+  reset();
+  sortBy = sortSelected.value;
+  sortOrder = orderSelected.value;
+  characters.sort(sortFunction);
+  outputData(characters);
+}
+*/
+/*
+// executes the default sort algorithm
+function simpleSort(a, b) {
+  if (a === b) {
+    return 0;
+  } else {
+    if (sortOrder == "asc") {
+      return a < b ? -1 : 1;
+    } else {
+      return a > b ? -1 : 1;
+    }
+  }
+}
+*/
+/*
+// switch that handles different sort requests
+function sortFunction(a, b) {
+  switch (sortBy) {
+    case "charname":
+      return simpleSort(a.name, b.name);
+    case "eyecolor":
+      return simpleSort(a.eye_color, b.eye_color);
+    case "birthyear":
+      let a2 = a.birth_year.substr(0, a.birth_year.length - 3);
+      let b2 = b.birth_year.substr(0, b.birth_year.length - 3);
+      if (a2 == "unkn") return 1;
+      if (b2 == "unkn") return -1;
+      return simpleSort(parseFloat(a2), parseFloat(b2));
+    default:
+      console.log("Error: sortFunction switch was not tripped");
+  }
+}
+*/
+
+// removes all elements to allow for a new display to be prepared
+function reset() {
+    while (grid.firstChild) {
+        grid.removeChild(grid.firstChild);
+    }
+}

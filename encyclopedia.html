@@ -39,50 +39,46 @@
         <div id="loadingProgress">
             <div id="loadingBar"></div>
         </div>
+        <fieldset id="sorterMenu">
+            <!-- <legend>Sorting Tool (Not Yet Functional)</legend> -->
+            <p>Source:</p>
+            <select id="source">
+                <option value="all">- All -</option>
+                <option value="xpc">Characters</option>
+                <option value="loc">Locations</option>
+                <option value="inf">Information</option>
+            </select>
+
+            <p>Campaign:</p>
+            <select id="campaign" class="sort_form">
+                <option value="">- Any -</option>
+                <option value="Heroes">Heroes 1 & 2</option>
+                <option value="Theros">Mythic Odysseys of Theros</option>
+                <option value="Grid">The Grid</option>
+                <option value="Slate Penitentiary">Slate Penitentiary</option>
+                <option value="Interdimensional Adventures">Interdimensional Adventures</option>
+                <option value="Resurgence">Resurgence</option>
+            </select>
+
+            <p>Sort by:</p>
+            <select id="sortBy" class="sort_form">
+                <option value="name">Entry Name</option>
+                <option value="homeworld">Homeworld</option>
+                <option value="eyecolor">Eye Color</option>
+                <option value="birthyear">Birth Year</option>
+            </select>
+
+            <p>Order:</p>
+            <select id="order" class="sort_form">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+                <option value="values">Certain Values</option>
+            </select>
+
+            <!-- <form id="selectValues"  class="sort_form" action="/scripts/filter.php">
+            </form> -->
+        </fieldset>
         <main id="dict-grid">
-            <fieldset id="sorterMenu">
-                <legend>Sorting Tool (Not Yet Functional)</legend>
-                <p>Source:</p>
-                <select id="source">
-                    <option value="all">- All -</option>
-                    <option value="xpc">Characters</option>
-                    <option value="loc">Locations</option>
-                    <option value="inf">Information</option>
-                </select>
-
-                <p>Campaign:</p>
-                <select id="campaign">
-                    <option value="">- Any -</option>
-                    <option value="Heroes">Heroes 1 & 2</option>
-                    <option value="Theros">Mythic Odysseys of Theros</option>
-                    <option value="Grid">The Grid</option>
-                    <option value="Slate Penitentiary">Slate Penitentiary</option>
-                    <option value="Interdimensional Adventures">Interdimensional Adventures</option>
-                    <option value="Resurgence">Resurgence</option>
-                </select>
-
-                <p>Sort by:</p>
-                <select id="sortBy">
-                    <option value="name">Entry Name</option>
-                    <option value="homeworld">Homeworld</option>
-                    <option value="eyecolor">Eye Color</option>
-                    <option value="birthyear">Birth Year</option>
-                </select>
-
-                <p class="order">Order:</p>
-                <select id="order" class="order">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                    <option value="values">Certain Values</option>
-                </select>
-
-                <form id="selectValues" class="order" action="/scripts/filter.php">
-                </form>
-                <!-- <p>
-                    <button id="sortController">Sort</button>
-                </p> -->
-                <!-- </section> -->
-            </fieldset>
             <!-- <div class="entry">
                 <img src="images/guild/Azorius_Logo.webp" class="entryImg" width="150" height="150">
                 <div class="entryData">

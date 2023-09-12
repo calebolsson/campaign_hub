@@ -153,8 +153,9 @@ nav a:focus {
     flex-grow: 3;
     background-color: #111;
     border-color: #231942;
+    border-radius: 50px;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 2fr;
+    grid-template-columns: repeat(4, 1fr 2fr);
     gap: 0 20px;
     padding: 20px;
     align-items: center;
@@ -162,21 +163,11 @@ nav a:focus {
 
 #sorterMenu select {
     height: 30px;
-    width: 100%;
+    width: 75%;
 }
 
 #sorterMenu p {
-    grid-column: 1;
-}
-
-#sorterMenu p.order {
-    grid-column: 3;
-    grid-row: 1;
-}
-
-#sorterMenu select.order {
-    grid-column: 4;
-    grid-row: 1;
+    text-align: right;
 }
 
 #selectValues {
