@@ -7,7 +7,7 @@ function openSorter() {
     menuElement.style.display = "flex";
   }
 }
-menuToggle.addEventListener("click", openSorter);
+//menuToggle.addEventListener("click", openSorter);
 let orderSelected = document.getElementById("order");
 let sortSelected = document.getElementById("sortBy");
 let valueMenu = document.getElementById("selectValues");

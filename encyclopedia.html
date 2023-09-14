@@ -42,7 +42,7 @@
         <fieldset id="sorterMenu">
             <!-- <legend>Sorting Tool (Not Yet Functional)</legend> -->
             <p>Source:</p>
-            <select id="source">
+            <select id="source" onchange="updateData()">
                 <option value="all">- All -</option>
                 <option value="xpc">Characters</option>
                 <option value="loc">Locations</option>
@@ -50,7 +50,7 @@
             </select>
 
             <p>Campaign:</p>
-            <select id="campaign" class="sort_form">
+            <select id="campaign" class="sort_form" onchange="updateData()">
                 <option value="">- Any -</option>
                 <option value="Heroes">Heroes 1 & 2</option>
                 <option value="Theros">Mythic Odysseys of Theros</option>
@@ -61,7 +61,7 @@
             </select>
 
             <p>Sort by:</p>
-            <select id="sortBy" class="sort_form">
+            <select id="sortBy" class="sort_form" onchange="updateData()">
                 <option value="name">Entry Name</option>
                 <option value="homeworld">Homeworld</option>
                 <option value="eyecolor">Eye Color</option>
@@ -69,7 +69,7 @@
             </select>
 
             <p>Order:</p>
-            <select id="order" class="sort_form">
+            <select id="order" class="sort_form" onchange="updateData()">
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
                 <option value="values">Certain Values</option>
@@ -97,6 +97,7 @@
 
         </main>
     </div>
+    <div id="snackbar">Some text some message..</div>
     <footer>
         <p>Content &copy; Wizards of the Coast LLC 2022 - Site for personal use by Caleb Olsson</p>
         <p><a href="site-plan.html">Site Plan</a></p>

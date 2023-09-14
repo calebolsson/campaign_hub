@@ -126,12 +126,14 @@ function loadPanel(entry) {
 }
 
 getData();
-
+snackbar("Load Complete");
 // sorts the data and calls outputData with the modified list
-let form = document.getElementsByClassName("sort_form");
-form.addEventListener("onchange", updateData());
+// let form = document.getElementsByClassName("sort_form");
+// form.addEventListener("onchange", updateData());
 
 function updateData() {
+    reset();
+    snackbar("Resetting...");
     outputData(data.results);
 }
 /*
@@ -186,3 +188,10 @@ function reset() {
         grid.removeChild(grid.firstChild);
     }
 }
+
+function snackbar(text) {
+    var snackbar = document.getElementById("snackbar");
+    snackbar.textContent = text;
+    snackbar.className = "show";
+    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+  }
