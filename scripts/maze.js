@@ -475,7 +475,7 @@ let data = {
         {
             width: 16,
             height: 16,
-            id: "floor-texture",
+            id: "grass",
             data: null
         },
     ],
@@ -553,7 +553,7 @@ screen.height = data.screen.height;
 screen.style.border = "1px solid black";
 screen.style.display = "block";
 screen.style.margin = "auto";
-const maze_page = document.getElementsByClassName("home-grid");
+const maze_page = document.getElementById("content");
 maze_page.appendChild(screen);
 
 // Canvas context
@@ -566,8 +566,6 @@ data.projection.imageData = screenContext.createImageData(data.projection.width,
 data.projection.buffer = data.projection.imageData.data;
 
 // Control Panel
-const control_panel = document.createElement('div');
-
 const save_button = document.createElement('button');
 save_button.textContent = "Save Position";
 save_button.addEventListener("click", save_location);
@@ -575,11 +573,11 @@ function save_location() {
     localStorage.setItem("zone", map_zone);
     localStorage.setItem("x", Math.floor(data.player.x));
     localStorage.setItem("y", Math.floor(data.player.y));
-    load_button.textContent = "Load Save z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
+    load_button.innerHTML = "Load Save";//<br />z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
 }
 
 const load_button = document.createElement('button');
-load_button.textContent = "Load Save z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
+load_button.innerHTML = "Load Save";//<br />z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
 load_button.addEventListener("click", load_location);
 function load_location() {
     data.player.x = parseInt(localStorage.getItem("x")) + 0.5;
@@ -601,12 +599,14 @@ function rune_handler() {
     }
 }
 function open_runes() {
+    rune_check.style.backgroundColor = "#000";
     [0, 1, 2, 3, 4].forEach(i => {
         data.sprites[i].x = rune_pages[map_zone][i].x;
         data.sprites[i].y = rune_pages[map_zone][i].y;
     })
 }
 function close_runes() {
+    rune_check.style.backgroundColor = "#111E";
     [0, 1, 2, 3, 4, 5].forEach(i => {
         data.sprites[i].x = 0;
         data.sprites[i].y = 0;
@@ -634,6 +634,9 @@ function portal_handler() {
         }
     })
 }
+
+const control_panel = document.createElement('div');
+control_panel.style = "width: 1000px; margin: 50px auto; display: flex; flex-flow: row; justify-content: space-evenly;";
 const controls = [save_button, load_button, rune_check, enter_portal];
 controls.forEach(button => {
     control_panel.appendChild(button);

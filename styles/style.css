@@ -447,6 +447,16 @@ footer p a:hover {
     opacity: 1.0;
 }
 
+button {
+    height: 50px;
+    width: fit-content;
+    font: inherit;
+    color: inherit;
+    background-color: #111E;
+    border-radius: 50px;
+    border: 5px solid #111;
+}
+
 /* TIMELINE */
 
 #time-space {
