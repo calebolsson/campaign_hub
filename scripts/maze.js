@@ -573,11 +573,13 @@ function save_location() {
     localStorage.setItem("zone", map_zone);
     localStorage.setItem("x", Math.floor(data.player.x));
     localStorage.setItem("y", Math.floor(data.player.y));
-    load_button.innerHTML = "Load Save";//<br />z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
+    //load_button.innerHTML = "Load Save";
+    load_button.innerHTML = "z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
 }
 
 const load_button = document.createElement('button');
-load_button.innerHTML = "Load Save";//<br />z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
+//load_button.innerHTML = "Load Save";
+load_button.innerHTML = "z:" + localStorage.getItem("zone") + " x:" + localStorage.getItem("x") + " y:" + localStorage.getItem("y");
 load_button.addEventListener("click", load_location);
 function load_location() {
     data.player.x = parseInt(localStorage.getItem("x")) + 0.5;
@@ -599,7 +601,8 @@ function rune_handler() {
     }
 }
 function open_runes() {
-    rune_check.style.backgroundColor = "#000";
+    rune_check.style.backgroundColor = "#5E548E";
+    rune_check.style.color = "#111E";
     [0, 1, 2, 3, 4].forEach(i => {
         data.sprites[i].x = rune_pages[map_zone][i].x;
         data.sprites[i].y = rune_pages[map_zone][i].y;
@@ -607,6 +610,7 @@ function open_runes() {
 }
 function close_runes() {
     rune_check.style.backgroundColor = "#111E";
+    rune_check.style.color = "#5E548E";
     [0, 1, 2, 3, 4, 5].forEach(i => {
         data.sprites[i].x = 0;
         data.sprites[i].y = 0;
