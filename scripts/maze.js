@@ -6,7 +6,7 @@ const portal_connections = [
     [{ x: 19, y: 1 }, null, { x: 37, y: 55 }, null, null],
     [null, { x: 19, y: 1 }, null, { x: 39, y: 55 }, null],
     [null, null, { x: 31, y: 1 }, null, { x: 61, y: 23 }],
-    [{ x: 17, y: 1 }, null, null, { x: 37, y: 55 }, null]
+    [{ x: 37, y: 55 }, null, null, { x: 17, y: 1 }, null]
 ];
 const rune_pages = [
     [
