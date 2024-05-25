@@ -1,11 +1,11 @@
 //let WUBRG = [white, blue, black, red, green];
 let map_zone = 4;
-let save = { x: 31, y: 28 };//(31,28) is the middle
+let save = { x: 17, y: 1 };//(31,28) is the middle
 const portal_connections = [
     [null, { x: 15, y: 55 }, null, null, { x: 39, y: 1 }],
     [{ x: 19, y: 1 }, null, { x: 37, y: 55 }, null, null],
     [null, { x: 19, y: 1 }, null, { x: 39, y: 55 }, null],
-    [null, null, { x: 31, y: 1 }, null, { x: 61, y: 23 }],
+    [null, null, { x: 61, y: 23 }, null, { x: 31, y: 1 }],
     [{ x: 37, y: 55 }, null, null, { x: 17, y: 1 }, null]
 ];
 const rune_pages = [
