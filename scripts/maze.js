@@ -1,6 +1,6 @@
 //let WUBRG = [white, blue, black, red, green];
 let map_zone = 4;
-let save = { x: 17, y: 1 };//(31,28) is the middle
+let save = { x: 59, y: 23 };//(31,28) is the middle
 const portal_connections = [
     [null, { x: 15, y: 55 }, null, null, { x: 39, y: 1 }],
     [{ x: 19, y: 1 }, null, { x: 37, y: 55 }, null, null],
@@ -56,7 +56,7 @@ let data = {
         radius: 20,
         speed: {
             movement: 0.02,
-            rotation: 0.5
+            rotation: 0.25
         }
     },
     map: [
