@@ -55,7 +55,7 @@ let data = {
         angle: 0,
         radius: 20,
         speed: {
-            movement: 0.05,
+            movement: 0.02,
             rotation: 0.75
         }
     },
