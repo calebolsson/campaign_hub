@@ -459,7 +459,13 @@ let data = {
             height: 16,
             id: "old_stone",
             data: null
-        }, {}, {}, {}, {}, {},
+        }, {}, {},
+        {
+            width: 16,
+            height: 16,
+            id: "wall_fancy",
+            data: null
+        }, {}, {},
         {
             width: 16,
             height: 16,
@@ -522,6 +528,12 @@ let data = {
             id: "grass",
             data: null
         },
+        {
+            width: 16,
+            height: 16,
+            id: "floor_simple",
+            data: null
+        }
     ],
     backgrounds: [
         {
