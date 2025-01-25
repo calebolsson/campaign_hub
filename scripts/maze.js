@@ -1,6 +1,6 @@
 //let WUBRG = [white, blue, black, red, green];
-let map_zone = 2;
-let save = { x: 19, y: 2 };//(31,28) is the middle
+let map_zone = 5;
+let save = { x: 19, y: 10 };//(31,28) is the middle
 const portal_connections = [
     [null, { x: 15, y: 55 }, null, null, { x: 39, y: 1 }],
     [{ x: 19, y: 1 }, null, { x: 37, y: 55 }, null, null],
