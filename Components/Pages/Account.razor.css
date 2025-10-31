@@ -1,0 +1,19 @@
+﻿.character-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.character-selector {
+    border: 5px solid black;
+    border-radius: 20px;
+}
+
+    .character-selector:hover {
+        border-color: #111;
+    }
+
+    .character-selector img {
+        width: 150px;
+        height: 150px;
+    }

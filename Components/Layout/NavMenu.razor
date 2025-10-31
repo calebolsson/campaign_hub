@@ -1,0 +1,72 @@
+﻿@using DataAccessLibrary.Models
+@inject AccountService accountService
+@rendermode InteractiveServer
+@* @implements IDisposable *@
+
+<nav class="flex-row">
+    <a href="" id="logo_link">
+        <img class="logo" src="img/d20.png" alt="Book and Dice logo">
+    </a>
+    <div class="nav-item">
+        <NavLink class="nav-link" href="campaigns" Match="NavLinkMatch.All">
+            <img src="img/MOoT-cover.jpg" />
+            <div class="overlay-text">Campaigns</div>
+        </NavLink>
+    </div>
+
+    <div class="nav-item">
+        <NavLink class="nav-link" href="counter">
+            <img src="img/solar_system.jpg" />
+            <div class="overlay-text">Timeline</div>
+        </NavLink>
+    </div>
+
+    <div class="nav-item">
+        <NavLink class="nav-link" href="encyclopedia">
+            <img src="img/manual.jpg" />
+            <div class="overlay-text">Encyclopedia</div>
+        </NavLink>
+    </div>
+
+    @if (myAccount is null || myAccount.Id is null)
+    {
+        <div class="nav-item log-in">
+            <NavLink class="nav-link" href="account">
+                @* <span class="bi bi-person-circle-nav-menu" aria-hidden="true"></span> *@
+                <div class="overlay-text">Log In</div>
+            </NavLink>
+        </div>
+    }
+    else
+    {
+        <div class="nav-item">
+            <NavLink class="nav-link" href="account">
+                <div>
+                    <img src="../img/MOoT-cover.jpg" />
+                </div>
+            </NavLink>
+        </div>
+    }
+
+</nav>
+<p>
+    Account details:<br />
+    ID: @myAccount?.Id<br />
+    CID: @myAccount?.Char_Id
+</p>
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+@code {
+    [CascadingParameter]
+    public AccountModel? myAccount { get; set; }
+
+    // protected override void OnInitialized()
+    // {
+    //     accountService.AccountChanged += StateHasChanged;
+    // }
+
+    // public void Dispose()
+    // {
+    //     accountService.AccountChanged -= StateHasChanged;
+    // }
+}

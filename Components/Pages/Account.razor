@@ -1,0 +1,86 @@
+﻿@page "/account"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject ICharacterData _db
+@inject IAccountData _account_db
+@inject AccountService accountService
+@* @implements IDisposable *@
+@rendermode InteractiveServer
+
+
+<PageTitle>Account</PageTitle>
+
+
+<p>
+    Account details:<br />
+    ID: @myAccount?.Id<br />
+    CID: @myAccount?.Char_Id
+</p>
+
+@if (characters is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (myAccount is null) // Added null conditional operator to prevent null reference
+{
+    <h2>Select your Character</h2>
+    <div class="character-flex">
+        @foreach (var character in characters)
+        {
+            <button class="character-selector" @onclick="(() => login(character.user_id, character.id))">
+                @* <button class="character-selector" @onclick="@(() => accountService.SetAccount(_account_db, _db, character.user_id))"> *@
+
+                <img src="@character.img" />
+                <p>@character.first_name</p>
+            </button>
+        }
+    </div>
+}
+else
+{
+    <h2>Logged In!</h2>
+}
+
+
+@code {
+    private List<CharacterModel>? characters;
+    [CascadingParameter]
+    public AccountModel? myAccount { get; set; }
+    public AccountModel? loginAccount { get; set; } = null;
+    public CharacterModel? loginCharacter { get; set; } = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        characters = await _db.getActiveCharacters();
+    }
+
+    // protected override void OnInitialized()
+    // {
+    //     accountService.AccountChanged += StateHasChanged;
+    // }
+
+    // public void Dispose()
+    // {
+    //     accountService.AccountChanged -= StateHasChanged;
+    // }
+
+    public async Task login(int? user_id, int? char_id)
+    {
+        loginAccount = await _account_db.getAccount(user_id ?? 0);
+        loginCharacter = await _db.getCharacter(char_id ?? 0);
+        while (loginAccount == null || loginCharacter == null) { }
+        myAccount = new AccountModel(loginAccount, loginCharacter);
+    }
+
+    // public async Task login(int? user_id)
+    // {
+    //     if (myAccount != null)
+    //     {
+    //         myAccount.Id = user_id ?? 0;
+    //         myAccount.CharId = 0;
+    //         myAccount = await accountService.SetAccount(_account_db, _db, user_id);
+    //     }
+    // }
+}

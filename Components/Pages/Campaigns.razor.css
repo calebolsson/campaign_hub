@@ -1,0 +1,57 @@
+﻿/* CAMPAIGN PAGE */
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
+    /* padding-bottom: 10rem; */
+}
+
+.camp-tile {
+    background-color: #111;
+    border-radius: 50px;
+    text-align: center;
+    grid-column: span 3;
+    min-height: fit-content;
+    padding: 3% 0%;
+    margin: 2% 2%;
+    text-decoration: none;
+    transition: all 0.5s ease-out;
+    opacity: 0.85;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .camp-tile h2 {
+        font-size: 2vw;
+        margin-top: 0.83em;
+    }
+
+    .camp-tile p {
+        font-size: 1vw;
+    }
+
+    .camp-tile img {
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50px;
+        width: 85%;
+        height: 70%;
+    }
+
+    .camp-tile:hover {
+        transform: scale(1.02);
+        opacity: 1.0;
+    }
+
+button {
+    height: 50px;
+    width: fit-content;
+    font: inherit;
+    color: inherit;
+    background-color: #111E;
+    border-radius: 50px;
+    border: 5px solid #111;
+}

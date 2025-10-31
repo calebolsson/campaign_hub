@@ -1,0 +1,20 @@
+@using campaign_hub.Components.Custom
+
+<div style="border: solid purple 1px; padding: 10px;">
+    Parent is @ParentName
+    <p>Message: "@message"</p>
+    <Child SendMessage="MessageHandler" />
+</div>
+
+@code {
+    [Parameter]
+    public string? ParentName { get; set; }
+
+    string message = "nothing";
+
+    private async Task MessageHandler(string m)
+    {
+        message = m;
+        await InvokeAsync(StateHasChanged);
+    }
+}

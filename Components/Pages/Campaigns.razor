@@ -1,0 +1,50 @@
+﻿@page "/campaigns"
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@inject ICampaignData _db
+
+<PageTitle>Campaigns</PageTitle>
+
+<h1>Campaigns</h1>
+
+<div class="home-grid">
+    @if(campaigns is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        foreach (var campaign in campaigns)
+        {
+            <a href="campaigns/heroes.html" class="camp-tile" style="order:1;">
+                <img src=@campaign.Img />
+                <h2>@campaign.Name</h2>
+                <p>@ArrangeDates(@campaign.start_date,@campaign.end_date)</p>
+            </a>
+        }
+    }
+</div>
+
+@code {
+    private List<CampaignModel>? campaigns;
+
+    protected override async Task OnInitializedAsync()
+    {
+        campaigns = await _db.getCampaigns();
+    }
+
+    private string ArrangeDates(DateTime? start, DateTime? end)
+    {
+        if (start is null) return "(???)";
+        if (end is null) return "(" + start.Value.Year + "-CURRENT)";
+        return "(" + start.Value.Year + "-" + end.Value.Year + ")";
+    }
+
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

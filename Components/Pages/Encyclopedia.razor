@@ -1,0 +1,115 @@
+﻿@page "/encyclopedia"
+@attribute [StreamRendering]
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@inject ICharacterData _character_db
+@inject IGuildData _guild_db
+
+<PageTitle>Encyclopedia</PageTitle>
+
+@* <h3>Add a character</h3> *@
+
+@* <EditForm Model="@new_character">
+    <input name="@new_character.first_name" />
+    <button type="submit"></button>
+</EditForm> *@
+
+<h4></h4>
+
+<div id="dict-grid">
+
+    @if ((characters is null) || (guilds is null))
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        @foreach (var character in characters)
+        {
+            <button class="entry">
+                <img src=@character.img width="150" height="150">
+                <div class="entryData">
+                    <h2>@character.first_name @character.last_name</h2>
+                    @if (character.tags is not null) foreach (string tag in ParseTags(character.tags))
+                        {
+                            <div class="tag" data=@tag><p>@tag</p></div>
+                        }
+                </div>
+                <div class="panel">
+                    <p>@character.description</p>
+                </div>
+            </button>
+        }
+        @foreach (var guild in guilds)
+        {
+            <button class="entry">
+                <img src=@guild.Img width="150" height="150">
+                <div class="entryData">
+                    <h2>@guild.Name</h2>
+                    @if (guild.Tags is not null) foreach (string tag in ParseTags(guild.Tags))
+                        {
+                            <div class="tag" data=@tag><p>@tag</p></div>
+                        }
+                </div>
+                <div class="panel">
+                    <p>@guild.Description</p>
+                </div>
+            </button>
+        }
+        <button class="exit_panel_btn">🗙</button>
+
+    }
+
+
+</div>
+
+
+
+
+
+@code {
+    private List<CharacterModel>? characters;
+    private List<GuildModel>? guilds;
+    private CharacterModel? new_character { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        characters = await _character_db.getCharacters();
+        guilds = await _guild_db.getGuilds();
+    }
+
+    private List<string> ParseTags(string tags)
+    {
+        return tags.TrimEnd().Split(',').ToList();
+    }
+
+}
+
+
+@* @code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        }).ToArray();
+    }
+
+    private class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string? Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
+ *@

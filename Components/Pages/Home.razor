@@ -1,0 +1,32 @@
+﻿@page "/"  
+@using campaign_hub.Components.Custom
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>  
+
+<h1>Hello, world!</h1>  
+
+<button style="@button_style" @onclick="@style_toggle">Button Style Toggle</button>  
+
+@* <Parent ParentName="Joel" /> *@  
+
+@code {  
+    public string button_style = "background-color: red; color: white; width: 150px; height: 75px; border-radius: 10px;";  
+    public string button1 = "background-color: red; color: white; width: 150px; height: 75px; border-radius: 10px;";  
+    public string button2 = "background-color: blue; color: white; width: 150px; height: 75px; border-radius: 10px;";  
+
+    public async Task style_toggle()  
+    {  
+        if (button_style.Equals(button1))  
+        {  
+            button_style = button2;  
+        }  
+        else if (button_style.Equals(button2))  
+        {  
+            button_style = button1;  
+        }  
+        // Notify that state has changed  
+        StateHasChanged();  
+        await Task.CompletedTask;  
+    }  
+}
