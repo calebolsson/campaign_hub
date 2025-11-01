@@ -1,4 +1,5 @@
-﻿@page "/"  
+﻿@page "/"
+@inject AccountService accountService
 @using campaign_hub.Components.Custom
 @rendermode InteractiveServer
 
@@ -8,9 +9,18 @@
 
 <button style="@button_style" @onclick="@style_toggle">Button Style Toggle</button>  
 
-@* <Parent ParentName="Joel" /> *@  
+@* <Parent ParentName="Joel" /> *@
 
-@code {  
+<p>
+    Account details:<br />
+    ID: @accountService.account?.Id<br />
+    CID: @accountService.account?.Char_Id
+</p>
+
+@code {
+    // [CascadingParameter]
+    // public AccountModel? myAccount { get; set; }
+
     public string button_style = "background-color: red; color: white; width: 150px; height: 75px; border-radius: 10px;";  
     public string button1 = "background-color: red; color: white; width: 150px; height: 75px; border-radius: 10px;";  
     public string button2 = "background-color: blue; color: white; width: 150px; height: 75px; border-radius: 10px;";  

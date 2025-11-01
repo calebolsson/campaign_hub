@@ -30,7 +30,7 @@
         background-color: rgba(255, 255, 255, 0.5);
     }
 
-#logo_link {
+.logo_link {
     display: block;
     text-align: center;
     /*align-self: flex-start;*/
@@ -44,7 +44,7 @@
     transition: all 0.5s ease-out;
 }
 
-    #logo_link:hover {
+    .logo_link:hover {
         opacity: 1;
         transform: scale(1.1);
     }
@@ -123,6 +123,7 @@
             object-position: center;
             object-fit: cover;
             border-radius: 20px;
+            transition: all 0.5s ease-out;
         }
 
         .nav-item ::deep .nav-link:hover img {
@@ -156,10 +157,49 @@
     border-radius: 100px;
 }
 
-.log-in .overlay-text {
+    .log-in .overlay-text {
+        color: black;
+        background: inherit;
+    }
+
+.logged-in {
     color: black;
-    background: inherit;
+    background: black;
+    margin-right: 20px;
+    /*height: 50px;*/
+    width: 50px;
+    border-radius: 100px;
 }
+
+    .logged-in .nav-link img {
+        opacity: 25%;
+        width: min-content;
+    }
+
+    .logged-in .nav-link:hover img {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+/*
+.logo_link {
+    display: block;
+    text-align: center;
+    background-color: #000;
+    width: 125px;
+    height: 136px;
+    margin: 0px 12px;
+    opacity: 0.5;
+    border: 10px solid #000;
+    border-radius: 50%;
+    transition: all 0.5s ease-out;
+}
+
+    .logo_link:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    */
 
 .nav-scrollable {
     display: none;

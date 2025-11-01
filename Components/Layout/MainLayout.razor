@@ -3,7 +3,7 @@
 
 
 
-<CascadingValue TValue="AccountModel" Value="myAccount">
+@* <CascadingValue TValue="AccountModel" Value="myAccount"> *@
     <div class="page">
 
         <div class="navbar">
@@ -21,7 +21,7 @@
             </article>
         </main>
     </div>
-</CascadingValue>
+@* </CascadingValue> *@
 
 
 <div id="blazor-error-ui">
@@ -31,5 +31,7 @@
 </div>
 
 @code {
-    public AccountModel myAccount { get; set; } = new AccountModel();
+    AccountService accountService { get; set; } = new AccountService();
+    // [CascadingParameter]
+    // public AccountModel myAccount { get; set; } = new AccountModel();
 }

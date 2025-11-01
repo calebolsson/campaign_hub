@@ -4,7 +4,7 @@
 @* @implements IDisposable *@
 
 <nav class="flex-row">
-    <a href="" id="logo_link">
+    <a href="" id="logo_link" class="logo_link">
         <img class="logo" src="img/d20.png" alt="Book and Dice logo">
     </a>
     <div class="nav-item">
@@ -28,7 +28,7 @@
         </NavLink>
     </div>
 
-    @if (myAccount is null || myAccount.Id is null)
+    @if (accountService.account is null || accountService.account.Id is null)
     {
         <div class="nav-item log-in">
             <NavLink class="nav-link" href="account">
@@ -39,34 +39,28 @@
     }
     else
     {
-        <div class="nav-item">
+        <div class="nav-item logged-in">
             <NavLink class="nav-link" href="account">
-                <div>
-                    <img src="../img/MOoT-cover.jpg" />
-                </div>
+                <img class="" src="@accountService.character?.img" height="136" width="136" />
             </NavLink>
         </div>
     }
 
 </nav>
-<p>
-    Account details:<br />
-    ID: @myAccount?.Id<br />
-    CID: @myAccount?.Char_Id
-</p>
+
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 @code {
-    [CascadingParameter]
-    public AccountModel? myAccount { get; set; }
+    // [CascadingParameter]
+    // public AccountModel? myAccount { get; set; }
 
-    // protected override void OnInitialized()
-    // {
-    //     accountService.AccountChanged += StateHasChanged;
-    // }
+    protected override void OnInitialized()
+    {
+        accountService.AccountChanged += StateHasChanged;
+    }
 
-    // public void Dispose()
-    // {
-    //     accountService.AccountChanged -= StateHasChanged;
-    // }
+    public void Dispose()
+    {
+        accountService.AccountChanged -= StateHasChanged;
+    }
 }

@@ -15,21 +15,21 @@
 
 <p>
     Account details:<br />
-    ID: @myAccount?.Id<br />
-    CID: @myAccount?.Char_Id
+    ID: @accountService.account?.Id<br />
+    CID: @accountService.account?.Char_Id
 </p>
 
 @if (characters is null)
 {
     <p><em>Loading...</em></p>
 }
-else if (myAccount is null) // Added null conditional operator to prevent null reference
+else if (accountService.account is null) // Added null conditional operator to prevent null reference
 {
     <h2>Select your Character</h2>
     <div class="character-flex">
         @foreach (var character in characters)
         {
-            <button class="character-selector" @onclick="(() => login(character.user_id, character.id))">
+            <button class="character-selector" @onclick="(() => login(character.user_id))">
                 @* <button class="character-selector" @onclick="@(() => accountService.SetAccount(_account_db, _db, character.user_id))"> *@
 
                 <img src="@character.img" />
@@ -46,8 +46,8 @@ else
 
 @code {
     private List<CharacterModel>? characters;
-    [CascadingParameter]
-    public AccountModel? myAccount { get; set; }
+    // [CascadingParameter]
+    // public AccountModel? myAccount { get; set; }
     public AccountModel? loginAccount { get; set; } = null;
     public CharacterModel? loginCharacter { get; set; } = null;
 
@@ -56,31 +56,32 @@ else
         characters = await _db.getActiveCharacters();
     }
 
-    // protected override void OnInitialized()
-    // {
-    //     accountService.AccountChanged += StateHasChanged;
-    // }
-
-    // public void Dispose()
-    // {
-    //     accountService.AccountChanged -= StateHasChanged;
-    // }
-
-    public async Task login(int? user_id, int? char_id)
+    protected override void OnInitialized()
     {
-        loginAccount = await _account_db.getAccount(user_id ?? 0);
-        loginCharacter = await _db.getCharacter(char_id ?? 0);
-        while (loginAccount == null || loginCharacter == null) { }
-        myAccount = new AccountModel(loginAccount, loginCharacter);
+        accountService.AccountChanged += StateHasChanged;
     }
 
-    // public async Task login(int? user_id)
+    public void Dispose()
+    {
+        accountService.AccountChanged -= StateHasChanged;
+    }
+
+    // public async Task login(int? user_id, int? char_id)
     // {
-    //     if (myAccount != null)
-    //     {
-    //         myAccount.Id = user_id ?? 0;
-    //         myAccount.CharId = 0;
-    //         myAccount = await accountService.SetAccount(_account_db, _db, user_id);
-    //     }
+    //     loginAccount = await _account_db.getAccount(user_id ?? 0);
+    //     loginCharacter = await _db.getCharacter(char_id ?? 0);
+    //     while (loginAccount == null || loginCharacter == null) { }
+    //     myAccount = new AccountModel(loginAccount, loginCharacter);
     // }
+
+    public async Task login(int? user_id)
+    {
+        accountService.account = await accountService.SetAccount(_account_db, _db, user_id);
+        // if (accountService.account != null)
+        // {
+        //     accountService.account.Id = user_id ?? 0;
+        //     accountService.account.CharId = 0;
+        //     accountService.account = await accountService.SetAccount(_account_db, _db, user_id);
+        // }
+    }
 }
