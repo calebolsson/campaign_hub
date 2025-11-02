@@ -1,8 +1,10 @@
 ﻿@page "/encyclopedia"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
 @inject ICharacterData _character_db
+@inject ICampaignData _campaign_db
 @inject IGuildData _guild_db
 
 <PageTitle>Encyclopedia</PageTitle>
@@ -15,6 +17,48 @@
 </EditForm> *@
 
 <h4></h4>
+
+<div class="filter-menu">
+    <button class="toolbtn"><i class="bi bi-funnel"></i></button>
+    <div class="filter-item">
+        <p>Category: </p><select>
+            <option value="0">Character</option>
+            <option value="1">Location</option>
+            <option value="2">Guild</option>
+            <option value="3">Event</option>
+            <option value="4">Other</option>
+        </select>
+    </div>
+    <div class="filter-item">
+        <p>Campaign: </p><select class="campaign-selector">
+            <option value="" selected disabled hidden>All Campaigns</option>
+            @if (campaigns != null)
+                @foreach (var campaign in campaigns)
+                {
+                    <option value="@campaign.Id">@campaign.Name</option>
+                }
+        </select>
+    </div>
+    <div class="filter-item">
+        <p>Group By: </p><select>
+            <option value="0">Name</option>
+            <option value="1">Color</option>
+            <option value="2">Guild</option>
+            <option value="3">Class</option>
+            <option value="4">Plane</option>
+        </select>
+    </div>
+    @* <div class="filter-item">
+        <p>Order By: </p><select>
+            <option value="0">Ascending</option>
+            <option value="1">Descending</option>
+            <option value="2">Pick Values</option>
+        </select>
+    </div> *@
+    <button class="toolbtn" @onclick="@asc_desc_toggle">
+        <i class="@asc_desc_button"></i>
+    </button>
+</div>
 
 <div id="dict-grid">
 
@@ -56,7 +100,14 @@
                 </div>
             </button>
         }
-        <button class="exit_panel_btn">🗙</button>
+        <div class="tooltray">
+            <button class="toolbtn exit_panel_btn">🗙</button>
+            <button class="toolbtn">▲</button>
+            <button class="toolbtn">▼</button>
+            <button class="toolbtn">+</button>
+            <button class="toolbtn"><i class="bi bi-funnel"></i></button>
+        </div>
+
 
     }
 
@@ -68,14 +119,20 @@
 
 
 @code {
+    private List<CampaignModel>? campaigns;
     private List<CharacterModel>? characters;
     private List<GuildModel>? guilds;
     private CharacterModel? new_character { get; set; } = new();
+    public string asc = "bi bi-sort-down";
+    public string desc = "bi bi-sort-up-alt";
+    public string asc_desc_button = "bi bi-sort-down";
+
 
     protected override async Task OnInitializedAsync()
     {
         characters = await _character_db.getCharacters();
         guilds = await _guild_db.getGuilds();
+        campaigns = await _campaign_db.getCampaigns();
     }
 
     private List<string> ParseTags(string tags)
@@ -83,6 +140,20 @@
         return tags.TrimEnd().Split(',').ToList();
     }
 
+    public async Task asc_desc_toggle()
+    {
+        if (asc_desc_button.Equals(asc))
+        {
+            asc_desc_button = desc;
+        }
+        else if (asc_desc_button.Equals(desc))
+        {
+            asc_desc_button = asc;
+        }
+        // Notify that state has changed
+        StateHasChanged();
+        await Task.CompletedTask;
+    }
 }
 
 
