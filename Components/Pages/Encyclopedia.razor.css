@@ -104,6 +104,12 @@ select,
     margin: 5px 0;
 }
 
+.toolbtn-on
+{
+    color: #231942;
+    background-color: #5E548E;
+}
+
 /*.toolbtn i::before {
         font-family: "Bootstrap Icons";
         content: "\F571";
@@ -114,7 +120,6 @@ select,
         text-transform: none;
         line-height: 1;
     }*/
-
 .exit_panel_btn {
 }
 

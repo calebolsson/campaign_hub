@@ -1,8 +1,6 @@
 ﻿@page "/encyclopedia"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-@using DataAccessLibrary
-@using DataAccessLibrary.Models
 @inject ICharacterData _character_db
 @inject ICampaignData _campaign_db
 @inject IGuildData _guild_db
@@ -18,48 +16,56 @@
 
 <h4></h4>
 
-<div class="filter-menu">
-    <button class="toolbtn"><i class="bi bi-funnel"></i></button>
-    <div class="filter-item">
-        <p>Category: </p><select>
-            <option value="0">Character</option>
-            <option value="1">Location</option>
-            <option value="2">Guild</option>
-            <option value="3">Event</option>
-            <option value="4">Other</option>
-        </select>
-    </div>
-    <div class="filter-item">
-        <p>Campaign: </p><select class="campaign-selector">
-            <option value="" selected disabled hidden>All Campaigns</option>
-            @if (campaigns != null)
-                @foreach (var campaign in campaigns)
-                {
-                    <option value="@campaign.Id">@campaign.Name</option>
-                }
-        </select>
-    </div>
-    <div class="filter-item">
-        <p>Group By: </p><select>
-            <option value="0">Name</option>
-            <option value="1">Color</option>
-            <option value="2">Guild</option>
-            <option value="3">Class</option>
-            <option value="4">Plane</option>
-        </select>
-    </div>
-    @* <div class="filter-item">
+@if (filter.FiltersEnabled)
+{
+    <div class="filter-menu">
+        @* <div>
+            @filter.CategoryFilter
+            @filter.CampaignFilter
+            @filter.GroupFilter
+        </div> *@
+        @* <button class="toolbtn"><i class="bi bi-funnel"></i></button> *@
+        <div class="filter-item">
+            <p>Category: </p><select @onchange="@filter.SetCategoryFilter">
+                <option value="@FilterService.Categories.Character">Character</option>
+                @* <option value="@FilterService.Categories.Location">Location</option> *@
+                <option value="@FilterService.Categories.Guild">Guild</option>
+                @* <option value="@FilterService.Categories.Event">Event</option> *@
+                @* <option value="@FilterService.Categories.Other">Other</option> *@
+            </select>
+        </div>
+        <div class="filter-item">
+            <p>Campaign: </p><select class="campaign-selector" @onchange="@filter.SetCampaignFilter">
+                <option value="" selected disabled hidden>All Campaigns</option>
+                @if (campaigns != null)
+                    @foreach (var campaign in campaigns)
+                    {
+                        <option value="@campaign.Id">@campaign.Name</option>
+                    }
+            </select>
+        </div>
+        @* <div class="filter-item">
+            <p>Group By: </p><select @onchange="@filter.SetGroupFilter">
+                <option value="@FilterService.Groups.Name">Name</option>
+                <option value="@FilterService.Groups.Color">Color</option>
+                <option value="@FilterService.Groups.Guild">Guild</option>
+                <option value="@FilterService.Groups.Class">Class</option>
+                <option value="@FilterService.Groups.Plane">Plane</option>
+            </select>
+        </div> *@
+        @* <div class="filter-item">
         <p>Order By: </p><select>
             <option value="0">Ascending</option>
             <option value="1">Descending</option>
             <option value="2">Pick Values</option>
         </select>
     </div> *@
-    <button class="toolbtn" @onclick="@asc_desc_toggle">
-        <i class="@asc_desc_button"></i>
-    </button>
-</div>
+        @* <button class="toolbtn" @onclick="@asc_desc_toggle">
+            <i class="@asc_desc_button"></i>
+        </button> *@
+    </div>
 
+}
 <div id="dict-grid">
 
     @if ((characters is null) || (guilds is null))
@@ -68,44 +74,53 @@
     }
     else
     {
-        @foreach (var character in characters)
-        {
-            <button class="entry">
-                <img src=@character.img width="150" height="150">
-                <div class="entryData">
-                    <h2>@character.first_name @character.last_name</h2>
-                    @if (character.tags is not null) foreach (string tag in ParseTags(character.tags))
-                        {
-                            <div class="tag" data=@tag><p>@tag</p></div>
-                        }
-                </div>
-                <div class="panel">
-                    <p>@character.description</p>
-                </div>
-            </button>
-        }
-        @foreach (var guild in guilds)
-        {
-            <button class="entry">
-                <img src=@guild.Img width="150" height="150">
-                <div class="entryData">
-                    <h2>@guild.Name</h2>
-                    @if (guild.Tags is not null) foreach (string tag in ParseTags(guild.Tags))
-                        {
-                            <div class="tag" data=@tag><p>@tag</p></div>
-                        }
-                </div>
-                <div class="panel">
-                    <p>@guild.Description</p>
-                </div>
-            </button>
-        }
+        @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Character)
+            @foreach (var character in characters)
+            {
+                @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == character.campaign_id.ToString())
+                {
+                    <button class="entry">
+                        <img src=@character.img width="150" height="150">
+                        <div class="entryData">
+                            <h2>@character.first_name @character.last_name</h2>
+                            @if (character.tags is not null) foreach (string tag in ParseTags(character.tags))
+                                {
+                                    <div class="tag" data=@tag><p>@tag</p></div>
+                                }
+                        </div>
+                        <div class="panel">
+                            <p>@character.description</p>
+                        </div>
+                    </button>
+                }
+
+            }
+        @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Guild)
+            @foreach (var guild in guilds)
+            {
+                @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == guild.Campaign_Id.ToString())
+                {
+                    <button class="entry">
+                        <img src=@guild.Img width="150" height="150">
+                        <div class="entryData">
+                            <h2>@guild.Name</h2>
+                            @if (guild.Tags is not null) foreach (string tag in ParseTags(guild.Tags))
+                                {
+                                    <div class="tag" data=@tag><p>@tag</p></div>
+                                }
+                        </div>
+                        <div class="panel">
+                            <p>@guild.Description</p>
+                        </div>
+                    </button>
+                }
+            }
         <div class="tooltray">
             <button class="toolbtn exit_panel_btn">🗙</button>
             <button class="toolbtn">▲</button>
             <button class="toolbtn">▼</button>
             <button class="toolbtn">+</button>
-            <button class="toolbtn"><i class="bi bi-funnel"></i></button>
+            <button class="@filter_button_class" @onclick="@toggle_filter"><i class="bi bi-funnel"></i></button>
         </div>
 
 
@@ -119,6 +134,8 @@
 
 
 @code {
+    public FilterService filter = new();
+    public string filter_button_class = "toolbtn";
     private List<CampaignModel>? campaigns;
     private List<CharacterModel>? characters;
     private List<GuildModel>? guilds;
@@ -126,6 +143,7 @@
     public string asc = "bi bi-sort-down";
     public string desc = "bi bi-sort-up-alt";
     public string asc_desc_button = "bi bi-sort-down";
+
 
 
     protected override async Task OnInitializedAsync()
@@ -152,6 +170,19 @@
         }
         // Notify that state has changed
         StateHasChanged();
+        await Task.CompletedTask;
+    }
+
+    public async Task toggle_filter()
+    {
+        if (filter.Toggle())
+        {
+            filter_button_class = "toolbtn toolbtn-on";
+        }
+        else
+        {
+            filter_button_class = "toolbtn";
+        }
         await Task.CompletedTask;
     }
 }
