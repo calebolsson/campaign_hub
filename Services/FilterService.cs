@@ -29,6 +29,31 @@ namespace campaign_hub.Services
             Class,
             Plane
         };
+        public enum Classes
+        {
+            Barbarian,
+            Bard,
+            Cleric,
+            Druid,
+            Fighter,
+            Monk,
+            Paladin,
+            Ranger,
+            Rogue,
+            Sorcerer,
+            Warlock,
+            Wizard,
+            Artificer,
+            Illrigger
+        }
+        public enum Colors
+        {
+            white,
+            blue,
+            black,
+            red,
+            green
+        }
         public void ResetAllFilters()
         {
             CategoryFilter = Categories.Character;

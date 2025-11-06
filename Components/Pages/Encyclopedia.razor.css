@@ -44,27 +44,73 @@
         display: inherit;
     }*/
 
-.filter-menu {
+.enc-menu {
     background-color: #111;
     border: solid 5px #231942;
     border-radius: 20px;
-    margin-right: 75px;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    justify-content: center;
     padding: 10px;
     gap: 10px;
+    max-width: 1381px;
     width: fit-content;
-    margin: auto;
+    margin: 10px auto;
 }
 
-.filter-item p {
+.newchar-menu {
+    /*margin-right: 75px;*/
+}
+
+.filter-menu {
+}
+
+.menu-item p {
     margin: 0;
     text-align: center;
 }
 
-select,
-::picker(select) {
+.menu-tray {
+    /*child rules*/
+    order: 99;
+    flex-basis: 100%;
+    /*parent rules*/
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.hide-button-border button {
+    border: none;
+}
+
+
+
+.flex-full {
+    flex-basis: 100%;
+}
+
+.flex-half {
+    flex-basis: 45%;
+    min-width: 320px;
+}
+
+.token-option img {
+    opacity: 0.5;
+    object-fit: contain;
+    width: 50px;
+    height: 50px;
+}
+
+.token-option:hover img {
+    opacity: 1;
+}
+
+input, select,
+::picker(select), .tag-tray {
     appearance: base-select;
     background-color: black;
     color: #5E548E;
@@ -72,6 +118,12 @@ select,
     border-radius: 20px;
     width: 150px;
     padding: 15px;
+}
+
+.tag-tray {
+    margin: 0 10px 10px 10px;
+    padding: 0px;
+    height: 2.7em;
 }
 
 .campaign-selector {
@@ -100,12 +152,17 @@ select,
     width: 50px;
     height: 50px;
     color: #5E548E;
-    right: 10px;
+    /*right: 10px;*/
     margin: 5px 0;
 }
 
-.toolbtn-on
-{
+    .toolbtn img {
+        margin: -10px;
+        width: 50px;
+        height: 50px;
+    }
+
+.toolbtn-on {
     color: #231942;
     background-color: #5E548E;
 }
@@ -120,6 +177,9 @@ select,
         text-transform: none;
         line-height: 1;
     }*/
+
+
+
 .exit_panel_btn {
 }
 
@@ -194,8 +254,8 @@ select,
     border: solid 3px black;
     background-color: #5E548E;
     border-radius: 20px;
-    margin: 5px;
-    padding: 10px;
+    margin: auto 5px 10px 5px;
+    padding: 5px 10px;
 }
 
     .tag p {
@@ -204,17 +264,24 @@ select,
         margin: 0;
     }
 
+    .tag img {
+        height: 1.5em;
+        width: 1.5em;
+        margin: 0;
+        object-fit: fill;
+    }
+
     .tag[data="blue"] {
-        background-color: blue;
-        color: white;
+        background-color: #aae0fa;
+        color: black;
     }
 
     .tag[data="red"] {
-        background-color: red;
+        background-color: #f9aa8f;
     }
 
     .tag[data="green"] {
-        background-color: green;
+        background-color: #9bd3ae;
     }
 
     .tag[data="brown"] {
@@ -230,8 +297,9 @@ select,
     }
 
     .tag[data="black"] {
-        background-color: #231942;
-        color: white;
+        /*background-color: #231942;*/
+        background-color: #cbc2bf;
+        color: black;
     }
 
     .tag[data="Theros"] {
@@ -251,7 +319,7 @@ select,
     }
 
     .tag[data="white"] {
-        background-color: white;
+        background-color: #fffbd5;
     }
 
     .tag[data="Azorius"] {
@@ -315,7 +383,15 @@ select,
     }
 
 
-@media (max-width: 1221px) {
+@media (max-width: 1555px) {
+
+    .newchar-menu {
+        width: 750px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 1240px) {
     #dict-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -325,7 +401,14 @@ select,
     }
 }
 
-@media (max-width: 858px) {
+@media (max-width: 930px) {
+    .newchar-menu {
+        width: 350px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 869px) {
     #dict-grid {
         display: grid;
         grid-template-columns: 1fr;

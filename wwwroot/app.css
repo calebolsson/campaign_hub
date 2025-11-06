@@ -75,6 +75,19 @@ h1:focus {
     outline: none;
 }
 
+InputTextArea, .textarea {
+    background-color: black;
+    color: #5E548E;
+    border: solid 1px #5E548E;
+    border-radius: 20px;
+    width: 100%;
+    height: 85%;
+    min-width: 330px;
+    max-width: 660px;
+    min-height: 175px;
+    padding: 15px;
+}
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
