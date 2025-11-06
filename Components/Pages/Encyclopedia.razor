@@ -51,8 +51,8 @@
             <div class="menu-item">
                 <p>Campaign: </p><select @bind="@new_character.model.campaign_id" class="campaign-selector">
                     <option value="" selected disabled hidden></option>
-                    @if (campaigns != null)
-                        @foreach (var campaign in campaigns)
+                    @if (encyclopedia.campaigns != null)
+                        @foreach (var campaign in encyclopedia.campaigns)
                         {
                             <option value="@campaign.Id">@campaign.Name</option>
                         }
@@ -180,8 +180,8 @@
         <div class="menu-item">
             <p>Campaign: </p><select class="campaign-selector" @onchange="@filter.SetCampaignFilter">
                 <option value="" selected disabled hidden>All Campaigns</option>
-                @if (campaigns != null)
-                    @foreach (var campaign in campaigns)
+                @if (encyclopedia.campaigns != null)
+                    @foreach (var campaign in encyclopedia.campaigns)
                     {
                         <option value="@campaign.Id">@campaign.Name</option>
                     }
@@ -211,14 +211,64 @@
 }
 <div id="dict-grid">
 
-    @if ((characters is null) || (guilds is null))
+    @if (encyclopedia is null)
     {
         <p><em>Loading...</em></p>
     }
     else
     {
-        @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Character)
-            @foreach (var character in characters)
+        @foreach (var entry in encyclopedia.entries)
+        {
+            @if (entry.Value == EncyclopediaService.Source.Character)
+            {
+                <button class="entry">
+                    <img src=@encyclopedia.characters[entry.Key].img width="150" height="150">
+                    <div class="entryData">
+                        <h2>@encyclopedia.characters[entry.Key].first_name @encyclopedia.characters[entry.Key].last_name</h2>
+                        @if (encyclopedia.characters[entry.Key].tags is not null) foreach (string tag in ParseTags(encyclopedia.characters[entry.Key].tags))
+                            {
+                                @if (Enum.TryParse<FilterService.Colors>(tag, out _))
+                                {
+                                    <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
+                                }
+                                else
+                                {
+                                    <div class="tag" data=@tag><p>@tag</p></div>
+                                }
+                            }
+                    </div>
+                    <div class="panel">
+                        <p>@encyclopedia.characters[entry.Key]Key.description</p>
+                    </div>
+                </button>
+            }
+            @if (entry.Value == EncyclopediaService.Source.Guild)
+            {
+                <button class="entry">
+                    <img src=@encyclopedia.guilds[entry.Key].Img width="150" height="150">
+                    <div class="entryData">
+                        <h2>@encyclopedia.guilds[entry.Key].Name</h2>
+                        @if (encyclopedia.guilds[entry.Key].Tags is not null) foreach (string tag in ParseTags(encyclopedia.guilds[entry.Key].Tags))
+                            {
+                                @if (Enum.TryParse<FilterService.Colors>(tag, out _))
+                                {
+                                    <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
+                                }
+                                else
+                                {
+                                    <div class="tag" data=@tag><p>@tag</p></div>
+                                }
+                            }
+                    </div>
+                    <div class="panel">
+                        <p>@encyclopedia.guilds[entry.Key].Description</p>
+                    </div>
+                </button>
+            }
+    }
+
+        @* @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Character)
+            @foreach (var character in encyclopedia.characters)
             {
                 @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == character.campaign_id.ToString())
                 {
@@ -244,9 +294,9 @@
                     </button>
                 }
 
-            }
-        @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Guild)
-            @foreach (var guild in guilds)
+            } *@
+        @* @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Guild)
+            @foreach (var guild in encyclopedia.guilds)
             {
                 @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == guild.Campaign_Id.ToString())
                 {
@@ -271,7 +321,7 @@
                         </div>
                     </button>
                 }
-            }
+            } *@
     }
 
 
@@ -283,9 +333,7 @@
 
 @code {
     public FilterService filter = new();
-    private List<CampaignModel>? campaigns;
-    private List<CharacterModel>? characters;
-    private List<GuildModel>? guilds;
+    private EncyclopediaService? encyclopedia { get; set; } = new();
     private NewCharacterService? new_character { get; set; } = new();
     public string parent_dir = "..";
     public string asc = "bi bi-sort-down";
@@ -305,9 +353,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        characters = await _character_db.getCharacters();
-        guilds = await _guild_db.getGuilds();
-        campaigns = await _campaign_db.getCampaigns();
+        while (encyclopedia == null || new_character == null)
+        {
+            await Task.Delay(50);
+        }
+        await encyclopedia.LoadEncyclopedia(_campaign_db);
+        await encyclopedia.LoadEncyclopedia(_character_db);
+        await encyclopedia.LoadEncyclopedia(_guild_db);
+
+        encyclopedia.SortEncyclopedia(filter);
+        filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
     }
 
     private List<string> ParseTags(string tags)
@@ -365,7 +420,6 @@
         await Task.CompletedTask;
     }
 
-}
 }
 
 

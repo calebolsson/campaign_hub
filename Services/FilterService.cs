@@ -103,8 +103,7 @@ namespace campaign_hub.Services
 
         public bool Toggle()
         {
-            if (FiltersEnabled) return FiltersEnabled = false;
-            else return FiltersEnabled = true;
+            return FiltersEnabled = !FiltersEnabled;
         }
     }
 }
