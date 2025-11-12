@@ -1,0 +1,42 @@
+﻿@if (Visible)
+{
+    <div class="background-dim full-screen" @onclick=@Close></div>
+    <div class="popup-div full-screen d-flex flex-column fs-5 fs-sm-2">
+        @*change font size?*@
+        @if (Mode == "character")
+        {
+            <Character model="@Character"></Character>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public required string Mode { get; set; }
+    [Parameter]
+    public CharacterModel? Character { get; set; }
+    [Parameter]
+    public GuildModel? Guild { get; set; }
+    private bool Visible { get; set; }
+    private double Opacity { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    public async Task Close(MouseEventArgs args = null)
+    {
+        Visible = false;
+        // await OnClose.InvokeAsync(args);
+        await Task.CompletedTask;
+    }
+    public void Show(MouseEventArgs args = null)
+    {
+        if (args != null)
+        {
+            //offset?
+        }
+        Visible = true;
+        Opacity = 1.0;
+    }
+
+}

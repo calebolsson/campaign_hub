@@ -1,0 +1,135 @@
+﻿.tag {
+    max-width: fit-content;
+    height: fit-content;
+    text-align: center;
+    border: solid 3px black;
+    background-color: #5E548E;
+    border-radius: 20px;
+    margin: auto 5px 10px 5px;
+    padding: 5px 10px;
+}
+
+    .tag p {
+        /* width: fit-content; */
+        color: inherit;
+        margin: 0;
+    }
+
+    .tag img {
+        height: 1.5em !important;
+        width: 1.5em !important;
+        margin: 0;
+        object-fit: fill;
+    }
+
+    .tag[data="blue"] {
+        background-color: #aae0fa;
+        color: black;
+    }
+
+    .tag[data="red"] {
+        background-color: #f9aa8f;
+    }
+
+    .tag[data="green"] {
+        background-color: #9bd3ae;
+    }
+
+    .tag[data="brown"] {
+        background-color: chocolate;
+    }
+
+    .tag[data="yellow"] {
+        background-color: yellow;
+    }
+
+    .tag[data="Slate Penitentiary"] {
+        background-color: grey;
+        color: black;
+    }
+
+    .tag[data="black"] {
+        /*background-color: #231942;*/
+        background-color: #cbc2bf;
+        color: black;
+    }
+
+    .tag[data="Theros"] {
+        background-color: #8E7618;
+    }
+
+    .tag[data="orange"] {
+        background-color: orange;
+    }
+
+    .tag[data="pink"] {
+        background-color: pink;
+    }
+
+    .tag[data="gold"] {
+        background-color: #FFD700;
+    }
+
+    .tag[data="white"] {
+        background-color: #fffbd5;
+    }
+
+    .tag[data="Azorius"] {
+        background-color: white;
+        border-color: blue;
+        color: blue;
+    }
+
+    .tag[data="Boros"] {
+        background-color: red;
+        border-color: white;
+        color: white;
+    }
+
+    .tag[data="Dimir"] {
+        background-color: black;
+        border-color: blue;
+        color: blue;
+    }
+
+    .tag[data="Golgari"] {
+        background-color: #231942;
+        border-color: green;
+        color: green;
+    }
+
+    .tag[data="Gruul"] {
+        background-color: green;
+        border-color: red;
+        color: black;
+    }
+
+    .tag[data="Izzet"] {
+        background-color: blue;
+        border-color: red;
+        color: white;
+    }
+
+    .tag[data="Orzhov"] {
+        background-color: #231942;
+        border-color: white;
+        color: white;
+    }
+
+    .tag[data="Rakdos"] {
+        background-color: black;
+        border-color: red;
+        color: red;
+    }
+
+    .tag[data="Selesnya"] {
+        background-color: green;
+        border-color: white;
+        color: white;
+    }
+
+    .tag[data="Simic"] {
+        background-color: blue;
+        border-color: green;
+        color: white;
+    }

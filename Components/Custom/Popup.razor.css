@@ -1,0 +1,24 @@
+﻿.full-screen {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.popup-div {
+    font-size: larger;
+    max-width: 1000px;
+    width: 80%;
+    border: 5px solid #5E548E;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: black;
+    /*transition: opacity 0.25s ease-in-out;*/
+}
+
+.background-dim {
+    background-color: black;
+    opacity: 0.8;
+    height: 100%;
+}

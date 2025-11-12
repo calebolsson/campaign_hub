@@ -1,0 +1,35 @@
+﻿<div class="d-flex flex-column flex-wrap align-content-center">
+    <h2>@model.first_name @model.last_name</h2>
+    <h3>@model.ancestry @model.c_class</h3>
+    <div class="d-flex flex-row justify-content-center w-100">
+        <TagTray Tags=@model.tags />
+    </div>
+</div>
+<div class="d-flex flex-row flex-wrap flex-sm-nowrap justify-content-center align-items-start">
+    <div class="d-flex flex-row flex-sm-column justify-content-center align-items-center">
+        <img src="@model.img" class="m-auto w-100 flex-grow-1" />
+        @* <div class="d-flex flex-column justify-content-center align-content-center text-center p-2"
+                     style="min-width: 150px">
+                    <p>
+                        AC 10 @Character.armor_class<br />
+                        HP 100 @Character.max_hp
+                    </p>
+                    <p>
+                        STR DEX CON<br />
+                        +20 +20 +20
+                    </p>
+                    <p>
+                        INT WIS CHA<br />
+                        +20 +20 +20
+                    </p>
+                </div> *@
+    </div>
+    <div class="flex-fill flex-sm-fill w-100 w-sm-auto p-4">
+        <p>@model.description</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required CharacterModel model { get; set; }
+}

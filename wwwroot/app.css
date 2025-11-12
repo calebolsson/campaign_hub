@@ -67,8 +67,44 @@ button {
     background-color: inherit;
 }
 
+button:disabled {
+    border: red;
+    opacity: 0.5;
+}
+
 .content {
     padding-top: 1.1rem;
+}
+
+.flex-full {
+    flex-basis: 100%;
+}
+
+.flex-half {
+    flex-basis: 50%;
+    min-width: 320px;
+}
+
+.flex-45 {
+    flex-basis: 45%;
+    min-width: 320px;
+}
+
+.flex-zero {
+    flex-basis: auto;
+}
+
+.btn-popup-card {
+    position: absolute;
+    transition: opacity .25s ease-in-out;
+    z-index: 1000;
+}
+
+.full-screen {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 h1:focus {
@@ -86,6 +122,23 @@ InputTextArea, .textarea {
     max-width: 660px;
     min-height: 175px;
     padding: 15px;
+}
+
+input, InputText, InputNumber, select,
+::picker(select), .tag-tray {
+    appearance: base-select;
+    background-color: black;
+    color: #5E548E;
+    border: solid 1px #5E548E;
+    border-radius: 20px;
+    width: 150px;
+    padding: 15px;
+}
+
+.tag-tray {
+    margin: 0 10px 10px 10px;
+    padding: 0px;
+    height: 2.7em;
 }
 
 .valid.modified:not([type=checkbox]) {

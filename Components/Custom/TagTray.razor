@@ -1,0 +1,20 @@
+﻿@foreach (string tag in ParseTags(Tags))
+{
+    @if (Enum.TryParse<FilterService.Colors>(tag, out _))
+    {
+        <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
+    }
+    else
+    {
+        <div class="tag" data=@tag><p>@tag</p></div>
+    }
+}
+
+@code {
+    [Parameter]
+    public required string Tags { get; set; }
+    private List<string> ParseTags(string tags)
+    {
+        return tags.TrimEnd().Split(',').ToList();
+    }
+}

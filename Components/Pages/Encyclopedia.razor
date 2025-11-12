@@ -1,4 +1,5 @@
 ﻿@page "/encyclopedia"
+@using System.Reflection
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject AccountService accountService
@@ -8,36 +9,32 @@
 
 <PageTitle>Encyclopedia</PageTitle>
 <div class="tooltray">
-    <button class="toolbtn exit_panel_btn">🗙</button>
-    <button class="toolbtn">▲</button>
-    <button class="toolbtn">▼</button>
-    <button class="toolbtn" @onclick="@new_character.toggleMenu"><i class="bi bi-file-earmark-plus-fill"></i></button>
-    <button class="@filter_button_class" @onclick="@toggle_filter"><i class="bi bi-funnel"></i></button>
+    <button type="button" class="toolbtn exit_panel_btn">🗙</button>
+    <button type="button" class="toolbtn">▲</button>
+    <button type="button" class="toolbtn">▼</button>
+    <button type="button" class="toolbtn" @onclick="@new_character.toggleMenu"><i class="bi bi-file-earmark-plus-fill"></i></button>
+    <button type="button" class="@filter_button_class" @onclick="@toggle_filter"><i class="bi bi-funnel"></i></button>
 </div>
 
 @if (new_character != null && new_character.menu_open)
 {
-    <EditForm Model="@new_character">
+    <EditForm Model="@new_character.model"
+              OnValidSubmit="@SubmitForm"
+              Context="context">
         <div class="enc-menu newchar-menu">
             <div class="menu-item">
                 <p>Player Id:</p>
-                @if (accountService.IsLoggedIn())
-                {
-                    <input name="user_id" value="@accountService.account.Id" />
-                }
-                else
-                {
-                    <input name="user_id" @bind-value=@new_character.model.user_id />
-                }
+                <InputNumber name="user_id" @bind-Value=@new_character.model.user_id />
+                <ValidationMessage For="@(() => new_character.model.user_id)" />
             </div>
             <div class="menu-item">
-                <p>First Name:</p><input name="first_name" @bind-value="@new_character.model.first_name" />
+                <p>First Name:</p><InputText name="first_name" @bind-Value="@new_character.model.first_name" />
             </div>
             <div class="menu-item">
-                <p>Last Name:</p><input name="last_name" @bind-value="@new_character.model.last_name" />
+                <p>Last Name:</p><InputText name="last_name" @bind-Value="@new_character.model.last_name" />
             </div>
             <div class="menu-item">
-                <p>Ancestry:</p><input name="ancestry" @bind-value="@new_character.model.ancestry" />
+                <p>Ancestry:</p><InputText name="ancestry" @bind-Value="@new_character.model.ancestry" />
             </div>
             <div class="menu-item">
                 <p>Class:</p><select @bind="@new_character.model.c_class">
@@ -63,7 +60,7 @@
             </div>
             <div class="menu-item">
                 <p>Photo:</p>
-                <button class="@photo_button_class" @onclick="() => toggleExtra(photo_button)">
+                <button type="button" class="@photo_button_class" @onclick="() => toggleExtra(photo_button)">
                     @if (new_character.model.img == null)
                     {
                         <i class="bi bi-file-earmark-image-fill"></i>
@@ -76,15 +73,22 @@
             </div>
             <div class="menu-item">
                 <p>Info:</p>
-                <button class="@info_button_class" @onclick="() => toggleExtra(info_button)"><i class="bi bi-file-earmark-text-fill"></i></button>
+                <button type="button" class="@info_button_class" @onclick="() => toggleExtra(info_button)"><i class="bi bi-file-earmark-text-fill"></i></button>
             </div>
             <div class="menu-item">
                 <p>Stats:</p>
-                <button class="@stats_button_class" @onclick="() => toggleExtra(stats_button)"><i class="bi bi-file-earmark-ruled-fill"></i></button>
+                <button type="button" class="@stats_button_class" @onclick="() => toggleExtra(stats_button)"><i class="bi bi-file-earmark-ruled-fill"></i></button>
             </div>
             <div class="menu-item">
                 <p>Done!</p>
-                <button type="submit" class="toolbtn"><i class="bi bi-check-circle-fill"></i></button>
+                @if (@new_character.canSubmit())
+                {
+                    <button type="submit" class="toolbtn"><i class="bi bi-check-circle-fill"></i></button>
+                }
+                else
+                {
+                    <button type="submit" disabled class="toolbtn"><i class="bi bi-check-circle-fill"></i></button>
+                }
             </div>
             @if (new_character.photo_menu_open)
             {
@@ -96,7 +100,7 @@
                     }
                     @foreach (string token in Directory.GetFiles(String.Concat("./wwwroot/img/pc/", new_character.model.campaign_id, "/")))
                     {
-                        <button class="token-option" @onclick="() => new_character.setImg(String.Concat(parent_dir, token[9..]))">
+                        <button type="button" class="token-option" @onclick="() => new_character.setImg(String.Concat(parent_dir, token[9..]))">
                             <img src=@String.Concat(parent_dir, token[9..]) />
 
                         </button>
@@ -106,29 +110,22 @@
             @if (new_character.info_menu_open)
             {
                 <div class="menu-item menu-tray">
-                    <div class="menu-item menu-tray flex-half">
+                    <div class="menu-item menu-tray flex-45">
                         <p class="flex-full">Type Description:</p>
                         <InputTextArea class="textarea" @bind-Value="@new_character.model.description"></InputTextArea>
                     </div>
-                    <div class="menu-item menu-tray flex-half">
+                    <div class="menu-item menu-tray flex-45">
                         <p class="flex-full">Select Tags:</p>
                         <div class="menu-item menu-tray flex-full tag-tray">
-                            @if (new_character.model.tags is not null) foreach (string tag in ParseTags(new_character.model.tags))
-                                {
-                                    @if (Enum.TryParse<FilterService.Colors>(tag, out _))
-                                    {
-                                        <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
-                                    }
-                                    else
-                                    {
-                                        <div class="tag" data=@tag><p>@tag</p></div>
-                                    }
-                                }
+                            @if (new_character.model.tags is not null)
+                            {
+                                <TagTray Tags=@new_character.model.tags></TagTray>
+                            }
                         </div>
                         <div class="menu-item menu-tray flex-full hide-button-border">
                             @foreach (string color in Directory.GetFiles("./wwwroot/img/color/"))
                             {
-                                <button class="tag token-option" data=@color[20..^4]
+                                <button type="button" class="tag token-option" data=@color[20..^4]
                                         @onclick="() => new_character.toggleTag(color[20..^4])">
                                     <img src="@String.Concat(parent_dir, color[9..])" />
                                 </button>
@@ -138,7 +135,7 @@
                         <div class="menu-item menu-tray flex-full hide-button-border">
                             @foreach (string guild in Directory.GetFiles("./wwwroot/img/guild/"))
                             {
-                                <button class="toolbtn token-option" @onclick="() => new_character.toggleTag(guild[20..^10])">
+                                <button type="button" class="toolbtn token-option" @onclick="() => new_character.toggleTag(guild[20..^10])">
                                     <img src="@String.Concat(parent_dir, guild[9..])" />
                                 </button>
 
@@ -150,8 +147,49 @@
             }
             @if (new_character.stats_menu_open)
             {
-                <div class="menu-item menu-tray">
-                    <p class="flex-full">Input Stats:</p>
+                <div class="menu-item menu-tray flex-zero" style="padding: 0 10px;">
+                    <div>
+                        <p>AC</p>
+                        <InputNumber name="armor_class" @bind-Value=@new_character.model.armor_class class="input-small" />
+                        @* <ValidationMessage For="@(() => new_character.model.armor_class)" /> *@
+                    </div>
+                    <div>
+                        <p>Max HP</p>
+                        <InputNumber name="max_hp" @bind-Value=@new_character.model.max_hp class="input-small" />
+                        @* <ValidationMessage For="@(() => new_character.model.max_hp)" /> *@
+                    </div>
+                </div>
+                <div class="menu-item menu-tray flex-zero" style="opacity: 0.5;">
+                    <div class="menu-item menu-tray flex-zero">
+                        <div>
+                            <p>STR</p>
+                            <InputNumber readonly name="STR" @bind-Value=@new_character.stats[0] class="input-small" />
+                        </div>
+                        <div>
+                            <p>DEX</p>
+                            <InputNumber readonly name="DEX" @bind-Value=@new_character.stats[1] class="input-small" />
+                        </div>
+                        <div>
+                            <p>CON</p>
+                            <InputNumber readonly name="CON" @bind-Value=@new_character.stats[2] class="input-small" />
+                        </div>
+                    </div>
+                    <div class="menu-item menu-tray flex-zero">
+                        <div>
+                            <p>INT</p>
+                            <InputNumber readonly name="INT" @bind-Value=@new_character.stats[3] class="input-small" />
+                        </div>
+                        <div>
+                            <p>WIS</p>
+                            <InputNumber readonly name="WIS" @bind-Value=@new_character.stats[4] class="input-small" />
+                        </div>
+                        <div>
+                            <p>CHA</p>
+                            <InputNumber readonly name="CHA" @bind-Value=@new_character.stats[5] class="input-small" />
+                        </div>
+                    </div>
+
+
                 </div>
             }
         </div>
@@ -167,7 +205,7 @@
             @filter.CampaignFilter
             @filter.GroupFilter
         </div> *@
-        @* <button class="toolbtn"><i class="bi bi-funnel"></i></button> *@
+        @* <button type="button" type="button" class="toolbtn"><i class="bi bi-funnel"></i></button> *@
         <div class="menu-item">
             <p>Category: </p><select @onchange="@filter.SetCategoryFilter">
                 <option value="@FilterService.Categories.Character">Character</option>
@@ -209,6 +247,13 @@
     </div>
 
 }
+
+
+<Popup Mode=@display_mode
+       Character=@display_character
+       Guild=@display_guild
+       @ref=@popup_display />
+
 <div id="dict-grid">
 
     @if (encyclopedia is null)
@@ -221,58 +266,52 @@
         {
             @if (entry.Value == EncyclopediaService.Source.Character)
             {
-                <button class="entry">
-                    <img src=@encyclopedia.characters[entry.Key].img width="150" height="150">
+                <button type="button" class="entry" @onclick="() => ShowCharacter(encyclopedia.characters[entry.Key])">
+                    @if (FileExists(encyclopedia.characters[entry.Key].img))
+                    {
+                        <img src=@encyclopedia.characters[entry.Key].img width="150" height="150">
+                    }
+                    else
+                    {
+                        <img src="../img/icons/q_mark_token.png"
+                             longdesc=@MissingImg(encyclopedia.characters[entry.Key].img) />
+                    }
                     <div class="entryData">
                         <h2>@encyclopedia.characters[entry.Key].first_name @encyclopedia.characters[entry.Key].last_name</h2>
-                        @if (encyclopedia.characters[entry.Key].tags is not null) foreach (string tag in ParseTags(encyclopedia.characters[entry.Key].tags))
-                            {
-                                @if (Enum.TryParse<FilterService.Colors>(tag, out _))
-                                {
-                                    <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
-                                }
-                                else
-                                {
-                                    <div class="tag" data=@tag><p>@tag</p></div>
-                                }
-                            }
+                        @if (encyclopedia.characters[entry.Key].tags is not null)
+                        {
+                            <TagTray Tags=@encyclopedia.characters[entry.Key].tags></TagTray>
+                        }
                     </div>
-                    <div class="panel">
-                        <p>@encyclopedia.characters[entry.Key]Key.description</p>
-                    </div>
+                    @* <div class="panel">
+                        <p>@encyclopedia.characters[entry.Key].description</p>
+                    </div> *@
                 </button>
             }
             @if (entry.Value == EncyclopediaService.Source.Guild)
             {
-                <button class="entry">
+                <button type="button" class="entry" @* @onclick="() => ShowCharacter(encyclopedia.guilds[entry.Key])" *@>
                     <img src=@encyclopedia.guilds[entry.Key].Img width="150" height="150">
                     <div class="entryData">
                         <h2>@encyclopedia.guilds[entry.Key].Name</h2>
-                        @if (encyclopedia.guilds[entry.Key].Tags is not null) foreach (string tag in ParseTags(encyclopedia.guilds[entry.Key].Tags))
-                            {
-                                @if (Enum.TryParse<FilterService.Colors>(tag, out _))
-                                {
-                                    <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
-                                }
-                                else
-                                {
-                                    <div class="tag" data=@tag><p>@tag</p></div>
-                                }
-                            }
+                        @if (encyclopedia.guilds[entry.Key].Tags is not null)
+                        {
+                            <TagTray Tags=@encyclopedia.guilds[entry.Key].Tags></TagTray>
+                        }
                     </div>
-                    <div class="panel">
+                    @* <div class="panel">
                         <p>@encyclopedia.guilds[entry.Key].Description</p>
-                    </div>
+                    </div> *@
                 </button>
             }
-    }
+        }
 
         @* @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Character)
             @foreach (var character in encyclopedia.characters)
             {
                 @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == character.campaign_id.ToString())
                 {
-                    <button class="entry">
+                    <button type="button" type="button" class="entry">
                         <img src=@character.img width="150" height="150">
                         <div class="entryData">
                             <h2>@character.first_name @character.last_name</h2>
@@ -332,9 +371,14 @@
 
 
 @code {
+    public EditContext? context { get; set; }
     public FilterService filter = new();
     private EncyclopediaService? encyclopedia { get; set; } = new();
     private NewCharacterService? new_character { get; set; } = new();
+    private Popup? popup_display;
+    private string display_mode { get; set; } = "character";
+    private CharacterModel? display_character { get; set; }
+    private GuildModel? display_guild { get; set; }
     public string parent_dir = "..";
     public string asc = "bi bi-sort-down";
     public string desc = "bi bi-sort-up-alt";
@@ -361,14 +405,32 @@
         await encyclopedia.LoadEncyclopedia(_character_db);
         await encyclopedia.LoadEncyclopedia(_guild_db);
 
+        if (accountService.IsLoggedIn())
+            new_character.model.user_id = accountService.account.Id;
         encyclopedia.SortEncyclopedia(filter);
         filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
     }
 
-    private List<string> ParseTags(string tags)
+    private void ShowCharacter(CharacterModel character)
+    {
+        display_character = character;
+        popup_display.Show();
+    }
+
+    private async Task SubmitForm()
+    {
+        if (new_character.canSubmit())
+            await new_character.SubmitCharacter(_character_db);
+        else
+        // Handle invalid submission (e.g., show error message)
+        { }
+        await Task.CompletedTask;
+    }
+
+    @* private List<string> ParseTags(string tags)
     {
         return tags.TrimEnd().Split(',').ToList();
-    }
+    } *@
 
     public async Task asc_desc_toggle()
     {
@@ -418,6 +480,18 @@
         }
         StateHasChanged();
         await Task.CompletedTask;
+    }
+
+    private bool FileExists(string path)
+    {
+        if (path == null) return false;
+        if (File.Exists(String.Concat("../campaign_hub/wwwroot/", path[2..]))) return true;
+        return false;
+    }
+
+    private string MissingImg(string path)
+    {
+        return "Missing Image (" + path + ")";
     }
 
 }
