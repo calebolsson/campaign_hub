@@ -1,15 +1,42 @@
-﻿using DataAccessLibrary.Models;
+﻿using DataAccessLibrary;
+using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using System.Diagnostics;
 
 namespace campaign_hub.Services
 {
     public class NewCharacterService
     {
         public CharacterModel model { get; set; } = new();
+        public List<int> stats { get; set; } = new() { 10, 10, 10, 10, 10, 10 };
         public bool menu_open = false;
         public bool photo_menu_open = false;
         public bool info_menu_open = false;
         public bool stats_menu_open = false;
+
+        public void reset()
+        {
+            model = new CharacterModel();
+            menu_open = false;
+            photo_menu_open = false;
+            info_menu_open = false;
+            stats_menu_open = false;
+        }
+
+        public async Task SubmitCharacter(ICharacterData _db)
+        {
+            try
+            {
+                await _db.UpsertCharacter(model);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error creating character: {ex.Message}");
+                await Task.CompletedTask;
+            }
+
+        }
 
         public void toggleMenu()
         {
@@ -68,6 +95,15 @@ namespace campaign_hub.Services
         private List<string> ParseTags(string tags)
         {
             return tags.TrimEnd().Split(',').ToList();
+        }
+
+        public bool canSubmit()
+        {
+            if (model.user_id == null || model.campaign_id == null || model.first_name == null || model.last_name == null)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
