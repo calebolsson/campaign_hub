@@ -7,15 +7,16 @@
         {
             <Character model="@Character"></Character>
         }
+        else if (Mode == "guild")
+        {
+            <Guild model="@Guild"></Guild>
+        }
     </div>
 }
 
 @code {
-    [Parameter]
-    public required string Mode { get; set; }
-    [Parameter]
+    public string? Mode { get; set; }
     public CharacterModel? Character { get; set; }
-    [Parameter]
     public GuildModel? Guild { get; set; }
     private bool Visible { get; set; }
     private double Opacity { get; set; }
@@ -23,20 +24,31 @@
     {
         base.OnInitialized();
     }
-    public async Task Close(MouseEventArgs args = null)
+    public async Task Close()
     {
         Visible = false;
-        // await OnClose.InvokeAsync(args);
         await Task.CompletedTask;
     }
-    public void Show(MouseEventArgs args = null)
+    private void Show()
     {
-        if (args != null)
-        {
-            //offset?
-        }
+
         Visible = true;
         Opacity = 1.0;
+        StateHasChanged();
+    }
+
+    public void ShowCharacter(CharacterModel character)
+    {
+        Character = character;
+        Mode = "character";
+        Show();
+    }
+
+    public void ShowGuild(GuildModel guild)
+    {
+        Guild = guild;
+        Mode = "guild";
+        Show();
     }
 
 }
