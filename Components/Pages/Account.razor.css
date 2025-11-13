@@ -17,3 +17,15 @@
         width: 150px;
         height: 150px;
     }
+
+.current-character {
+    /*border: 1px solid red;*/
+    width: 600px;
+}
+
+.character-box {
+    border: 5px solid #5E548E;
+    border-radius: 20px;
+    padding: 10px;
+    height: fit-content;
+}

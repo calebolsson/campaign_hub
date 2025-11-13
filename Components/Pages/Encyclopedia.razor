@@ -8,6 +8,7 @@
 @inject IGuildData _guild_db
 
 <PageTitle>Encyclopedia</PageTitle>
+<!-- ==================== Tool Bar ==================== -->
 <div class="tooltray">
     <button type="button" class="toolbtn exit_panel_btn">🗙</button>
     <button type="button" class="toolbtn">▲</button>
@@ -16,6 +17,7 @@
     <button type="button" class="@filter_button_class" @onclick="@toggle_filter"><i class="bi bi-funnel"></i></button>
 </div>
 
+<!-- ================ Create Character ================ -->
 @if (new_character != null && new_character.menu_open)
 {
     <EditForm Model="@new_character.model"
@@ -90,6 +92,7 @@
                     <button type="submit" disabled class="toolbtn"><i class="bi bi-check-circle-fill"></i></button>
                 }
             </div>
+            <!-- ==================== Photo ==================== -->
             @if (new_character.photo_menu_open)
             {
                 <div class="menu-item menu-tray hide-button-border">
@@ -107,6 +110,7 @@
                     }
                 </div>
             }
+            <!-- ==================== Info ==================== -->
             @if (new_character.info_menu_open)
             {
                 <div class="menu-item menu-tray">
@@ -145,6 +149,7 @@
                     </div>
                 </div>
             }
+            <!-- ==================== Stats ==================== -->
             @if (new_character.stats_menu_open)
             {
                 <div class="menu-item menu-tray flex-zero" style="padding: 0 10px;">
@@ -197,6 +202,7 @@
 }
 
 
+<!-- ===================== Filter ===================== -->
 @if (filter.FiltersEnabled)
 {
     <div class="enc-menu filter-menu">
@@ -249,11 +255,10 @@
 }
 
 
-<Popup Mode=@display_mode
-       Character=@display_character
-       Guild=@display_guild
-       @ref=@popup_display />
+<!-- ===================== Popups ===================== -->
+<Popup @ref=@popup_display />
 
+<!-- ================== Encyclopedia ================== -->
 <div id="dict-grid">
 
     @if (encyclopedia is null)
@@ -264,9 +269,11 @@
     {
         @foreach (var entry in encyclopedia.entries)
         {
+            <!-- ==================== Characters ==================== -->
             @if (entry.Value == EncyclopediaService.Source.Character)
             {
-                <button type="button" class="entry" @onclick="() => ShowCharacter(encyclopedia.characters[entry.Key])">
+                <button type="button" class="entry"
+                        @onclick="() => popup_display.ShowCharacter(encyclopedia.characters[entry.Key])">
                     @if (FileExists(encyclopedia.characters[entry.Key].img))
                     {
                         <img src=@encyclopedia.characters[entry.Key].img width="150" height="150">
@@ -283,14 +290,14 @@
                             <TagTray Tags=@encyclopedia.characters[entry.Key].tags></TagTray>
                         }
                     </div>
-                    @* <div class="panel">
-                        <p>@encyclopedia.characters[entry.Key].description</p>
-                    </div> *@
                 </button>
             }
+            
+            <!-- ==================== Guilds ==================== -->
             @if (entry.Value == EncyclopediaService.Source.Guild)
             {
-                <button type="button" class="entry" @* @onclick="() => ShowCharacter(encyclopedia.guilds[entry.Key])" *@>
+                <button type="button" class="entry"
+                        @onclick="() => popup_display.ShowGuild(encyclopedia.guilds[entry.Key])">
                     <img src=@encyclopedia.guilds[entry.Key].Img width="150" height="150">
                     <div class="entryData">
                         <h2>@encyclopedia.guilds[entry.Key].Name</h2>
@@ -299,76 +306,11 @@
                             <TagTray Tags=@encyclopedia.guilds[entry.Key].Tags></TagTray>
                         }
                     </div>
-                    @* <div class="panel">
-                        <p>@encyclopedia.guilds[entry.Key].Description</p>
-                    </div> *@
                 </button>
             }
         }
-
-        @* @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Character)
-            @foreach (var character in encyclopedia.characters)
-            {
-                @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == character.campaign_id.ToString())
-                {
-                    <button type="button" type="button" class="entry">
-                        <img src=@character.img width="150" height="150">
-                        <div class="entryData">
-                            <h2>@character.first_name @character.last_name</h2>
-                            @if (character.tags is not null) foreach (string tag in ParseTags(character.tags))
-                                {
-                                    @if (Enum.TryParse<FilterService.Colors>(tag, out _))
-                                    {
-                                        <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
-                                    }
-                                    else
-                                    {
-                                        <div class="tag" data=@tag><p>@tag</p></div>
-                                    }
-                                }
-                        </div>
-                        <div class="panel">
-                            <p>@character.description</p>
-                        </div>
-                    </button>
-                }
-
-            } *@
-        @* @if (!filter.FiltersEnabled || filter.CategoryFilter == FilterService.Categories.Guild)
-            @foreach (var guild in encyclopedia.guilds)
-            {
-                @if (filter.CampaignFilter == "0000" || filter.CampaignFilter == guild.Campaign_Id.ToString())
-                {
-                    <button class="entry">
-                        <img src=@guild.Img width="150" height="150">
-                        <div class="entryData">
-                            <h2>@guild.Name</h2>
-                            @if (guild.Tags is not null) foreach (string tag in ParseTags(guild.Tags))
-                                {
-                                    @if (Enum.TryParse<FilterService.Colors>(tag, out _))
-                                    {
-                                        <div class="tag" data=@tag><img src=@string.Concat("../img/color/", @tag, ".svg") /></div>
-                                    }
-                                    else
-                                    {
-                                        <div class="tag" data=@tag><p>@tag</p></div>
-                                    }
-                                }
-                        </div>
-                        <div class="panel">
-                            <p>@guild.Description</p>
-                        </div>
-                    </button>
-                }
-            } *@
     }
-
-
 </div>
-
-
-
-
 
 @code {
     public EditContext? context { get; set; }
@@ -376,9 +318,6 @@
     private EncyclopediaService? encyclopedia { get; set; } = new();
     private NewCharacterService? new_character { get; set; } = new();
     private Popup? popup_display;
-    private string display_mode { get; set; } = "character";
-    private CharacterModel? display_character { get; set; }
-    private GuildModel? display_guild { get; set; }
     public string parent_dir = "..";
     public string asc = "bi bi-sort-down";
     public string desc = "bi bi-sort-up-alt";
@@ -409,12 +348,6 @@
             new_character.model.user_id = accountService.account.Id;
         encyclopedia.SortEncyclopedia(filter);
         filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
-    }
-
-    private void ShowCharacter(CharacterModel character)
-    {
-        display_character = character;
-        popup_display.Show();
     }
 
     private async Task SubmitForm()

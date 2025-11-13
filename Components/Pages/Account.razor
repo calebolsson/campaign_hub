@@ -12,7 +12,6 @@
 
 <PageTitle>Account</PageTitle>
 
-
 @* <p>
     Account details:<br />
     Name: @accountService.account?.First_Name<br />
@@ -41,19 +40,62 @@ else if (accountService.account is null) // Added null conditional operator to p
 }
 else
 {
-    @* <h2>Logged In!</h2> *@
-    <CharacterPopup Character="accountService.character!" />
+    <div class="current-character d-flex flex-column flex-wrap justify-content-center">
+        @if (altCharacter is null)
+        {
+            <h2>Current Character</h2>
+            <div class="character-box">
+                <Character model=@accountService.character></Character>
+            </div>
+        }
+        else
+        {
+            <h2>Change Active Character?</h2>
+            <div class="m-auto">
+                <button type="button" class="button button-green"
+                        @onclick="(() => updateCharacter(altCharacter))">
+                    CONFIRM
+                </button>
+                <button type="button" class="button button-red"
+                        @onclick=@clearSelection>
+                    CANCEL
+                </button>
+            </div>
+            <div class="character-box">
+                <Character model=@altCharacter></Character>
+            </div>
+        }
+        <h2>Other Characters</h2>
+        @if (MyCharacters is not null && accountService.IsLoggedIn())
+        {
+            @foreach (var character in MyCharacters)
+            {
+                @if (character.user_id == accountService.account?.Id && character.id != accountService.character.id)
+                {
+                    <button class="character-selector" @onclick="(() => selectCharacter(character))">
+                        <img src="@character.img" />
+                        <p>@character.first_name</p>
+                    </button>
+                }
+            }
+        }
+    </div>
 }
 
 
 @code {
     private List<CharacterModel>? characters;
+    private List<CharacterModel>? MyCharacters;
     public AccountModel? loginAccount { get; set; } = null;
     public CharacterModel? loginCharacter { get; set; } = null;
+    public CharacterModel? altCharacter { get; set; }
+    public string parent_dir = "..";
 
     protected override async Task OnInitializedAsync()
     {
         characters = await _db.getActiveCharacters();
+        if (accountService.IsLoggedIn())
+            MyCharacters = await _db.getMyCharacters(accountService.account.Id);
     }
 
     protected override void OnInitialized()
@@ -69,5 +111,24 @@ else
     public async Task login(int? user_id)
     {
         accountService.account = await accountService.SetAccount(_account_db, _db, user_id);
+        MyCharacters = await _db.getMyCharacters(user_id);
+    }
+
+    private void selectCharacter(CharacterModel character)
+    {
+        altCharacter = character;
+    }
+
+    private void clearSelection()
+    {
+        altCharacter = null;
+    }
+
+    private void updateCharacter(CharacterModel character)
+    {
+        accountService.character = character;
+        //send change to DB
+        clearSelection();
+        //trigger navbar state change maybe?
     }
 }
