@@ -25,5 +25,10 @@ namespace campaign_hub.Services.AccountService
             AccountChanged?.Invoke();
             return account;
         }
+
+        public async Task UpdateActiveCharacter(IAccountData _account_db, int? Char_Id, int? User_Id)
+        {
+            await _account_db.updateAccountCharacter(Char_Id, User_Id);
+        }
     }
 }

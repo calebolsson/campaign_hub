@@ -124,10 +124,10 @@ else
         altCharacter = null;
     }
 
-    private void updateCharacter(CharacterModel character)
+    private async Task updateCharacter(CharacterModel character)
     {
         accountService.character = character;
-        //send change to DB
+        await accountService.UpdateActiveCharacter(_account_db, character.id, character.user_id);
         clearSelection();
         //trigger navbar state change maybe?
     }
