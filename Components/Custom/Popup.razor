@@ -1,5 +1,6 @@
 ﻿@inject AccountService accountService
 @inject NewCharacterService new_character
+@inject ICharacterData _character_db
 
 @if (Visible)
 {
@@ -78,7 +79,7 @@
 
     public async Task DeleteButton()
     {
-        //delete from DB
+        await _character_db.deleteCharacter(Character.id.Value);
         await Close();
     }
 
