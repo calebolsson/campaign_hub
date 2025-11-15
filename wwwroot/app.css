@@ -81,12 +81,12 @@ button:disabled {
     margin: 10px auto;
 }
 
-.button-green:hover {
+.btn-green:hover {
     border-color: green;
     color: green;
 }
 
-.button-red:hover {
+.btn-red:hover {
     border-color: red;
     color: red;
 }

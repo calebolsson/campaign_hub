@@ -22,3 +22,19 @@
     opacity: 0.8;
     height: 100%;
 }
+
+.popup-btn-tray {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: fit-content;
+    margin: 10px 20px;
+}
+
+.edit-btn {
+
+}
+
+.delete-btn {
+
+}

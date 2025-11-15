@@ -1,10 +1,28 @@
-﻿@if (Visible)
+﻿@inject AccountService accountService
+@inject NewCharacterService new_character
+
+@if (Visible)
 {
     <div class="background-dim full-screen" @onclick=@Close></div>
     <div class="popup-div full-screen d-flex flex-column fs-5 fs-sm-2">
         @*change font size?*@
         @if (Mode == "character")
         {
+            @if (Character?.user_id == accountService.account?.Id)
+            {
+                <div class="popup-btn-tray">
+                    <button type="button"
+                            class="button edit-btn btn-green"
+                            @onclick=@EditButton>
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button type="button"
+                            class="button delete-btn btn-red"
+                            @onclick=@DeleteButton>
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            }
             <Character model="@Character"></Character>
         }
         else if (Mode == "guild")
@@ -49,6 +67,19 @@
         Guild = guild;
         Mode = "guild";
         Show();
+    }
+
+    public async Task EditButton()
+    {
+        new_character.model = Character;
+        new_character.openMenu();
+        await Close();
+    }
+
+    public async Task DeleteButton()
+    {
+        //delete from DB
+        await Close();
     }
 
 }

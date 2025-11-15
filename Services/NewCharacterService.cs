@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Diagnostics;
 
-namespace campaign_hub.Services
+namespace campaign_hub.Services.NewCharacterService
 {
     public class NewCharacterService
     {
@@ -14,6 +14,7 @@ namespace campaign_hub.Services
         public bool photo_menu_open = false;
         public bool info_menu_open = false;
         public bool stats_menu_open = false;
+        public event Action? OnChange;
 
         public void reset()
         {
@@ -40,8 +41,14 @@ namespace campaign_hub.Services
 
         public void toggleMenu()
         {
-            if (menu_open) menu_open = false;
-            else menu_open = true;
+            menu_open = !menu_open;
+            return;
+        }
+
+        public void openMenu()
+        {
+            menu_open = true;
+            OnChange?.Invoke();
             return;
         }
 

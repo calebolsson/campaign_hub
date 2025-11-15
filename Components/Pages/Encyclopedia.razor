@@ -3,6 +3,7 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject AccountService accountService
+@inject NewCharacterService new_character
 @inject ICharacterData _character_db
 @inject ICampaignData _campaign_db
 @inject IGuildData _guild_db
@@ -316,7 +317,7 @@
     public EditContext? context { get; set; }
     public FilterService filter = new();
     private EncyclopediaService? encyclopedia { get; set; } = new();
-    private NewCharacterService? new_character { get; set; } = new();
+    // public NewCharacterService new_character { get; set; } = new NewCharacterService();
     private Popup? popup_display;
     public string parent_dir = "..";
     public string asc = "bi bi-sort-down";
@@ -348,6 +349,20 @@
             new_character.model.user_id = accountService.account.Id;
         encyclopedia.SortEncyclopedia(filter);
         filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
+        new_character.OnChange += () => InvokeAsync(StateHasChanged);
+        /* maybe add this? */
+        // new_character.OnCharacterCreated += async () =>
+        // {
+        //     await encyclopedia.LoadEncyclopedia(_character_db);
+        //     encyclopedia.SortEncyclopedia(filter);
+        //     StateHasChanged();
+        // }
+    }
+
+    public void Dispose()
+    {
+        filter.FiltersChanged -= () => encyclopedia.SortEncyclopedia(filter);
+        new_character.OnChange -= () => InvokeAsync(StateHasChanged);
     }
 
     private async Task SubmitForm()
@@ -360,11 +375,6 @@
         await Task.CompletedTask;
     }
 
-    @* private List<string> ParseTags(string tags)
-    {
-        return tags.TrimEnd().Split(',').ToList();
-    } *@
-
     public async Task asc_desc_toggle()
     {
         if (asc_desc_button.Equals(asc))
@@ -375,7 +385,6 @@
         {
             asc_desc_button = asc;
         }
-        // Notify that state has changed
         StateHasChanged();
         await Task.CompletedTask;
     }

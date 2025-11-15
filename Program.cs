@@ -1,6 +1,7 @@
 using campaign_hub.Components;
 using campaign_hub.Services;
 using campaign_hub.Services.AccountService;
+using campaign_hub.Services.NewCharacterService;
 using DataAccessLibrary;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,7 @@ builder.Services.AddTransient<IGuildData, GuildData>();
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<NewCharacterService>();
 
 var app = builder.Build();
 
