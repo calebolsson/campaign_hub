@@ -14,8 +14,12 @@
     <button type="button" class="toolbtn exit_panel_btn">🗙</button>
     <button type="button" class="toolbtn">▲</button>
     <button type="button" class="toolbtn">▼</button>
-    <button type="button" class="toolbtn" @onclick="@new_character.toggleMenu"><i class="bi bi-file-earmark-plus-fill"></i></button>
-    <button type="button" class="@filter_button_class" @onclick="@toggle_filter"><i class="bi bi-funnel"></i></button>
+    <button type="button" class="@new_c_button_class" @onclick="@(() => new_character.toggleMenu())">
+        <i class="bi bi-file-earmark-plus-fill"></i>
+    </button>
+    <button type="button" class="@filter_button_class" @onclick="@toggle_filter">
+        <i class="bi bi-funnel"></i>
+    </button>
 </div>
 
 <!-- ================ Create Character ================ -->
@@ -293,7 +297,7 @@
                     </div>
                 </button>
             }
-            
+
             <!-- ==================== Guilds ==================== -->
             @if (entry.Value == EncyclopediaService.Source.Guild)
             {
@@ -324,6 +328,7 @@
     public string desc = "bi bi-sort-up-alt";
     public string asc_desc_button = "bi bi-sort-down";
     public string filter_button_class = "toolbtn";
+    public string new_c_button_class = "toolbtn";
     public string photo_button = "photo";
     public string photo_button_class = "toolbtn";
     public string info_button = "info";
@@ -349,7 +354,7 @@
             new_character.model.user_id = accountService.account.Id;
         encyclopedia.SortEncyclopedia(filter);
         filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
-        new_character.OnChange += () => InvokeAsync(StateHasChanged);
+        new_character.OnChange += () => Handle_OnChange();
         /* maybe add this? */
         // new_character.OnCharacterCreated += async () =>
         // {
@@ -359,10 +364,16 @@
         // }
     }
 
+    public void Handle_OnChange()
+    {
+        toggle_new_c().Wait();
+        InvokeAsync(StateHasChanged);
+    }
+
     public void Dispose()
     {
         filter.FiltersChanged -= () => encyclopedia.SortEncyclopedia(filter);
-        new_character.OnChange -= () => InvokeAsync(StateHasChanged);
+        new_character.OnChange -= () => Handle_OnChange();
     }
 
     private async Task SubmitForm()
@@ -398,6 +409,20 @@
         else
         {
             filter_button_class = toolbtn_off;
+        }
+        await Task.CompletedTask;
+    }
+
+    public async Task toggle_new_c()
+    {
+        // new_character.toggleMenu();
+        if (new_character.menu_open)
+        {
+            new_c_button_class = toolbtn_on;
+        }
+        else
+        {
+            new_c_button_class = toolbtn_off;
         }
         await Task.CompletedTask;
     }

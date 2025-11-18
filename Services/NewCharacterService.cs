@@ -39,10 +39,11 @@ namespace campaign_hub.Services.NewCharacterService
 
         }
 
-        public void toggleMenu()
+        public bool toggleMenu()
         {
             menu_open = !menu_open;
-            return;
+            OnChange?.Invoke();
+            return menu_open;
         }
 
         public void openMenu()
