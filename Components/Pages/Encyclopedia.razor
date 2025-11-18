@@ -220,7 +220,10 @@
             <i class="bi bi-arrow-counterclockwise"></i>
         </button>
         <div class="menu-item">
-            <p>Category: </p><select @onchange="@filter.SetCategoryFilter">
+            <p>Category: </p>
+            <select class=""
+                    value="@filter.CategoryFilter"
+                    @onchange=@filter.SetCategoryFilter>
                 <option value="@FilterService.Categories.Character">Character</option>
                 @* <option value="@FilterService.Categories.Location">Location</option> *@
                 <option value="@FilterService.Categories.Guild">Guild</option>
@@ -229,8 +232,11 @@
             </select>
         </div>
         <div class="menu-item">
-            <p>Campaign: </p><select class="campaign-selector" @onchange="@filter.SetCampaignFilter">
-                <option value="" selected disabled hidden>All Campaigns</option>
+            <p>Campaign: </p>
+            <select class="campaign-selector"
+                    value="@filter.CampaignFilter"
+                    @onchange="@filter.SetCampaignFilter">
+                <option value="0000" selected disabled hidden>All Campaigns</option>
                 @if (encyclopedia.campaigns != null)
                     @foreach (var campaign in encyclopedia.campaigns)
                     {
@@ -238,15 +244,18 @@
                     }
             </select>
         </div>
-        @* <div class="menu-item">
-            <p>Group By: </p><select @onchange="@filter.SetGroupFilter">
+        <div class="menu-item">
+            <p>Group By: </p>
+            <select class=""
+                    value="@filter.GroupFilter"
+                    @onchange="@filter.SetGroupFilter">
                 <option value="@FilterService.Groups.Name">Name</option>
                 <option value="@FilterService.Groups.Color">Color</option>
                 <option value="@FilterService.Groups.Guild">Guild</option>
                 <option value="@FilterService.Groups.Class">Class</option>
                 <option value="@FilterService.Groups.Plane">Plane</option>
             </select>
-        </div> *@
+        </div>
         @* <div class="menu-item">
         <p>Order By: </p><select>
             <option value="0">Ascending</option>
@@ -254,11 +263,10 @@
             <option value="2">Pick Values</option>
         </select>
     </div> *@
-        @* <button class="toolbtn" @onclick="@asc_desc_toggle">
+        <button class="toolbtn" @onclick="@asc_desc_toggle">
             <i class="@asc_desc_button"></i>
-        </button> *@
+        </button>
     </div>
-
 }
 
 
@@ -355,7 +363,7 @@
         if (accountService.IsLoggedIn())
             new_character.model.user_id = accountService.account.Id;
         encyclopedia.SortEncyclopedia(filter);
-        filter.FiltersChanged += () => encyclopedia.SortEncyclopedia(filter);
+        filter.FiltersChanged += () => Handle_FiltersChanged();
         new_character.OnChange += () => Handle_OnChange();
         /* maybe add this? */
         // new_character.OnCharacterCreated += async () =>
@@ -366,6 +374,12 @@
         // }
     }
 
+    public void Handle_FiltersChanged()
+    {
+        encyclopedia?.SortEncyclopedia(filter);
+        StateHasChanged();
+    }
+
     public void Handle_OnChange()
     {
         toggle_new_c().Wait();
@@ -374,7 +388,7 @@
 
     public void Dispose()
     {
-        filter.FiltersChanged -= () => encyclopedia.SortEncyclopedia(filter);
+        filter.FiltersChanged -= () => Handle_FiltersChanged();
         new_character.OnChange -= () => Handle_OnChange();
     }
 
@@ -398,6 +412,7 @@
         {
             asc_desc_button = asc;
         }
+        filter.Toggle_Asc_Desc();
         StateHasChanged();
         await Task.CompletedTask;
     }

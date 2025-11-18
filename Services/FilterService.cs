@@ -12,6 +12,7 @@ namespace campaign_hub.Services
         public Categories CategoryFilter { get; set; } = Categories.Character;
         public string CampaignFilter { get; set; } = "0000";
         public Groups GroupFilter { get; set; } = Groups.Name;
+        public bool ascending { get; set; } = true;
 
         public enum Categories
         {
@@ -100,6 +101,13 @@ namespace campaign_hub.Services
             {
                 //error
             }
+        }
+
+        public bool Toggle_Asc_Desc()
+        {
+            ascending = !ascending;
+            FiltersChanged?.Invoke();
+            return ascending;
         }
 
         public bool Toggle()

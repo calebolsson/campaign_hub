@@ -37,14 +37,14 @@ namespace campaign_hub.Services
             switch (filter.CategoryFilter)
             {
                 case FilterService.Categories.Character:
-                    foreach (int i in indexes(characters.Count()))
+                    foreach (int i in indexes(characters.Count(), filter.ascending))
                     {
                         if (filter.CampaignFilter == "0000" || characters[i].campaign_id.ToString() == filter.CampaignFilter)
                             entries.Add(new KeyValuePair<int, Source>(i, Source.Character));
                     }
                     break;
                 case FilterService.Categories.Guild:
-                    foreach (int i in indexes(guilds.Count()))
+                    foreach (int i in indexes(guilds.Count(), filter.ascending))
                     {
                         if (filter.CampaignFilter == "0000" || guilds[i].Campaign_Id.ToString() == filter.CampaignFilter)
                             entries.Add(new KeyValuePair<int, Source>(i, Source.Guild));
@@ -61,9 +61,25 @@ namespace campaign_hub.Services
             return;
         }
 
-        public Array indexes(int list_count)
+        //public Array indexes(int list_count, bool ascending)
+        //{
+        //    if (ascending) return Enumerable.Range(0, list_count).ToArray();
+        //    else return Enumerable.Range(0, list_count).Reverse().ToArray();
+        //}
+
+        public IEnumerable<int> indexes(int list_count, bool ascending)
         {
-            return Enumerable.Range(0, list_count).ToArray();
+            if (ascending)
+            {
+                for (int i = 0; i < list_count; i++)
+                    yield return i;
+            }
+            else
+            {
+                for (int i = list_count - 1; i >= 0; i--)
+                    yield return i;
+            }
         }
+
     }
 }
