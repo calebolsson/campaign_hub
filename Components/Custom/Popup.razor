@@ -1,12 +1,12 @@
 ﻿@inject AccountService accountService
 @inject NewCharacterService new_character
+@inject ConfirmService confirm_service
 @inject ICharacterData _character_db
 
 @if (Visible)
 {
     <div class="background-dim full-screen" @onclick=@Close></div>
     <div class="popup-div full-screen d-flex flex-column fs-5 fs-sm-2">
-        @*change font size?*@
         @if (Mode == "character")
         {
             @if (Character?.user_id == accountService.account?.Id)
@@ -30,27 +30,51 @@
         {
             <Guild model="@Guild"></Guild>
         }
+        else if (Mode == "confirm")
+        {
+            <h2>@ConfirmText()</h2>
+            <button type="button"
+                    class="button btn-green"
+                    @onclick=@OnConfirm>
+                CONFIRM
+            </button>
+            <button type="button"
+                    class="button btn-red"
+                    @onclick=@OnCancel>
+                CANCEL
+            </button>
+        }
     </div>
 }
 
 @code {
     public string? Mode { get; set; }
+    public string? Command { get; set; }
     public CharacterModel? Character { get; set; }
     public GuildModel? Guild { get; set; }
     private bool Visible { get; set; }
     private double Opacity { get; set; }
+
     protected override void OnInitialized()
     {
+        confirm_service.OnShow += (args) =>
+        {
+            Close().Wait();
+            Mode = "confirm";
+            Command = args;
+            Show();
+        };
         base.OnInitialized();
     }
+
     public async Task Close()
     {
         Visible = false;
         await Task.CompletedTask;
     }
+
     private void Show()
     {
-
         Visible = true;
         Opacity = 1.0;
         StateHasChanged();
@@ -70,6 +94,13 @@
         Show();
     }
 
+    // public void ShowConfirm(string command)
+    // {
+    //     Command = command;
+    //     Mode = "confirm";
+    //     Show();
+    // }
+
     public async Task EditButton()
     {
         new_character.model = Character;
@@ -79,7 +110,27 @@
 
     public async Task DeleteButton()
     {
-        await _character_db.deleteCharacter(Character.id.Value);
+        if (await confirm_service.Confirm("delete this character"))
+        {
+            await _character_db.deleteCharacter(Character.id.Value);
+        }
+        await Close();
+    }
+
+    private string ConfirmText()
+    {
+        return "Are you sure you are ready to " + Command + "?";
+    }
+
+    private async Task OnConfirm()
+    {
+        confirm_service.Confirmed();
+        await Close();
+    }
+
+    private async Task OnCancel()
+    {
+        confirm_service.Cancelled();
         await Close();
     }
 

@@ -20,6 +20,7 @@ builder.Services.AddTransient<IGuildData, GuildData>();
 
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<NewCharacterService>();
+builder.Services.AddScoped<campaign_hub.Services.UIServices.ConfirmService.ConfirmService>();
 
 var app = builder.Build();
 

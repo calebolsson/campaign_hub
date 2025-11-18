@@ -15,6 +15,7 @@
     public required string Tags { get; set; }
     private List<string> ParseTags(string tags)
     {
+        if (tags is null) return new List<string>();
         return tags.TrimEnd().Split(',').ToList();
     }
 }
