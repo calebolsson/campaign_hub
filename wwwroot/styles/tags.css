@@ -75,6 +75,14 @@
         background-color: #fffbd5;
     }
 
+    .tag[data="Grid"] {
+        /*background-color: black;
+        border-color: aqua;
+        color: aqua;*/
+        background-color: aqua;
+        color: black;
+    }
+
     .tag[data="Azorius"] {
         background-color: white;
         border-color: blue;
