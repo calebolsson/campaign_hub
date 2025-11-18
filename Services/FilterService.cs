@@ -59,6 +59,7 @@ namespace campaign_hub.Services
             CategoryFilter = Categories.Character;
             CampaignFilter = "0000";
             GroupFilter = Groups.Name;
+            FiltersChanged?.Invoke();
         }
         public void SetCategoryFilter(ChangeEventArgs e)
         {

@@ -216,7 +216,9 @@
             @filter.CampaignFilter
             @filter.GroupFilter
         </div> *@
-        @* <button type="button" type="button" class="toolbtn"><i class="bi bi-funnel"></i></button> *@
+        <button type="button" class="toolbtn" @onclick=@filter.ResetAllFilters>
+            <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
         <div class="menu-item">
             <p>Category: </p><select @onchange="@filter.SetCategoryFilter">
                 <option value="@FilterService.Categories.Character">Character</option>
