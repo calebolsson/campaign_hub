@@ -134,11 +134,13 @@
                         <div class="menu-item menu-tray flex-full hide-button-border">
                             @foreach (string color in Directory.GetFiles("./wwwroot/img/color/"))
                             {
+                                @if (color.EndsWith(".svg"))
+                                {
                                 <button type="button" class="tag token-option" data=@color[20..^4]
                                         @onclick="() => new_character.toggleTag(color[20..^4])">
                                     <img src="@String.Concat(parent_dir, color[9..])" />
                                 </button>
-
+                            }
                             }
                         </div>
                         <div class="menu-item menu-tray flex-full hide-button-border">
@@ -251,7 +253,10 @@
                     @onchange="@filter.SetGroupFilter">
                 <option value="@FilterService.Groups.Name">Name</option>
                 <option value="@FilterService.Groups.Color">Color</option>
+                @if (filter.CategoryFilter != FilterService.Categories.Guild)
+                {
                 <option value="@FilterService.Groups.Guild">Guild</option>
+                }
                 <option value="@FilterService.Groups.Class">Class</option>
                 <option value="@FilterService.Groups.Plane">Plane</option>
             </select>
@@ -309,7 +314,7 @@
             }
 
             <!-- ==================== Guilds ==================== -->
-            @if (entry.Value == EncyclopediaService.Source.Guild)
+            @if (entry.Value == EncyclopediaService.Source.Guild && filter.CategoryFilter == FilterService.Categories.Guild)
             {
                 <button type="button" class="entry"
                         @onclick="() => popup_display.ShowGuild(encyclopedia.guilds[entry.Key])">
@@ -323,6 +328,27 @@
                     </div>
                 </button>
             }
+            else if (entry.Value == EncyclopediaService.Source.Guild && filter.CategoryFilter != FilterService.Categories.Guild)
+            {
+                <div class="entry entry-header">
+                    <TagTray Tags="@encyclopedia.guilds[entry.Key].Tags"></TagTray>
+                </div>
+        }
+
+            <!-- ==================== Colors ==================== -->
+            @if (entry.Value == EncyclopediaService.Source.Color)
+            {
+                <div class="entry entry-header">
+                    <TagTray Tags="@encyclopedia.colors[entry.Key].ToString()"></TagTray>
+                </div>
+            }
+            <!-- ==================== Campaign ==================== -->
+            @if (entry.Value == EncyclopediaService.Source.Campaign)
+            {
+                <div class="entry entry-header">
+                    <TagTray Tags="@encyclopedia.campaigns[entry.Key].ToString()"></TagTray>
+                </div>
+    }
         }
     }
 </div>

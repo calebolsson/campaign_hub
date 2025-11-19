@@ -28,7 +28,8 @@ namespace campaign_hub.Services
             Color,
             Guild,
             Class,
-            Plane
+            Plane,
+            Campaign
         };
         public enum Classes
         {

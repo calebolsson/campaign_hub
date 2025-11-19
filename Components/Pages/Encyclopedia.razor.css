@@ -35,14 +35,46 @@
     /*transition: 0.5s;*/
 }
 
-    .entry:hover {
-        border-color: #111;
-    }
+button.entry:hover {
+    border-color: #111;
+}
 
 /*.entry:active .panel p {
         border-color: red;
         display: inherit;
     }*/
+
+.entry-header {
+    grid-column: 1 / -1;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+    .entry-header:has(> .tag) {
+        background-size: cover;
+        background-position: 50% 45%;
+    }
+
+    .entry-header:has(> .tag[data="white"]) {
+        background-image: url("/img/color/plains.png");
+    }
+
+    .entry-header:has(> .tag[data="blue"]) {
+        background-image: url("/img/color/island.png");
+    }
+
+    .entry-header:has(> .tag[data="black"]) {
+        background-image: url("/img/color/swamp.png");
+    }
+
+    .entry-header:has(> .tag[data="red"]) {
+        background-image: url("/img/color/mountain.png");
+    }
+
+    .entry-header:has(> .tag[data="green"]) {
+        background-image: url("/img/color/forest.png");
+    }
 
 .enc-menu {
     background-color: #111;
@@ -110,9 +142,9 @@
     padding: 15px;
 }*/
 
-    input.input-small {
-        width: 75px;
-    }
+input.input-small {
+    width: 75px;
+}
 
 .campaign-selector {
     width: 300px;
