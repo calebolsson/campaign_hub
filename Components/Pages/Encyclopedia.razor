@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 @inject AccountService accountService
 @inject NewCharacterService new_character
+@inject ConfirmService confirm_service
 @inject ICharacterData _character_db
 @inject ICampaignData _campaign_db
 @inject IGuildData _guild_db
@@ -29,6 +30,19 @@
               OnValidSubmit="@SubmitForm"
               Context="context">
         <div class="enc-menu newchar-menu">
+            @* <div class="menu-item">
+                <p>???</p>
+                <button type="button" class="@photo_button_class" @onclick="() => toggleExtra(photo_button)">
+                    @if (new_character.model.img == null)
+                    {
+                        <i class="bi bi-file-earmark-image-fill"></i>
+                    }
+                    else
+                    {
+                        <img src="@new_character.model.img" />
+                    }
+                </button>
+            </div> *@
             <div class="menu-item">
                 <p>Player Id:</p>
                 <InputNumber name="user_id" @bind-Value=@new_character.model.user_id />
@@ -136,11 +150,11 @@
                             {
                                 @if (color.EndsWith(".svg"))
                                 {
-                                <button type="button" class="tag token-option" data=@color[20..^4]
-                                        @onclick="() => new_character.toggleTag(color[20..^4])">
-                                    <img src="@String.Concat(parent_dir, color[9..])" />
-                                </button>
-                            }
+                                    <button type="button" class="tag token-option" data=@color[20..^4]
+                                            @onclick="() => new_character.toggleTag(color[20..^4])">
+                                        <img src="@String.Concat(parent_dir, color[9..])" />
+                                    </button>
+                                }
                             }
                         </div>
                         <div class="menu-item menu-tray flex-full hide-button-border">
@@ -255,19 +269,12 @@
                 <option value="@FilterService.Groups.Color">Color</option>
                 @if (filter.CategoryFilter != FilterService.Categories.Guild)
                 {
-                <option value="@FilterService.Groups.Guild">Guild</option>
+                    <option value="@FilterService.Groups.Guild">Guild</option>
                 }
                 <option value="@FilterService.Groups.Class">Class</option>
                 <option value="@FilterService.Groups.Plane">Plane</option>
             </select>
         </div>
-        @* <div class="menu-item">
-        <p>Order By: </p><select>
-            <option value="0">Ascending</option>
-            <option value="1">Descending</option>
-            <option value="2">Pick Values</option>
-        </select>
-    </div> *@
         <button class="toolbtn" @onclick="@asc_desc_toggle">
             <i class="@asc_desc_button"></i>
         </button>
@@ -333,7 +340,7 @@
                 <div class="entry entry-header">
                     <TagTray Tags="@encyclopedia.guilds[entry.Key].Tags"></TagTray>
                 </div>
-        }
+            }
 
             <!-- ==================== Colors ==================== -->
             @if (entry.Value == EncyclopediaService.Source.Color)
@@ -348,7 +355,7 @@
                 <div class="entry entry-header">
                     <TagTray Tags="@encyclopedia.campaigns[entry.Key].ToString()"></TagTray>
                 </div>
-    }
+            }
         }
     }
 </div>
@@ -391,13 +398,6 @@
         encyclopedia.SortEncyclopedia(filter);
         filter.FiltersChanged += () => Handle_FiltersChanged();
         new_character.OnChange += () => Handle_OnChange();
-        /* maybe add this? */
-        // new_character.OnCharacterCreated += async () =>
-        // {
-        //     await encyclopedia.LoadEncyclopedia(_character_db);
-        //     encyclopedia.SortEncyclopedia(filter);
-        //     StateHasChanged();
-        // }
     }
 
     public void Handle_FiltersChanged()
@@ -421,10 +421,14 @@
     private async Task SubmitForm()
     {
         if (new_character.canSubmit())
-            await new_character.SubmitCharacter(_character_db);
-        else
-        // Handle invalid submission (e.g., show error message)
-        { }
+            if (await confirm_service.Confirm("create this character"))
+            {
+                await new_character.SubmitCharacter(_character_db);
+                new_character.reset(accountService.account.Id);
+                await encyclopedia.LoadEncyclopedia(_character_db);
+                encyclopedia.SortEncyclopedia(filter);
+                StateHasChanged();
+            }
         await Task.CompletedTask;
     }
 

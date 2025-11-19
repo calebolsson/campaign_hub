@@ -16,13 +16,15 @@ namespace campaign_hub.Services.NewCharacterService
         public bool stats_menu_open = false;
         public event Action? OnChange;
 
-        public void reset()
+        public void reset(int? user_id)
         {
             model = new CharacterModel();
             menu_open = false;
             photo_menu_open = false;
             info_menu_open = false;
             stats_menu_open = false;
+            model.user_id = user_id.Value;
+            OnChange?.Invoke();
         }
 
         public async Task SubmitCharacter(ICharacterData _db)
@@ -107,7 +109,7 @@ namespace campaign_hub.Services.NewCharacterService
 
         public bool canSubmit()
         {
-            if (model.user_id == null || model.campaign_id == null || model.first_name == null || model.last_name == null)
+            if (model.user_id == null || model.campaign_id == null || model.first_name == null)
             {
                 return false;
             }
