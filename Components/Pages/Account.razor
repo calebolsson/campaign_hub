@@ -65,20 +65,23 @@ else
                 <Character model=@altCharacter></Character>
             </div>
         }
+        <br />
         <h2>Other Characters</h2>
-        @if (MyCharacters is not null && accountService.IsLoggedIn())
-        {
-            @foreach (var character in MyCharacters)
+        <div class="d-flex flex-row flex-wrap justify-content-evenly">
+            @if (MyCharacters is not null && accountService.IsLoggedIn())
             {
-                @if (character.user_id == accountService.account?.Id && character.id != accountService.character.id)
+                @foreach (var character in MyCharacters)
                 {
-                    <button class="character-selector" @onclick="(() => selectCharacter(character))">
-                        <img src="@character.img" />
-                        <p>@character.first_name</p>
-                    </button>
+                    @if (character.user_id == accountService.account?.Id && character.id != accountService.character.id)
+                    {
+                        <button class="character-selector" @onclick="(() => selectCharacter(character))">
+                            <img src="@character.img" />
+                            <p>@character.first_name</p>
+                        </button>
+                    }
                 }
             }
-        }
+        </div>
     </div>
 }
 
