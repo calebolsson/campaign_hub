@@ -51,31 +51,6 @@ button.entry:hover {
     flex-wrap: wrap;
 }
 
-    .entry-header:has(> .tag) {
-        background-size: cover;
-        background-position: 50% 45%;
-    }
-
-    .entry-header:has(> .tag[data="white"]) {
-        background-image: url("/img/color/plains.png");
-    }
-
-    .entry-header:has(> .tag[data="blue"]) {
-        background-image: url("/img/color/island.png");
-    }
-
-    .entry-header:has(> .tag[data="black"]) {
-        background-image: url("/img/color/swamp.png");
-    }
-
-    .entry-header:has(> .tag[data="red"]) {
-        background-image: url("/img/color/mountain.png");
-    }
-
-    .entry-header:has(> .tag[data="green"]) {
-        background-image: url("/img/color/forest.png");
-    }
-
 .enc-menu {
     background-color: #111;
     border: solid 5px #231942;
@@ -113,10 +88,6 @@ button.entry:hover {
     align-content: flex-start;
     justify-content: center;
     gap: 5px;
-}
-
-.hide-button-border button {
-    border: none;
 }
 
 .token-option img {
@@ -282,6 +253,10 @@ input.input-small {
         margin: 15px;
         margin-right: 75px;
     }
+
+    .filter-menu {
+        max-width: 775px;
+    }
 }
 
 @media (max-width: 930px) {
@@ -301,9 +276,15 @@ input.input-small {
     }
 
     .filter-menu {
+        max-width: 375px;
+        justify-content: space-around;
         /*width: fit-content;*/
         /*margin: auto;*/
-        flex-flow: column;
+        /*flex-flow: column;*/
         /*align-items: flex-start;*/
+    }
+
+    .filter-menu * {
+        flex-shrink: 1;
     }
 }

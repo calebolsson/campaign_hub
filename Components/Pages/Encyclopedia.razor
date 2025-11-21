@@ -227,12 +227,7 @@
 @if (filter.FiltersEnabled)
 {
     <div class="enc-menu filter-menu">
-        @* <div>
-            @filter.CategoryFilter
-            @filter.CampaignFilter
-            @filter.GroupFilter
-        </div> *@
-        <button type="button" class="toolbtn" @onclick=@filter.ResetAllFilters>
+        <button type="button" class="toolbtn" @onclick=@ResetFilter>
             <i class="bi bi-arrow-counterclockwise"></i>
         </button>
         <div class="menu-item">
@@ -271,13 +266,43 @@
                 {
                     <option value="@FilterService.Groups.Guild">Guild</option>
                 }
-                <option value="@FilterService.Groups.Class">Class</option>
-                <option value="@FilterService.Groups.Plane">Plane</option>
+                @* <option value="@FilterService.Groups.Class">Class</option> *@
+                @* <option value="@FilterService.Groups.Plane">Plane</option> *@
+                <option value="@FilterService.Groups.Campaign">Campaign</option>
             </select>
         </div>
         <button class="toolbtn" @onclick="@asc_desc_toggle">
             <i class="@asc_desc_button"></i>
         </button>
+
+        <!-- ===================== Colors ===================== -->
+        @if (filter.GroupFilter == FilterService.Groups.Color)
+        {
+            <div class="menu-item menu-tray hide-button-border mw-350">
+                <div class=@ColorFilterTray_Classes>
+                    <TagTray Tags=@filter.GetColorFilter()></TagTray>
+                </div>
+                <div class="menu-item menu-tray w-100">
+                    @foreach (string color in Directory.GetFiles("./wwwroot/img/color/"))
+                    {
+                        @if (color.EndsWith(".svg"))
+                        {
+                            <button type="button" class="toolbtn token-option" data=@color[20..^4]
+                                    @onclick="() => filter.Toggle_Color(color[20..^4])">
+                                <img src="@String.Concat(parent_dir, color[9..])" />
+                            </button>
+                        }
+                    }
+                    <button type="button" class="toolbtn token-option" data="multi"
+                            @onclick=@toggle_multicolored>
+                        <img src="img/M.svg" />
+                    </button>
+                </div>
+
+            </div>
+        }
+
+
     </div>
 }
 
@@ -332,7 +357,7 @@
                              longdesc=@MissingImg(encyclopedia.characters[entry.Key].img) />
                     }
                     <div class="entryData">
-                        <h2>@encyclopedia.characters[entry.Key].first_name @encyclopedia.characters[entry.Key].last_name</h2>
+                        <h2>@encyclopedia.FullName(entry.Key)</h2>
                         @if (encyclopedia.characters[entry.Key].tags is not null)
                         {
                             <TagTray Tags=@encyclopedia.characters[entry.Key].tags></TagTray>
@@ -367,6 +392,9 @@
             @if (entry.Value == EncyclopediaService.Source.Color)
             {
                 <div class="entry entry-header">
+                    @* <div class="tag" data=@encyclopedia.colors[entry.Key].ToString()>
+                        <p>@encyclopedia.colors[entry.Key].ToString()</p>
+                    </div> *@
                     <TagTray Tags="@encyclopedia.colors[entry.Key].ToString()"></TagTray>
                 </div>
             }
@@ -374,7 +402,9 @@
             @if (entry.Value == EncyclopediaService.Source.Campaign)
             {
                 <div class="entry entry-header">
-                    <TagTray Tags="@encyclopedia.campaigns[entry.Key].ToString()"></TagTray>
+                    <div class="tag" data=@encyclopedia.campaigns[entry.Key].Id.ToString()>
+                        <p>@encyclopedia.campaigns[entry.Key].Name</p>
+                    </div>
                 </div>
             }
         }
@@ -401,6 +431,7 @@
     public string stats_button_class = "toolbtn";
     public string toolbtn_off = "toolbtn";
     public string toolbtn_on = "toolbtn toolbtn-on";
+    public string ColorFilterTray_Classes = "menu-item menu-tray tag-tray w-100";
 
 
 
@@ -466,6 +497,26 @@
         filter.Toggle_Asc_Desc();
         StateHasChanged();
         await Task.CompletedTask;
+    }
+
+    public void toggle_multicolored()
+    {
+        filter.Toggle_Multi();
+        update_multicolored_border();
+    }
+
+    public void update_multicolored_border()
+    {
+        string norm = "menu-item menu-tray tag-tray w-100";
+        string gold = "menu-item menu-tray tag-tray w-100 gold-border";
+        if (filter.multicolored) ColorFilterTray_Classes = gold;
+        else ColorFilterTray_Classes = norm;
+    }
+
+    public void ResetFilter()
+    {
+        filter.ResetAllFilters();
+        update_multicolored_border();
     }
 
     public async Task toggle_filter()

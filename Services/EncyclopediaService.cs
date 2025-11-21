@@ -1,8 +1,6 @@
 ﻿using DataAccessLibrary;
 using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Routing.Template;
-using System.ComponentModel;
-using System.Drawing;
+using Microsoft.IdentityModel.Tokens;
 
 namespace campaign_hub.Services
 {
@@ -76,10 +74,26 @@ namespace campaign_hub.Services
                     // Implement GroupByPlane 
                     break;
                 case FilterService.Groups.Campaign:
-                    // Implement GroupByCampaign 
+                    GroupByCampaign(filter);
                     break;
             }
             return;
+        }
+
+        private void GroupByCampaign(FilterService filter)
+        {
+            List<KeyValuePair<int, Source>> temp = new();
+            foreach (var campaign in campaigns)
+            {
+                var selected_entries = entries.Where(e => GetCampaign(e) == campaign.Id).ToList();
+                if (!selected_entries.IsNullOrEmpty())
+                {
+                    KeyValuePair<int, Source> this_selection = new KeyValuePair<int, Source>(campaigns.IndexOf(campaign), Source.Campaign);
+                    temp.Add(this_selection);
+                    temp.AddRange(selected_entries);
+                }
+            }
+            entries = temp;
         }
 
         private void GroupByGuild(FilterService filter)
@@ -87,10 +101,13 @@ namespace campaign_hub.Services
             List<KeyValuePair<int, Source>> temp = new();
             foreach (var guild in guilds)
             {
-                KeyValuePair<int, Source> this_selection = new KeyValuePair<int, Source>(guilds.IndexOf(guild), Source.Guild);
-                temp.Add(this_selection);
                 var selected_entries = entries.Where(e => GetTags(e).Contains(ParseTags(guild.Tags)[0])).ToList();
-                temp.AddRange(selected_entries);
+                if (!selected_entries.IsNullOrEmpty())
+                {
+                    KeyValuePair<int, Source> this_selection = new KeyValuePair<int, Source>(guilds.IndexOf(guild), Source.Guild);
+                    temp.Add(this_selection);
+                    temp.AddRange(selected_entries);
+                }
             }
             entries = temp;
         }
@@ -98,12 +115,47 @@ namespace campaign_hub.Services
         private void GroupByColor(FilterService filter)
         {
             List<KeyValuePair<int, Source>> temp = new();
+            if (filter.multicolored) GroupMultiColor(filter);
+            else GroupMonoColor(filter);
+        }
+
+        private void GroupMultiColor(FilterService filter)
+        {
+            List<KeyValuePair<int, Source>> temp = new();
+            foreach (var entry in entries)
+            {
+                bool matches_all = true;
+                var entry_tags = GetTags(entry);
+                if (entry_tags.IsNullOrEmpty()) continue;
+                foreach (var color in filter.ColorFilter)
+                {
+                    if (!entry_tags.Contains(color.ToString()))
+                    {
+                        matches_all = false;
+                        break;
+                    }
+                }
+                if (matches_all)
+                    temp.Add(entry);
+            }
+            entries = temp;
+        }
+
+        private void GroupMonoColor(FilterService filter)
+        {
+            List<KeyValuePair<int, Source>> temp = new();
             foreach (var color in colors)
             {
-                KeyValuePair<int, Source> this_selection = new KeyValuePair<int, Source>(colors.IndexOf(color), Source.Color);
-                temp.Add(this_selection);
-                var selected_entries = entries.Where(e => GetTags(e).Contains(color.ToString())).ToList();
-                temp.AddRange(selected_entries);
+                if (filter.ColorFilter.Contains(color))
+                {
+                    var selected_entries = entries.Where(e => GetTags(e).Contains(color.ToString())).ToList();
+                    if (!selected_entries.IsNullOrEmpty())
+                    {
+                        KeyValuePair<int, Source> this_selection = new KeyValuePair<int, Source>(colors.IndexOf(color), Source.Color);
+                        temp.Add(this_selection);
+                        temp.AddRange(selected_entries);
+                    }
+                }
             }
             entries = temp;
         }
@@ -146,16 +198,20 @@ namespace campaign_hub.Services
             };
         }
 
+        private int GetCampaign(KeyValuePair<int, Source> entry)
+        {
+            return entry.Value switch
+            {
+                EncyclopediaService.Source.Character => characters[entry.Key].campaign_id.Value,
+                EncyclopediaService.Source.Guild => guilds[entry.Key].Campaign_Id.Value,
+                _ => 0000 // base case
+            };
+        }
+
         private List<string> ParseTags(string tags)
         {
             return tags.TrimEnd().Split(',').ToList();
         }
-
-        //private string? ExtractColors(string tags)
-        //{
-        //    var parsed = ParseTags(tags);
-        //    return parsed.ToList<string>();
-        //}
 
 
         //public Array indexes(int list_count, bool ascending)
@@ -168,16 +224,16 @@ namespace campaign_hub.Services
         public IEnumerable<int> indexes(int list_count, bool ascending)
         {
             if (ascending)
-            {
                 for (int i = 0; i < list_count; i++)
                     yield return i;
-            }
             else
-            {
                 for (int i = list_count - 1; i >= 0; i--)
                     yield return i;
-            }
         }
 
+        public string FullName(int key)
+        {
+            return characters[key].first_name + " " + characters[key].last_name;
+        }
     }
 }
