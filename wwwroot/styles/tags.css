@@ -84,61 +84,164 @@
     }
 
     .tag[data="Azorius"] {
-        background-color: white;
-        border-color: blue;
-        color: blue;
+        background-color: white !important;
+        border-color: blue !important;
+        color: blue !important;
     }
 
     .tag[data="Boros"] {
-        background-color: red;
-        border-color: white;
-        color: white;
+        background-color: crimson !important;
+        border-color: white !important;
+        color: white !important;
     }
 
     .tag[data="Dimir"] {
-        background-color: black;
-        border-color: blue;
-        color: blue;
+        background-color: black !important;
+        border-color: blue !important;
+        color: blue !important;
     }
 
     .tag[data="Golgari"] {
-        background-color: #231942;
-        border-color: green;
-        color: green;
+        background-color: #231942 !important;
+        border-color: green !important;
+        color: green !important;
     }
 
     .tag[data="Gruul"] {
-        background-color: green;
-        border-color: red;
-        color: black;
+        background-color: green !important;
+        border-color: crimson !important;
+        color: black !important;
     }
 
     .tag[data="Izzet"] {
-        background-color: blue;
-        border-color: red;
-        color: white;
+        background-color: blue !important;
+        border-color: crimson !important;
+        color: white !important;
     }
 
     .tag[data="Orzhov"] {
-        background-color: #231942;
-        border-color: white;
-        color: white;
+        background-color: #231942 !important;
+        border-color: white !important;
+        color: white !important;
     }
 
     .tag[data="Rakdos"] {
-        background-color: black;
-        border-color: red;
-        color: red;
+        background-color: black !important;
+        border-color: crimson !important;
+        color: crimson !important;
     }
 
     .tag[data="Selesnya"] {
-        background-color: green;
-        border-color: white;
-        color: white;
+        background-color: green !important;
+        border-color: white !important;
+        color: white !important;
     }
 
     .tag[data="Simic"] {
-        background-color: blue;
-        border-color: green;
-        color: white;
+        background-color: #aae0fa !important;
+        border-color: darkgreen !important;
+        color: darkgreen !important;
     }
+
+/*CONTINUED FROM ENCYCLOPEDIA CSS*/
+
+.entry-header .tag:has(> p) {
+    font-size-adjust: 0.75;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.75);
+    color: inherit;
+}
+
+.entry-header:has(> .tag) {
+    background-size: cover;
+    background-position: 50% 45%;
+}
+
+.entry-header:has(> .tag[data="white"]) {
+    background-image: url("/img/color/plains.png");
+}
+
+.entry-header:has(> .tag[data="blue"]) {
+    background-image: url("/img/color/island.png");
+}
+
+.entry-header:has(> .tag[data="black"]) {
+    background-image: url("/img/color/swamp.png");
+}
+
+.entry-header:has(> .tag[data="red"]) {
+    background-image: url("/img/color/mountain.png");
+}
+
+.entry-header:has(> .tag[data="green"]) {
+    background-image: url("/img/color/forest.png");
+}
+
+.entry-header:has(> .tag[data="green"]) {
+    background-image: url("/img/color/forest.png");
+}
+
+.entry-header:has(> *.tag[data="1999"]) {
+    background-image: url("/img/campaign_cover/the_core.jpg") !important;
+    color: lightseagreen;
+}
+
+.entry-header:has(> *.tag[data="3030"]) {
+    background-image: url("/img/campaign_cover/infinite-1.jpg") !important;
+    color: royalblue;
+}
+
+.entry-header:has(> *.tag[data="4404"]) {
+    background-image: url("/img/MOoT-cover.jpg") !important;
+    color: goldenrod;
+}
+
+.entry-header:has(> *.tag[data="4601"]) {
+    background-image: url("/img/campaign_cover/the_cage.jpg") !important;
+    color: crimson;
+}
+
+.entry-header:has(> *.tag[data="4602"]) {
+    background-image: url("/img/campaign_cover/voidman.jpg") !important;
+    color: rebeccapurple;
+}
+
+.entry-header:has(> .tag[data="Azorius"]) {
+    background-image: url("/img/guild_gate/azorius.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Boros"]) {
+    background-image: url("/img/guild_gate/boros.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Dimir"]) {
+    background-image: url("/img/guild_gate/dimir.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Golgari"]) {
+    background-image: url("/img/guild_gate/golgari.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Gruul"]) {
+    background-image: url("/img/guild_gate/gruul.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Izzet"]) {
+    background-image: url("/img/guild_gate/izzet.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Orzhov"]) {
+    background-image: url("/img/guild_gate/orzhov.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Rakdos"]) {
+    background-image: url("/img/guild_gate/rakdos.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Selesnya"]) {
+    background-image: url("/img/guild_gate/selesnya.jpg") !important;
+}
+
+.entry-header:has(> .tag[data="Simic"]) {
+    background-image: url("/img/guild_gate/simic.jpg") !important;
+}
