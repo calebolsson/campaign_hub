@@ -9,7 +9,7 @@
 
 html, body {
     font-family: Quantico, Helvetica, Arial, sans-serif;
-    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/ 
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
     background-color: black;
 }
 
@@ -19,6 +19,14 @@ p, div {
     /* font-size: 1vw; */
     text-decoration: none;
 }
+
+.hide-border {
+    border-color: black !important;
+}
+
+/*.hide-children-borders > * {
+    border-color: none;
+}*/
 
 h1 {
     color: #5E548E;
@@ -44,6 +52,10 @@ h3 {
     text-decoration: none;
 }
 
+.text-align-center {
+    text-align: center;
+}
+
 img {
     height: 100%;
     width: 100%;
@@ -60,16 +72,20 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 button {
     background-color: inherit;
 }
 
-button:disabled {
-    border: red;
-    opacity: 0.5;
+    button:disabled {
+        border: red;
+        opacity: 0.5;
+    }
+
+.hide-button-border button {
+    border: none !important;
 }
 
 .button {
@@ -79,6 +95,10 @@ button:disabled {
     width: fit-content;
     padding: 10px;
     margin: 10px auto;
+}
+
+.gold {
+    color: gold;
 }
 
 .btn-green:hover {
@@ -158,6 +178,18 @@ input, InputText, InputNumber, select,
     margin: 0 10px 10px 10px;
     padding: 0px;
     height: 2.7em;
+}
+
+.mw-350 {
+    max-width: 350px;
+}
+
+.w-fit-content {
+    width: fit-content;
+}
+
+.gold-border {
+    border-color: gold;
 }
 
 .valid.modified:not([type=checkbox]) {
