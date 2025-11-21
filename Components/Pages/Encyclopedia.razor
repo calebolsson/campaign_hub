@@ -292,6 +292,27 @@
     {
         <p><em>Loading...</em></p>
     }
+    else if (encyclopedia.entries.Count == 0)
+    {
+        <h1>No entries match this filter</h1>
+        if (filter.multicolored)
+        {
+            <div class="entry-header">
+                <h2 class="gold">No entries have all selected colors</h2>
+                <div class="menu-item menu-tray tag-tray w-100 hide-border">
+                    <TagTray Tags=@filter.GetColorFilter()></TagTray>
+                </div>
+                <div class="gold w-fit-content m-auto">
+                    <p class="gold text-align-center">To improve results:</p>
+                    <ul>
+                        <li>Broaden filter parameters</li>
+                        <li>Select fewer colors</li>
+                        <li>Disable Multicolored</li>
+                    </ul>
+                </div>
+            </div>
+        }
+    }
     else
     {
         @foreach (var entry in encyclopedia.entries)
