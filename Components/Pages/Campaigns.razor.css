@@ -46,6 +46,19 @@
         opacity: 1.0;
     }
 
+.camp-img {
+    border-radius: 10px;
+    height: 300px;
+    width: auto;
+    margin: auto;
+}
+
+/*.img-feather {
+    mask-image: radial-gradient(circle, black 10%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle, black 10%, transparent 100%);
+}*/
+
+
 button {
     height: 50px;
     width: fit-content;
@@ -54,4 +67,55 @@ button {
     background-color: #111E;
     border-radius: 50px;
     border: 5px solid #111;
+}
+
+.recap-shortcut {
+    background-color: black;
+    width: 50px;
+    margin: 5px;
+}
+
+    .recap-shortcut:active {
+        /*background-color: #5E548E;*/
+        border-color: #5E548E;
+    }
+
+.tab_on {
+    background-color: #5E548E;
+    color: black;
+    width: 100px;
+}
+
+.tab_off {
+    width: 100px;
+}
+
+.character-button {
+    width: 110px;
+    height: fit-content;
+    background-color: black;
+    /*border-color: black;*/
+    border-radius: 20px;
+    padding: 10px 5px;
+    margin: 5px;
+}
+
+    .character-button img {
+        width: auto;
+        height: 50px;
+    }
+
+    .character-button p {
+        margin-bottom: 0;
+    }
+
+.recap-card {
+    scroll-margin-top: 200px;
+}
+
+@media (max-width: 500px) {
+    .camp-img {
+        width: 100%;
+        height: auto;
+    }
 }

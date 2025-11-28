@@ -1,36 +1,184 @@
-﻿@page "/campaigns"
+﻿@page "/campaigns/{campaign_id_string?}"
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
-@inject ICampaignData _db
+@inject ICampaignData _campaign_db
+@inject ICharacterData _character_db
+@inject ISessionData _session_db
+@inject NavigationManager Nav
+@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Campaigns</PageTitle>
 
-<h1>Campaigns</h1>
-
-<div class="home-grid">
-    @if(campaigns is null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        foreach (var campaign in campaigns)
+<Popup @ref=@popup_display />
+@if (campaigns is null && campaign_id_string == "0000")
+{
+    <p><em>Loading...</em></p>
+}
+else if (campaign_id_string == "0000")
+{
+    <h1>Campaigns</h1>
+    <div class="home-grid">
+        @foreach (var campaign in campaigns)
         {
-            <a href="campaigns/heroes.html" class="camp-tile" style="order:1;">
+            <a href="@CampaignRoute(campaign.Id)" class="camp-tile" style="order:1;">
                 <img src=@campaign.Img />
                 <h2>@campaign.Name</h2>
-                <p>@ArrangeDates(@campaign.start_date,@campaign.end_date)</p>
+                <p>@ArrangeDates(@campaign.start_date, @campaign.end_date)</p>
             </a>
         }
-    }
-</div>
+    </div>
+}
+else
+{
+    <div class="d-flex flex-column flex-wrap justify-content-center text-center gap-3 m-auto">
+        <img src=@campaign?.Img class="camp-img" />
+        <h1>@campaign?.Name</h1>
+        <p style="max-width: 700px; margin: auto;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div class="d-flex flex-row flex-wrap justify-content-center gap-4">
+            <button type="button" class="@tab_pc"
+                    @onclick=@(() => ToggleTab("pc"))>
+                Party
+            </button>
+            <button type="button" class="@tab_recaps"
+                    @onclick=@(() => ToggleTab("recaps"))>
+                Story
+            </button>
+            <button type="button" class="@tab_npc"
+                    @onclick=@(() => ToggleTab("npc"))>
+                NPCs
+            </button>
+        </div>
+        @if (tab_pc == tab_on)
+        {
+            <h2>Player Characters</h2>
+            <div class="d-flex flex-row flex-wrap justify-content-center">
+                @if (characters is not null)
+                {
+                    @foreach (var character in characters)
+                    {
+                        @if (character.campaign_id.Value.ToString() == campaign_id_string && character.user_id != 0)
+                        {
+                            <button class="character-button"
+                                    @onclick="(() => popup_display.ShowCharacter(character))">
+                                <img src="@character.img" />
+                                <p>@character.first_name</p>
+                            </button>
+                        }
+                    }
+                }
+            </div>
+        }
+
+        @if (tab_npc == tab_on)
+        {
+            <h2>NPCs</h2>
+            <div class="d-flex flex-row flex-wrap justify-content-center">
+                @if (characters is not null)
+                {
+                    @foreach (var character in characters)
+                    {
+                        @if (character.campaign_id.Value.ToString() == campaign_id_string && character.user_id == 0)
+                        {
+                            <button class="character-button"
+                                    @onclick="(() => popup_display.ShowCharacter(character))">
+                                <img src="@character.img" />
+                                <p>@character.first_name</p>
+                            </button>
+                        }
+                    }
+                }
+            </div>
+        }
+        @if (tab_recaps == tab_on)
+        {
+            <h2>Session Recaps</h2>
+            <div>
+                @if (sessions is not null)
+                {
+                    <div class="d-flex flex-row flex-wrap justify-content-center">
+                        @foreach (var session in sessions)
+                        {
+                            <button type="button" class="recap-shortcut"
+                                    @onclick=@(() => JumpTo(SessionID(session.session_id)))>
+                                @session.session_id
+                            </button>
+                        }
+                    </div>
+                    <br />
+                    @foreach (var session in sessions)
+                    {
+                        <div id=@SessionID(session.session_id) class="recap-card m-2 p-3">
+                            @if (session.recap_title is null)
+                            {
+                                <h3>Session @session.session_id</h3>
+                            }
+                            else if (session.campaign_id == 4404)
+                            {
+                                <h3>@TherosTitle(session.recap_title)</h3>
+                                <p class="m-0"><em>@TherosDate(session.recap_title)</em></p>
+                            }
+                            else
+                            {
+                                <h3>@session.recap_title</h3>
+                            }
+                            <p><em>@session.session_date?.ToString("MMMM dd, yyyy")</em></p>
+                            <p>@session.recap_text</p>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+}
 
 @code {
+    [Parameter]
+    public string? campaign_id_string { get; set; }
+    public int campaign_id { get; set; }
+    protected override void OnParametersSet()
+    {
+        campaign_id_string = campaign_id_string ?? "0000";
+        // LoadCampaign().Wait();
+    }
     private List<CampaignModel>? campaigns;
+    private CampaignModel? campaign;
+    private List<CharacterModel>? characters;
+    private List<SessionModel>? sessions;
+    private Popup? popup_display;
+    private string tab_on = "tab_on";
+    private string tab_off = "tab_off";
+    private string tab_pc = "tab_off";
+    private string tab_npc = "tab_off";
+    private string tab_recaps = "tab_on";
 
     protected override async Task OnInitializedAsync()
     {
-        campaigns = await _db.getCampaigns();
+        await LoadCampaign();
+    }
+
+    private async Task LoadCampaign()
+    {
+        campaign_id = int.Parse(campaign_id_string ?? "0000");
+        if (campaign_id_string is null or "0000")
+        {
+            campaigns = await _campaign_db.getCampaigns();
+        }
+        else
+        {
+            campaign = await _campaign_db.getCampaign(campaign_id);
+            characters = await _character_db.getCampaignCharacters(campaign_id);
+        }
+        if (sessions is null || sessions[0].campaign_id != campaign_id)
+        {
+            sessions = await _session_db.getSessions(campaign_id);
+        }
+        StateHasChanged();
+    }
+
+    private string CampaignRoute(int id)
+    {
+        return "campaigns/" + id.ToString();
     }
 
     private string ArrangeDates(DateTime? start, DateTime? end)
@@ -40,11 +188,37 @@
         return "(" + start.Value.Year + "-" + end.Value.Year + ")";
     }
 
-
-    private int currentCount = 0;
-
-    private void IncrementCount()
+    private void ToggleTab(string active_tab)
     {
-        currentCount++;
+        tab_pc = tab_npc = tab_recaps = tab_off;
+        if (active_tab == "pc") tab_pc = tab_on;
+        else if (active_tab == "npc") tab_npc = tab_on;
+        else if (active_tab == "recaps") tab_recaps = tab_on;
+        StateHasChanged();
+    }
+
+    private void JumpTo(string id)
+    {
+        Nav.NavigateTo("campaigns/" + campaign_id_string + "#" + id);
+    }
+
+    private string SessionID(double id)
+    {
+        return id.ToString();
+    }
+
+    private string TherosTitle(string recap_title)
+    {
+        return recap_title.Substring(0, TherosTitleSplitIndex(recap_title));
+    }
+
+    private string TherosDate(string recap_title)
+    {
+        return recap_title.Substring(TherosTitleSplitIndex(recap_title));
+    }
+
+    private int TherosTitleSplitIndex(string recap_title)
+    {
+        return recap_title[2..].IndexOf("--") + 4;
     }
 }

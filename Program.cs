@@ -13,6 +13,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<ICharacterData, CharacterData>();
 builder.Services.AddTransient<ICampaignData, CampaignData>();
+builder.Services.AddTransient<ISessionData, SessionData>();
 builder.Services.AddTransient<IAccountData, AccountData>();
 builder.Services.AddTransient<IGuildData, GuildData>();
 //builder.Services.AddDbContext<AppDbContext>(options =>
